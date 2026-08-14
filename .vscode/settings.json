@@ -38,7 +38,9 @@
     "front_matter": true,
     "MD013": false,
     "MD024": false,
-    "MD033": false
+    "MD025": false,
+    "MD033": false,
+    "MD060": false
   },
   "markdownlint.ignore": ["**/0.Project_info/**"],
 
