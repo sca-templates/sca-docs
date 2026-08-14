@@ -13,20 +13,19 @@ commands. Do not duplicate that content here.
 - Skills for this vault live in `.claude/skills/` (mirrored from
   `.opencode/skills/`). Keep both in sync when editing a skill.
 - MCP servers (`obsidian`, `github`) are declared in `opencode.json` for
-  opencode. To use them from Claude Code, add them yourself, e.g.:
-
-  ```sh
-  claude mcp add obsidian -- uvx mcp-obsidian -e OBSIDIAN_API_KEY=$OBSIDIAN_API_KEY
-  ```
-
-- The `obsidian` MCP server needs the Local REST API community plugin enabled in
-  Obsidian, the `OBSIDIAN_API_KEY` env var exported, and Obsidian running.
-  Without it, the server starts but every tool call fails.
-- `github` MCP uses `{env:GITHUB_TOKEN}`; export that token to enable it.
+  opencode; both authenticate with tokens read from the repo-local
+  `.secrets/` dir via `{file:.secrets/...}` interpolation. To use them from
+  Claude Code, add them yourself (see CONTRIBUTING → MCP setup for the exact
+  commands and URLs).
+- The `obsidian` server is the plugin's built-in MCP endpoint
+  (`http://127.0.0.1:27123/mcp/`): it needs the Local REST API community plugin
+  enabled in Obsidian, the "Enable HTTP server" toggle on, Obsidian running, and
+  the key present in `.secrets/obsidian-api-key`.
+- `github` MCP uses the token in `.secrets/github-token`.
 
 ## Repo guardrails
 
 - This vault is markdown and YAML only — no code, no build steps.
-- Never commit secrets: `.env` is gitignored and API keys come from the
-  environment (`{env:VAR}` interpolation), never from the repo.
+- Never commit secrets: `.env` and the repo-local `.secrets/` dir hold
+  credentials, referenced from config via `{file:}` — never written to the repo.
 - The README is written last (per project decision); keep it in English.

@@ -87,6 +87,40 @@ npx --yes markdownlint-cli2 "**/*.md"
 npx --yes markdown-link-check -c .github/markdown-link-check.json <file>
 ```
 
+## MCP setup (one-time, per clone)
+
+`opencode.json` declares two MCP servers with **no secrets inside the repo**:
+`obsidian` and `github`. Both read their token from the repo-local `.secrets/`
+directory at startup.
+
+1. **Obsidian** — install and enable the community plugin *Local REST API with
+   MCP* (Adam Coddington), then in its settings turn on **Enable HTTP server**
+   (plain HTTP on `127.0.0.1:27123`). Keep Obsidian running while using the
+   server. Find your API key under Settings → Local REST API.
+2. **Tokens** — create the two files in the repo root once per clone:
+
+   ```sh
+   mkdir -p .secrets && chmod 700 .secrets
+   printf '%s' '<obsidian-api-key>' > .secrets/obsidian-api-key
+   printf '%s' '<github-token>'     > .secrets/github-token
+   chmod 600 .secrets/*
+   ```
+
+   - The GitHub token is a fine-grained PAT (`github_pat_`) with **Read** access
+     to `Contents`, `Issues`, `Pull requests`, and `Metadata` on the
+     `sca-node-template` repositories.
+3. **Restart opencode** — config and `{file:}` values are read at startup, not
+   hot-reloaded.
+
+Quick check that both endpoints answer:
+
+```sh
+curl -s -o /dev/null -w '%{http_code}\n' http://127.0.0.1:27123/          # 200
+curl -s -o /dev/null -w '%{http_code}\n' \
+  -H "Authorization: Bearer $(cat .secrets/github-token)" \
+  https://api.github.com/user                                             # 200
+```
+
 ## License
 
 This repository is licensed under the MIT License (see [LICENSE](LICENSE)).

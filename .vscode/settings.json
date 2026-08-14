@@ -97,8 +97,6 @@
   ],
 
   "files.exclude": {
-    "0.Project_info": true,
-    "context": true,
     ".obsidian": true,
     ".codegraph": true
   },
@@ -106,26 +104,32 @@
   "search.exclude": {
     "0.Project_info": true,
     "context": true,
-    ".obsidian": true
+    ".obsidian": true,
+    ".secrets": true
   },
 
   "files.watcherExclude": {
     "0.Project_info": true,
     ".obsidian": true,
+    ".secrets": true,
     ".git": true
   },
 
   "material-icon-theme.folders.associations": {
-    "00-ecosystem": "cluster",
+    "00-ecosystem": "global",
     "01-services": "server",
-    "02-contracts": "file-type",
-    "03-connections-map": "graph",
+    "02-contracts": "api",
+    "03-connections-map": "connection",
     "04-infrastructure": "database",
     "05-packages": "lib",
-    "06-decisions": "decision",
+    "06-decisions": "rules",
     "99-glossary": "json",
     "_templates": "template",
-    "_config": "config"
+    "_config": "config",
+    "0.Project_info": "meta",
+    "context": "resource",
+    "grpc": "proto",
+    "events": "event"
   },
 
   "git.autofetch": true,

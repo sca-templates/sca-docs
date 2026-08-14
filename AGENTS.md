@@ -39,3 +39,12 @@ npx --yes markdown-link-check -c .github/markdown-link-check.json <file>
 
 Do not run `codegraph init` (indexing is the user's decision). This repository is
 not a code project; changes are markdown and YAML only.
+
+## MCP servers
+
+`opencode.json` defines two remote MCP servers (no secrets in the repo):
+`obsidian` (the Local REST API plugin's endpoint on `127.0.0.1:27123`) and
+`github`. Both authenticate with tokens read per clone from the repo-local
+`.secrets/obsidian-api-key` and `.secrets/github-token`. If a server's tools
+are missing in a session, check those files and that Obsidian is running with
+the plugin enabled (see CONTRIBUTING → MCP setup).

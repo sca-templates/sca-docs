@@ -199,13 +199,17 @@ $RECYCLE.BIN/
 *.lnk
 
 ### Secrets ###
-.secrets/*
-!.secrets/*.example
+# Per-repo token dir (see CONTRIBUTING → MCP setup). Create .secrets/ in each
+# clone and drop obsidian-api-key + github-token there.
+.secrets/
 
 ### Custom ###
 0.Project_info
 context/structure.txt
 .codegraph/
+
+# Tooling deps (opencode/claude runtime install under .opencode/ etc.)
+node_modules/
 
 ### Obsidian ###
 # Obsidian vault configuration and internal metadata
