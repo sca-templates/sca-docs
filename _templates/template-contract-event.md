@@ -2,7 +2,7 @@
 title: {{topic}}
 type: contract-event
 status: planned
-repo: sca-contracts
+repo: sca-core
 tags:
   - type/contract-event
   - domain/{{domain}}

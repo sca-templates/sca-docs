@@ -2,7 +2,7 @@
 title: {{domain}} gRPC API
 type: contract-grpc
 status: planned
-repo: sca-contracts
+repo: sca-core
 tags:
   - type/contract-grpc
   - domain/{{domain}}
