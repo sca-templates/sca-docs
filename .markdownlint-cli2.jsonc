@@ -1,0 +1,10 @@
+{
+  "config": {
+    "default": true,
+    "front_matter": true,
+    "MD013": false,
+    "MD024": false,
+    "MD033": false
+  },
+  "ignores": ["**/0.Project_info/**", "**/.git/**"]
+}
