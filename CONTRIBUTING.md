@@ -1,14 +1,11 @@
 # Contributing to sca-docs
 
-> Every fact lives in one place. This vault describes the ecosystem's topology and
-> links to repo docs; it never copies them. Docs-as-code: all changes land through
-> a PR with review.
+> Every fact lives in one place. This vault describes the ecosystem's topology and links to repo docs; it never copies them. Docs-as-code: all changes land through a PR with review.
 
 ## Ground rules
 
 - **English only** — notes, commits, and PR descriptions are written in English.
-- **One fact, one place** — depth lives in the repos, topology/maps in the vault,
-  pointers in READMEs. A fact is edited in exactly one file, never duplicated.
+- **One fact, one place** — depth lives in the repos, topology/maps in the vault, pointers in READMEs. A fact is edited in exactly one file, never duplicated.
 - **Docs-as-code** — every change goes through a pull request and is reviewed.
 
 ## Conventions
@@ -37,34 +34,30 @@ _config/             Metadata: repo locations, tagging and naming
 ```yaml
 ---
 title: sca-auth
-type: service            # home | moc | service | contract-grpc | contract-event | infra | package | adr | glossary
-status: active           # planned | active | deprecated | decided
-repo: sca-auth           # logical name, resolved in _config/repo-locations.md
+type: service # home | moc | service | contract-grpc | contract-event | infra | package | adr | glossary
+status: active # planned | active | deprecated | decided
+repo: sca-auth # logical name, resolved in _config/repo-locations.md
 tags:
   - type/service
-  - domain/auth          # auth | notifications | logging | ai | infrastructure | contracts | packages
-  - stack/nestjs         # nestjs | python | multi-lang
-  - exposes-grpc         # connectivity
+  - domain/auth # auth | notifications | logging | ai | infrastructure | contracts | packages
+  - stack/nestjs # nestjs | python | multi-lang
+  - exposes-grpc # connectivity
   - publishes-events
 ---
 ```
 
-Tags come from the closed taxonomy: `type/*`, `domain/*`, `stack/*`,
-`connectivity/*` (`exposes-grpc`, `consumes-grpc`, `publishes-events`,
-`consumes-events`), `status/*`.
+Tags come from the closed taxonomy: `type/*`, `domain/*`, `stack/*`, `connectivity/*` (`exposes-grpc`, `consumes-grpc`, `publishes-events`, `consumes-events`), `status/*`.
 
 ### Links
 
 - **Inside the vault** → wikilinks `[[…]]` (backlinks + graph).
-- **Toward repos** → relative markdown links `[label](../<repo>/path.md)`. Real
-  paths are resolved per environment in `_config/repo-locations.md`.
+- **Toward repos** → relative markdown links `[label](../<repo>/path.md)`. Real paths are resolved per environment in `_config/repo-locations.md`.
 
 ## Contribution flow
 
 1. Branch off `main`: `git checkout -b feat/<topic>`.
 2. Create or edit notes following the conventions above.
-3. Keep catalogs in sync: update `INDEX.md` tables and regenerate
-   `03-connections-map/connection-map.md` when a contract or service note changes.
+3. Keep catalogs in sync: update `INDEX.md` tables and regenerate `03-connections-map/connection-map.md` when a contract or service note changes.
 4. Run the checks (see Tooling).
 5. Open a PR and fill the checklist from the template.
 
@@ -89,14 +82,9 @@ npx --yes markdown-link-check -c .github/markdown-link-check.json <file>
 
 ## MCP setup (one-time, per clone)
 
-`opencode.json` declares two MCP servers with **no secrets inside the repo**:
-`obsidian` and `github`. Both read their token from the repo-local `.secrets/`
-directory at startup.
+`opencode.json` declares two MCP servers with **no secrets inside the repo**: `obsidian` and `github`. Both read their token from the repo-local `.secrets/` directory at startup.
 
-1. **Obsidian** — install and enable the community plugin *Local REST API with
-   MCP* (Adam Coddington), then in its settings turn on **Enable HTTP server**
-   (plain HTTP on `127.0.0.1:27123`). Keep Obsidian running while using the
-   server. Find your API key under Settings → Local REST API.
+1. **Obsidian** — install and enable the community plugin _Local REST API with MCP_ (Adam Coddington), then in its settings turn on **Enable HTTP server** (plain HTTP on `127.0.0.1:27123`). Keep Obsidian running while using the server. Find your API key under Settings → Local REST API.
 2. **Tokens** — create the two files in the repo root once per clone:
 
    ```sh
@@ -106,11 +94,9 @@ directory at startup.
    chmod 600 .secrets/*
    ```
 
-   - The GitHub token is a fine-grained PAT (`github_pat_`) with **Read** access
-     to `Contents`, `Issues`, `Pull requests`, and `Metadata` on the
-     `sca-node-template` repositories.
-3. **Restart opencode** — config and `{file:}` values are read at startup, not
-   hot-reloaded.
+   - The GitHub token is a fine-grained PAT (`github_pat_`) with **Read** access to `Contents`, `Issues`, `Pull requests`, and `Metadata` on the `sca-node-template` repositories.
+
+3. **Restart opencode** — config and `{file:}` values are read at startup, not hot-reloaded.
 
 Quick check that both endpoints answer:
 
