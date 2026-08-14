@@ -10,10 +10,7 @@
 | `sca-docs` | `~/projects/aws/docs` | active |
 | `aws` (infra stack orchestrator) | `~/projects/aws` | active |
 | `nest-template` | `~/projects/node/nest-template` | active |
-| `sca-core` | — | planned |
-| `sca-contracts` | — | planned |
-| `sca-connections` | — | planned |
-| `sca-clients` | — | planned |
+| `sca-core` | pnpm workspace hosting `@sca/core`, `@sca/contracts`, `@sca/connections`, `@sca/clients` | planned |
 | `sca-auth` | — | planned |
 | `sca-notifications` | — | planned |
 | `sca-logging` | — | planned |
