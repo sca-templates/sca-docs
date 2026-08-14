@@ -1,82 +1,53 @@
-# sca-docs
+# sca ecosystem — documentation
 
-Central Obsidian knowledge base for the sca ecosystem: microservices, gRPC & Kafka contracts, shared @sca/* packages, self-hosted infrastructure, and the super template. Every fact lives in one place; this vault links to repo docs instead of duplicating them.
+The `sca` ecosystem as a whole: a repeatable way to spin up domain microservices on shared, self-hosted infrastructure — with contracts and docs already in sync. This repository is the Obsidian vault that holds the ecosystem's **topology** (who is what, what talks to what) and **conventions**; depth lives in each repo's own docs.
 
-## What this is
+## What is the sca ecosystem
 
-The vault is the single home for the ecosystem's **topology** (who is what, what talks to what) and **conventions** (naming, frontmatter, tags). Depth lives in each repo's own docs; vault notes link out to them with relative paths, never copy them.
+- **`nest-template`** — the modular-monolith + clean-architecture skeleton every microservice is cloned from. It carries the structure, the flow framework and the docs handbook; zero business logic.
+- **`@sca/*` packages** — shared plumbing with zero business logic: core, contracts (gRPC protos + event schemas), connections and clients. One fix lands in one package, not in every service.
+- **`sca-*` microservices** — the domains (auth, notifications, logging, ai). Each is a `nest-template` clone consuming `@sca/*`, exposing its gRPC API and publishing/consuming Kafka events.
+- **`aws/`** — the self-hosted infrastructure orchestrator: Vault, PostgreSQL, Redis, Kafka, Consul. One command (`make all`) brings the whole stack up.
+- **`sca-docs`** — this vault: topology, conventions and pointers to every repo.
 
-- One fact, one place — a fact is edited in exactly one file.
-- Docs-as-code — all changes land through a pull request with review.
-- English only — notes, commits, and PR descriptions.
+## Why it exists
 
-## Repository layout
+- Clone a new service with infrastructure and contracts already in sync — the domain advances at its own pace.
+- A correction is made in one place (`@sca/*`, `nest-template` or `aws/`) and every service inherits it.
+- The outbox pattern and gRPC contracts are defined once and reused everywhere.
 
-```text
-00-ecosystem/        Home, super template, conventions
-01-services/         Service catalog (sca-* microservices)
-02-contracts/        gRPC contracts (grpc/) + Kafka events (events/)
-03-connections-map/  The ecosystem graph (mermaid + matrices)
-04-infrastructure/   Self-hosted topology + multi-cloud
-05-packages/         @sca/* shared packages
-06-decisions/        Ecosystem-level ADRs
-99-glossary/         Ubiquitous language (one line per term)
-_templates/          Note templates
-_config/             Metadata: repo locations, tagging and naming
-```
+## Flow
+
+1. Start the stack: `make all` in `aws/`.
+2. Clone `nest-template` and open the workspace.
+3. Add the `@sca/*` packages (`pnpm add`).
+4. Write the domain following the handbook's flow framework.
+5. Close the docs checklist: README, `docs/`, service note in the vault, contract notes.
+
+## Repository map
+
+| Repo | What it is | Status |
+|---|---|---|
+| `sca-docs` | This vault: topology + conventions — [README](README.md), [super template](00-ecosystem/super-template.md), [HOME](00-ecosystem/HOME.md) | active |
+| `aws` | Self-hosted stack orchestrator — [README](../README.md) | active |
+| `nest-template` | Microservice skeleton + handbook — [README](../../node/nest-template/README.md), [handbook](../../node/nest-template/docs/handbook/INDEX.md) | active |
+| `@sca/core`, `@sca/contracts`, `@sca/connections`, `@sca/clients` | Shared plumbing packages | planned |
+| `sca-auth`, `sca-notifications`, `sca-logging`, `sca-ai` | Domain microservices | planned |
+
+## Boundaries
+
+- **Not a cloud platform** — the ecosystem is self-hosted by design; cloud adapters are a failover option.
+- **Not a framework** — `nest-template` and `@sca/*` carry plumbing, never business logic.
+- **Not a monolith** — each domain ships as its own microservice, even though each one is a modular monolith internally.
+- **Not duplicated** — the vault describes topology and links; it never copies repo content.
 
 ## Documentation
 
-The vault is built incrementally: each area gets its catalog (`INDEX.md`) as the ecosystem docs land, and `03-connections-map/connection-map.md` is regenerated whenever a contract or service changes. Start at `00-ecosystem/` for the home and conventions. _(Links land here as areas are published.)_
+The vault is built incrementally: each area gets its catalog (`INDEX.md`) as the ecosystem docs land, and `03-connections-map/connection-map.md` is regenerated whenever a contract or service changes. Start at `00-ecosystem/HOME.md`; see `00-ecosystem/conventions.md` for how to contribute notes.
 
-## Tooling
+## Tooling and MCP
 
-Config is committed so any clone behaves the same:
-
-| Piece         | Where                                                          | What it does                                                                                            |
-| ------------- | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| Agent skills  | `.opencode/skills/` + `.claude/skills/`                        | `new-vault-note` scaffolds a note from a template; `sync-catalogs` keeps INDEX + connection map in sync |
-| Lint & checks | `.markdownlint-cli2.jsonc`, `.github/markdown-link-check.json` | markdownlint (gitignore-aware) + link check, local and CI                                               |
-| Editor        | `.vscode/settings.json`                                        | markdown formatting, area folder icons, search excludes                                                 |
-
-See [CONTRIBUTING](CONTRIBUTING.md#tooling) for the check commands.
-
-## MCP servers
-
-Two remote MCP servers are declared in `opencode.json` — no secrets in the repo; both authenticate with a Bearer token read per clone from `.secrets/` (gitignored) via `{file:.secrets/...}`.
-
-| Server     | Endpoint                             | Token file                  |
-| ---------- | ------------------------------------ | --------------------------- |
-| `obsidian` | `http://127.0.0.1:27123/mcp/`        | `.secrets/obsidian-api-key` |
-| `github`   | `https://api.githubcopilot.com/mcp/` | `.secrets/github-token`     |
-
-Configure once per clone (full walkthrough in [MCP setup](CONTRIBUTING.md#mcp-setup-one-time-per-clone)):
-
-1. Create the two token files:
-
-   ```sh
-   mkdir -p .secrets && chmod 700 .secrets
-   printf '%s' '<obsidian-api-key>' > .secrets/obsidian-api-key
-   printf '%s' '<github-token>'     > .secrets/github-token
-   chmod 600 .secrets/*
-   ```
-
-   The GitHub token is a fine-grained PAT (`github_pat_`) with **Read** access to `Contents`, `Issues`, `Pull requests`, and `Metadata` on the `sca-node-template` repositories.
-2. Obsidian — enable the _Local REST API with MCP_ plugin and turn on **Enable HTTP server** (plain HTTP on `127.0.0.1:27123`); keep Obsidian running.
-3. Restart opencode — config and `{file:}` values are read at startup. Then `opencode mcp list` should show both servers `connected`.
-
-## Getting started
-
-1. Clone and open the folder as an **Obsidian vault** (the folder is the vault).
-2. Configure MCP tokens once per clone (see [MCP servers](#mcp-servers)).
-3. Author notes with the `new-vault-note` skill; keep catalogs in sync with `sync-catalogs`.
-4. Run `npx --yes markdownlint-cli2 "**/*.md"` and the link check before pushing.
-
-## Agent guides
-
-- [AGENTS.md](AGENTS.md) — conventions and commands for AI agents working here.
-- [CLAUDE.md](CLAUDE.md) — Claude Code specifics (skills, MCP, guardrails).
-- [CONTRIBUTING.md](CONTRIBUTING.md) — contribution flow, definition of done, tooling, MCP setup.
+Markdown lint, link check, editor config and the Obsidian/GitHub MCP setup are documented in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
