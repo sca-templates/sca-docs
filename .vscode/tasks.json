@@ -1,0 +1,30 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "markdownlint",
+      "type": "shell",
+      "command": "npx --yes markdownlint-cli2 '**/*.md'",
+      "problemMatcher": [],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    },
+    {
+      "label": "check links (all tracked .md)",
+      "type": "shell",
+      "command": "git ls-files -z '*.md' | while IFS= read -r -d '' f; do npx --yes markdown-link-check -c .github/markdown-link-check.json \"$f\"; done",
+      "problemMatcher": [],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared"
+      }
+    }
+  ]
+}

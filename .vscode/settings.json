@@ -1,0 +1,134 @@
+{
+  // =========================
+  // FONT
+  // =========================
+  "editor.fontFamily": "Fira Code",
+  "editor.fontLigatures": true,
+  "editor.fontSize": 14,
+
+  // =========================
+  // EDITOR
+  // =========================
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.wordWrap": "off",
+  "editor.minimap.enabled": false,
+  "editor.renderWhitespace": "boundary",
+  "breadcrumbs.enabled": true,
+  "problems.showCurrentInStatus": true,
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "files.autoSave": "onFocusChange",
+  "workbench.iconTheme": "material-icon-theme",
+
+  "[markdown]": {
+    "editor.defaultFormatter": "yzhang.markdown-all-in-one",
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true,
+    "editor.wordWrap": "on",
+    "files.trimTrailingWhitespace": false,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.markdownlint": "explicit"
+    }
+  },
+
+  "markdownlint.config": {
+    "default": true,
+    "front_matter": true,
+    "MD013": false,
+    "MD024": false,
+    "MD033": false
+  },
+  "markdownlint.ignore": ["**/0.Project_info/**"],
+
+  "markdown.extension.tableFormatter.enabled": true,
+  "markdown.extension.orderedList.marker": "one",
+  "markdown.extension.preview.autoShowPreviewToSide": false,
+
+  "[yaml]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml",
+    "editor.tabSize": 2,
+    "editor.formatOnSave": true
+  },
+
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  "cSpell.language": "en",
+  "cSpell.enabled": true,
+  "cSpell.words": [
+    "sca",
+    "NestJS",
+    "nestjs",
+    "gRPC",
+    "Kafka",
+    "MinIO",
+    "MailHog",
+    "Obsidian",
+    "mermaid",
+    "backlink",
+    "backlinks",
+    "wikilink",
+    "wikilinks",
+    "frontmatter",
+    "kebab",
+    "MOC",
+    "MOCs",
+    "Dataview",
+    "failover",
+    "outbox",
+    "idempotency",
+    "Terraform",
+    "Consul",
+    "Vault",
+    "Postgres",
+    "Grafana",
+    "Prometheus",
+    "Tempo",
+    "OTel"
+  ],
+
+  "files.exclude": {
+    "0.Project_info": true,
+    "context": true,
+    ".obsidian": true,
+    ".codegraph": true
+  },
+
+  "search.exclude": {
+    "0.Project_info": true,
+    "context": true,
+    ".obsidian": true
+  },
+
+  "files.watcherExclude": {
+    "0.Project_info": true,
+    ".obsidian": true,
+    ".git": true
+  },
+
+  "material-icon-theme.folders.associations": {
+    "00-ecosystem": "cluster",
+    "01-services": "server",
+    "02-contracts": "file-type",
+    "03-connections-map": "graph",
+    "04-infrastructure": "database",
+    "05-packages": "lib",
+    "06-decisions": "decision",
+    "99-glossary": "json",
+    "_templates": "template",
+    "_config": "config"
+  },
+
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "git.enableSmartCommit": true,
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false
+}
