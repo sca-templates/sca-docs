@@ -15,13 +15,13 @@ tags:
 
 ## Role in the stack
 
-`aws/` is the orchestrator for the whole local stack: Vault, PostgreSQL, Redis, Kafka (+ Debezium + Kafka UI) and Consul, plus local-only dev tools. Each component lives in its own folder with its own `Makefile`; the root `Makefile` coordinates them in dependency order.
+`aws/` is the orchestrator for the whole local stack: Vault, PostgreSQL, Redis, Kafka (+ Debezium + Kafka UI), Consul, Prometheus and Grafana, plus local-only dev tools. Each component lives in its own folder with its own `Makefile`; the root `Makefile` coordinates them in dependency order.
 
 ```text
-make all  →  Vault → secrets (Vault KV) → kafka-network → postgres-app → redis → kafka → consul → dev (MinIO + MailHog)
+make all  →  Vault → secrets (Vault KV) → kafka-network → postgres-app → redis → kafka → consul → prometheus → grafana → dev (MinIO + MailHog)
 ```
 
-Shared plumbing: all components join the Docker network `kafka-network` and resolve each other by container name (`kafka-broker`, `postgres-app-db`, `redis`); [[consul]] additionally resolves `<svc>.service.consul` by DNS.
+Shared plumbing: all components join the Docker network `kafka-network` and resolve each other by container name (`kafka-broker`, `postgres-app-db`, `redis`); [[consul]] additionally resolves `<svc>.service.consul` by DNS. [[prometheus]] and [[grafana]] are the exception: they run on the host network (`network_mode: host`) because the UFW host firewall drops bridge → host-network traffic, and they talk to everything through published `127.0.0.1:<port>`.
 
 ### Secrets flow
 
@@ -52,14 +52,16 @@ Shared plumbing: all components join the Docker network `kafka-network` and reso
 | Kafka Connect | `http://localhost:8083` | Debezium |
 | Kafka UI | `http://localhost:8088` | `admin` user |
 | Consul | `http://127.0.0.1:8500` · DNS `127.0.0.1:8600` | discovery + health checks |
+| Prometheus | `http://127.0.0.1:9090` | loopback only; scrapes via `127.0.0.1:<port>` |
+| Grafana | `http://127.0.0.1:3000` | loopback only; user `admin` |
 | MinIO | `http://localhost:9000` API · `9001` console | local only |
 | MailHog | `localhost:1025` SMTP · `8025` UI | local only |
 
 ## Pointers
 
 - Orchestrator README: [aws/README.md](../../README.md)
-- Components: [[vault]] · [[postgres]] · [[redis]] · [[kafka]] · [[consul]] · [[dev-tools]]
-- Observability and gateway (Prometheus, Grafana, Kong) live in `aws/` too and are deferred as vault notes: [prometheus.md](../../prometheus.md) · [grafana.md](../../grafana.md) · [kong.md](../../kong.md)
+- Components: [[vault]] · [[postgres]] · [[redis]] · [[kafka]] · [[consul]] · [[prometheus]] · [[grafana]] · [[dev-tools]]
+- Gateway (Kong) is deferred as a vault note: [kong.md](../../kong.md)
 - Failover strategy: [[multi-cloud]]
 
 ## Status
