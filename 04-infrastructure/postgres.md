@@ -30,7 +30,7 @@ Known gaps (documented in the component README, deferred before production): no 
 | PostgreSQL | `127.0.0.1:5432` | loopback only |
 | pgAdmin | `http://localhost:8080` | web UI |
 
-Credentials source: Vault path `secret/api-template/dev`; the local `.env` is used only for container initialization.
+Credentials source: Vault `secret/postgres-app/dev` (`DATABASE_URL` mirrored by `postgres-app/scripts/vault-secrets.sh`); the local `.env` is the source of truth for container initialization.
 
 ## Pointers
 

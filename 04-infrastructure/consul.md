@@ -16,7 +16,7 @@ tags:
 ## Role in the stack
 
 - **Agent/server** (`hashicorp/consul:1.19`) with `-bootstrap-expect=1`, datacenter `dev`, running with `network_mode: host` so its TCP checks reach the published ports.
-- **Registers** the stack services with TCP checks (`interval: 10s`, `timeout: 5s`): `postgresql-app:5432`, `redis:6379`, `kafka:9092`, `kafka-connect:8083`, `vault:8201`.
+- **Registers** the stack services with TCP checks (`interval: 10s`, `timeout: 5s`): `postgres-app:5432`, `redis:6379`, `kafka:9092`, `kafka-connect:8083`, `vault:8201`.
 - **DNS** — any [[microservice]] resolves a component as `<name>.service.consul` through `127.0.0.1:8600`.
 - Gossip key (`CONSUL_GOSSIP_KEY`) comes from Vault locally and AWS Secrets Manager in production; no ACLs in dev. Production mirrors the same image and flags via Ansible + Terraform.
 
