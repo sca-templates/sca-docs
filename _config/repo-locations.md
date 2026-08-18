@@ -17,10 +17,10 @@
 | `infra-grafana` | `~/projects/infra-grafana` | active |
 | `nest-template` | `~/projects/node/nest-template` | active |
 | `sca-core` | pnpm workspace hosting `@sca/core`, `@sca/contracts`, `@sca/connections`, `@sca/clients` | planned |
-| `sca-auth` | — | planned |
-| `sca-notifications` | — | planned |
-| `sca-logging` | — | planned |
-| `sca-ai` | — | planned |
+| `nest-auth` | — | planned |
+| `nest-notifications` | — | planned |
+| `nest-logging` | — | planned |
+| `py-ai` | — | planned |
 
 ## GitHub
 

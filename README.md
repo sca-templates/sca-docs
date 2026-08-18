@@ -6,7 +6,7 @@ The `sca` ecosystem as a whole: a repeatable way to spin up domain microservices
 
 - **`nest-template`** — the modular-monolith + clean-architecture skeleton every microservice is cloned from. It carries the structure, the flow framework and the docs handbook; zero business logic.
 - **`@sca/*` packages** — shared plumbing with zero business logic: core, contracts (gRPC protos + event schemas), connections and clients. One fix lands in one package, not in every service.
-- **`sca-*` microservices** — the domains (auth, notifications, logging, ai). Each is a `nest-template` clone consuming `@sca/*`, exposing its gRPC API and publishing/consuming Kafka events.
+- **`nest-*` / `py-*` microservices** — the domains (auth, notifications, logging, ai). The prefix names the framework: `nest-*` = NestJS/TypeScript, `py-*` = Python. Each is a `nest-template` clone consuming `@sca/*`, exposing its gRPC API and publishing/consuming Kafka events.
 - **`infra-*`** repos — self-hosted infrastructure: Vault, PostgreSQL, Redis, Kafka, Consul, Prometheus, Grafana. Each repo has its own `Makefile` with `make all`.
 - **`sca-docs`** — this vault: topology, conventions and pointers to every repo.
 
@@ -38,7 +38,7 @@ The `sca` ecosystem as a whole: a repeatable way to spin up domain microservices
 | `infra-grafana` | Dashboards + alerting — [README](https://github.com/sca-templates/infra-grafana) | active |
 | `nest-template` | Microservice skeleton + handbook — [README](https://github.com/sca-templates/nest-template), [handbook](https://github.com/sca-templates/nest-template/blob/main/docs/handbook/INDEX.md) | active |
 | `@sca/core`, `@sca/contracts`, `@sca/connections`, `@sca/clients` | Shared plumbing packages | planned |
-| `sca-auth`, `sca-notifications`, `sca-logging`, `sca-ai` | Domain microservices | planned |
+| `nest-auth`, `nest-notifications`, `nest-logging`, `py-ai` | Domain microservices | planned |
 
 ## Boundaries
 

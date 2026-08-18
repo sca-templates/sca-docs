@@ -21,7 +21,7 @@ Key fields: `subject`, `domain`, `changed_scopes` / `changed_roles`, `version`, 
 
 | Service | When | Notes |
 |---|---|---|
-| [[sca-auth]] | a subject's scopes or roles change | |
+| [[nest-auth]] | a subject's scopes or roles change | |
 
 ## Consumers
 
@@ -31,7 +31,7 @@ Key fields: `subject`, `domain`, `changed_scopes` / `changed_roles`, `version`, 
 
 ## Related
 
-- [[grpc-auth-api]] · [[sca-clients]] · [[sca-auth]]
+- [[grpc-auth-api]] · [[sca-clients]] · [[nest-auth]]
 - [[event]] · [[idempotency]] · [[outbox]]
 
 ## Status

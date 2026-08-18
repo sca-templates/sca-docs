@@ -1,8 +1,8 @@
 ---
-title: sca-logging
+title: nest-logging
 type: service
 status: planned
-repo: sca-logging
+repo: nest-logging
 tags:
   - type/service
   - domain/logging
@@ -10,7 +10,7 @@ tags:
   - publishes-events
 ---
 
-# sca-logging
+# nest-logging
 
 > Technical and operational logging plus the security/business audit trail — the ecosystem's write-once record and anomaly engine.
 
@@ -29,7 +29,7 @@ Consumes the [[evt-logging-audit]] stream (two categories: technical/operational
 
 ## Pointers
 
-- Repo: `sca-logging`, resolved in `_config/repo-locations.md`
+- Repo: `nest-logging`, resolved in `_config/repo-locations.md`
 - Handbook/README links are added when the repo is created
 - Related notes: [[microservice]] · [[event]] · [[kafka]] · [[postgres]]
 

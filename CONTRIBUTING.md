@@ -14,7 +14,7 @@
 
 ```text
 00-ecosystem/        Home, super template, conventions
-01-services/         Service catalog (sca-* microservices)
+01-services/         Service catalog (nest-* / py-* microservices)
 02-contracts/        gRPC contracts + Kafka events
 03-connections-map/  The ecosystem graph (mermaid + matrices)
 04-infrastructure/   Self-hosted topology + multi-cloud
@@ -33,10 +33,10 @@ _config/             Metadata: repo locations, tagging and naming
 
 ```yaml
 ---
-title: sca-auth
+title: nest-auth
 type: service # home | moc | service | contract-grpc | contract-event | infra | package | adr | glossary
 status: active # planned | active | deprecated | decided
-repo: sca-auth # logical name, resolved in _config/repo-locations.md
+repo: nest-auth # logical name, resolved in _config/repo-locations.md
 tags:
   - type/service
   - domain/auth # auth | notifications | logging | ai | infrastructure | contracts | packages

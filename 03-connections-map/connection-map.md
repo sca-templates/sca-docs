@@ -14,10 +14,10 @@ tags:
 
 ```mermaid
 graph LR
-  AUTH[sca-auth]
-  NOTIF[sca-notifications]
-  LOGG[sca-logging]
-  AI[sca-ai]
+  AUTH[nest-auth]
+  NOTIF[nest-notifications]
+  LOGG[nest-logging]
+  AI[py-ai]
 
   AUTH -- GetScopes/GetRoles --> API[grpc-auth-api]
   API --> NOTIF
@@ -42,17 +42,17 @@ graph LR
 
 | API | Server | Clients |
 |---|---|---|
-| [[grpc-auth-api]] | [[sca-auth]] | [[sca-notifications]] · [[sca-logging]] · [[sca-ai]] |
+| [[grpc-auth-api]] | [[nest-auth]] | [[nest-notifications]] · [[nest-logging]] · [[py-ai]] |
 
 ## Kafka
 
 | Event | Producers | Consumers |
 |---|---|---|
-| [[evt-auth-domain]] | [[sca-auth]] | [[sca-logging]] · [[sca-notifications]] · [[sca-ai]] |
-| [[evt-permissions-changed]] | [[sca-auth]] | every service (cache invalidation) |
-| [[evt-notifications-requests-v1]] | any service | [[sca-notifications]] |
-| [[evt-logging-audit]] | every service | [[sca-logging]] |
-| [[evt-logging-anomaly-detected]] | [[sca-logging]] | [[sca-ai]] · [[sca-notifications]] · [[sca-auth]] |
+| [[evt-auth-domain]] | [[nest-auth]] | [[nest-logging]] · [[nest-notifications]] · [[py-ai]] |
+| [[evt-permissions-changed]] | [[nest-auth]] | every service (cache invalidation) |
+| [[evt-notifications-requests-v1]] | any service | [[nest-notifications]] |
+| [[evt-logging-audit]] | every service | [[nest-logging]] |
+| [[evt-logging-anomaly-detected]] | [[nest-logging]] | [[py-ai]] · [[nest-notifications]] · [[nest-auth]] |
 
 ## Edge cases
 

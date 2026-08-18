@@ -16,7 +16,7 @@ tags:
 ## Content
 
 - `.proto` files defining the gRPC APIs and Kafka event schemas, language-independent ([[proto]]).
-- Codegen pipeline for **TS, Python, Go and Java** — `sca-auth` (NestJS) generates its server; `sca-notifications`, `sca-logging` (NestJS) and `sca-ai` (Python) generate their clients.
+- Codegen pipeline for **TS, Python, Go and Java** — `nest-auth` (NestJS) generates its server; `nest-notifications`, `nest-logging` (NestJS) and `py-ai` (Python) generate their clients.
 - Initial contracts: `auth.proto` (`GetScopes`, `GetRoles`) and the event schemas (see [[grpc-auth-api]] and the `02-contracts/` notes).
 
 ## Dependencies

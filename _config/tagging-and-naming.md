@@ -9,7 +9,7 @@
 - Files: kebab-case English.
 - ADRs: `adr-NNN-kebab-title.md`.
 - Contracts: `grpc-<domain>.md`, `evt-<topic>.md`.
-- Services: `<sca-name>.md`, with a folder `01-services/<sca-name>/INDEX.md` when the note grows.
+- Services: `<framework>-<name>.md` (e.g. `nest-auth.md`, `py-ai.md`), with a folder `01-services/<name>/INDEX.md` when the note grows.
 - Glossary: direct term as the file name.
 
 ## Frontmatter
@@ -18,10 +18,10 @@ Required on vault notes:
 
 ```yaml
 ---
-title: sca-auth
+title: nest-auth
 type: service            # home | moc | service | contract-grpc | contract-event | infra | package | adr | glossary
 status: active           # planned | active | deprecated | decided
-repo: sca-auth           # logical name, resolved in _config/repo-locations.md
+repo: nest-auth           # logical name, resolved in _config/repo-locations.md
 tags:
   - type/service
   - domain/auth

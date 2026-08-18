@@ -1,6 +1,6 @@
 ---
 name: new-vault-note
-description: Scaffold a new vault note from the matching template. Use when the user asks to create a note for a service, gRPC contract, Kafka event, infrastructure component, @sca/* package, ADR, glossary term, MOC, or Home (e.g. "create a note for sca-auth", "nueva nota de contrato").
+description: Scaffold a new vault note from the matching template. Use when the user asks to create a note for a service, gRPC contract, Kafka event, infrastructure component, @sca/* package, ADR, glossary term, MOC, or Home (e.g. "create a note for nest-auth", "nueva nota de contrato").
 ---
 
 # New vault note
@@ -14,7 +14,7 @@ Follow the vault conventions in AGENTS.md and the closed taxonomy in
    `contract-event`, `infra`, `package`, `adr`, or `glossary`.
 2. Copy the matching template from `_templates/template-<type>.md`.
 3. Place the note in the right area, with the right name:
-   - service → `01-services/<sca-name>.md`
+   - service → `01-services/<framework>-<name>.md`
    - gRPC contract → `02-contracts/grpc/grpc-<domain>.md`
    - Kafka event → `02-contracts/events/evt-<topic>.md`
    - infra → `04-infrastructure/<service>.md`

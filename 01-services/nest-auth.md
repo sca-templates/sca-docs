@@ -1,8 +1,8 @@
 ---
-title: sca-auth
+title: nest-auth
 type: service
 status: planned
-repo: sca-auth
+repo: nest-auth
 tags:
   - type/service
   - domain/auth
@@ -11,7 +11,7 @@ tags:
   - publishes-events
 ---
 
-# sca-auth
+# nest-auth
 
 > Identity, authentication and authorization — the hub every other service leans on.
 
@@ -30,7 +30,7 @@ Owns subjects, scopes and roles: who a user is, how they authenticate, and what 
 
 ## Pointers
 
-- Repo: `sca-auth`, resolved in `_config/repo-locations.md`
+- Repo: `nest-auth`, resolved in `_config/repo-locations.md`
 - Handbook/README links are added when the repo is created
 - Related notes: [[microservice]] · [[service-account]] · [[sca-clients]]
 

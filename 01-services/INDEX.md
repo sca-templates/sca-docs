@@ -15,10 +15,10 @@ tags:
 
 | Note | Domain | Stack | Status |
 |---|---|---|---|
-| [[sca-auth]] | identity, authentication, authorization | NestJS | planned |
-| [[sca-notifications]] | transactional and security notifications | NestJS | planned |
-| [[sca-logging]] | technical logging + security audit trail | NestJS | planned |
-| [[sca-ai]] | AI agents | Python | planned |
+| [[nest-auth]] | identity, authentication, authorization | NestJS | planned |
+| [[nest-notifications]] | transactional and security notifications | NestJS | planned |
+| [[nest-logging]] | technical logging + security audit trail | NestJS | planned |
+| [[py-ai]] | AI agents | Python | planned |
 
 ## Keywords
 
@@ -26,6 +26,6 @@ services, microservices, auth, notifications, logging, ai, scopes, roles, safe-m
 
 ## Search order
 
-1. Read [[sca-auth]] first — the identity hub every service leans on.
-2. Then [[sca-logging]] (the audit base) and [[sca-notifications]].
-3. [[sca-ai]] last — the only non-NestJS service.
+1. Read [[nest-auth]] first — the identity hub every service leans on.
+2. Then [[nest-logging]] (the audit base) and [[nest-notifications]].
+3. [[py-ai]] last — the only non-NestJS service.

@@ -11,7 +11,7 @@ tags:
 
 # logging.audit
 
-> The audit and technical log stream: every service emits what happened, consumed and persisted by `sca-logging`.
+> The audit and technical log stream: every service emits what happened, consumed and persisted by `nest-logging`.
 
 ## Schema
 
@@ -32,7 +32,7 @@ Both correlate with the shared `request_id` traceability middleware.
 
 | Service | Use | Idempotency |
 |---|---|---|
-| [[sca-logging]] | persists, retention policy, query API | dedupe by event id |
+| [[nest-logging]] | persists, retention policy, query API | dedupe by event id |
 
 ## Status
 

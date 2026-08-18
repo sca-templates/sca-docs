@@ -12,7 +12,7 @@ tags:
 
 # Auth gRPC API
 
-> What `sca-auth` exposes so other services can resolve a subject's scopes and roles.
+> What `nest-auth` exposes so other services can resolve a subject's scopes and roles.
 
 ## Proto
 
@@ -29,8 +29,8 @@ tags:
 
 | Service | Use | Notes |
 |---|---|---|
-| [[sca-auth]] | Server | exposes the API over [[grpc]] |
-| [[sca-notifications]] · [[sca-logging]] · [[sca-ai]] | Clients | typed methods via `@sca/clients` |
+| [[nest-auth]] | Server | exposes the API over [[grpc]] |
+| [[nest-notifications]] · [[nest-logging]] · [[py-ai]] | Clients | typed methods via `@sca/clients` |
 | [[sca-clients]] | `ScopesGuard` | deny-by-default; calls `GetScopes` with cache-aside (Redis), invalidated by [[evt-permissions-changed]] |
 
 ## Status

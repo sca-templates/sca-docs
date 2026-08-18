@@ -11,7 +11,7 @@ tags:
 
 # auth.* domain family
 
-> The `auth.*` family of domain events produced by `sca-auth`.
+> The `auth.*` family of domain events produced by `nest-auth`.
 
 ## Topics
 
@@ -23,15 +23,15 @@ tags:
 
 | Service | When | Notes |
 |---|---|---|
-| [[sca-auth]] | authentication and account lifecycle events | |
+| [[nest-auth]] | authentication and account lifecycle events | |
 
 ## Consumers
 
 | Service | Use | Idempotency |
 |---|---|---|
-| [[sca-logging]] | audit trail (feeds [[evt-logging-audit]] / anomaly analysis) | dedupe by event id |
-| [[sca-notifications]] | account emails (welcome, password reset, safe-mode alert) | dedupe by correlation id |
-| [[sca-ai]] | behavioral / anomaly input | dedupe by event id |
+| [[nest-logging]] | audit trail (feeds [[evt-logging-audit]] / anomaly analysis) | dedupe by event id |
+| [[nest-notifications]] | account emails (welcome, password reset, safe-mode alert) | dedupe by correlation id |
+| [[py-ai]] | behavioral / anomaly input | dedupe by event id |
 
 ## Status
 

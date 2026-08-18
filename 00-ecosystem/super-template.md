@@ -18,7 +18,7 @@ tags:
 
 - **`nest-template`** — the [[modular-monolith]] + [[clean-architecture]] skeleton every [[microservice]] is cloned from. It carries the structure, the flow framework and the docs handbook; zero business logic.
 - **`@sca/*` packages** — shared plumbing with zero business logic: core, contracts ([[grpc]] + [[proto]] + events), connections and clients. One fix lands in one package, not in every service.
-- **`sca-*` microservices** — the domains: auth, notifications, logging, ai. Each is a `nest-template` clone consuming `@sca/*`, exposing its [[grpc]] API and publishing/consuming [[event]]s.
+- **`nest-*` / `py-*` microservices** — the domains: auth, notifications, logging, ai. The prefix names the framework: `nest-*` = NestJS/TypeScript, `py-*` = Python. Each is a `nest-template` clone consuming `@sca/*`, exposing its [[grpc]] API and publishing/consuming [[event]]s.
 - **`infra-*` repos** — [[self-hosted]] infrastructure: Vault, PostgreSQL, Redis, [[kafka]], Consul, Prometheus, Grafana. Each repo has its own `Makefile` with `make all`.
 - **`sca-docs`** — this vault: the ecosystem's topology and conventions, linking to every repo instead of duplicating it.
 
@@ -53,10 +53,10 @@ tags:
 | `@sca/contracts` | gRPC protos + event schemas | [[05-packages/INDEX\|planned]] |
 | `@sca/connections` | Connection / failover plumbing | [[05-packages/INDEX\|planned]] |
 | `@sca/clients` | Typed clients for the contracts | [[05-packages/INDEX\|planned]] |
-| `sca-auth` | Auth microservice | [[01-services/INDEX\|planned]] |
-| `sca-notifications` | Notifications microservice | [[01-services/INDEX\|planned]] |
-| `sca-logging` | Logging microservice | [[01-services/INDEX\|planned]] |
-| `sca-ai` | AI microservice | [[01-services/INDEX\|planned]] |
+| `nest-auth` | Auth microservice | [[01-services/INDEX\|planned]] |
+| `nest-notifications` | Notifications microservice | [[01-services/INDEX\|planned]] |
+| `nest-logging` | Logging microservice | [[01-services/INDEX\|planned]] |
+| `py-ai` | AI microservice | [[01-services/INDEX\|planned]] |
 
 ## Boundaries
 

@@ -1,15 +1,15 @@
 ---
-title: sca-notifications
+title: nest-notifications
 type: service
 status: planned
-repo: sca-notifications
+repo: nest-notifications
 tags:
   - type/service
   - domain/notifications
   - stack/nestjs
 ---
 
-# sca-notifications
+# nest-notifications
 
 > Transactional and security notifications — sends messages when other services ask, with delivery guarantees and user preferences.
 
@@ -27,7 +27,7 @@ Consumes notification requests ([[evt-notifications-requests-v1]]) and delivers 
 
 ## Pointers
 
-- Repo: `sca-notifications`, resolved in `_config/repo-locations.md`
+- Repo: `nest-notifications`, resolved in `_config/repo-locations.md`
 - Handbook/README links are added when the repo is created
 - Related notes: [[microservice]] · [[event]] · [[idempotency]] · [[kafka]]
 

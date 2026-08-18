@@ -1,15 +1,15 @@
 ---
-title: sca-ai
+title: py-ai
 type: service
 status: planned
-repo: sca-ai
+repo: py-ai
 tags:
   - type/service
   - domain/ai
   - stack/python
 ---
 
-# sca-ai
+# py-ai
 
 > AI agents — the ecosystem's analysis brain and the only service that is not NestJS.
 
@@ -27,7 +27,7 @@ A Python monorepo hosting AI agents that support other services. Consumes scopes
 
 ## Pointers
 
-- Repo: `sca-ai`, resolved in `_config/repo-locations.md`
+- Repo: `py-ai`, resolved in `_config/repo-locations.md`
 - Handbook/README links are added when the repo is created
 - Related notes: [[microservice]] · [[multi-cloud]] · [[grpc]]
 

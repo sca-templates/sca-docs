@@ -32,7 +32,7 @@ Inter-service calls become typed and safe by construction. The auth guard *execu
 ## Pointers
 
 - Repo: `sca-core` (workspace), resolved in `_config/repo-locations.md`
-- Consumers: [[sca-auth]] · [[sca-notifications]] · [[sca-logging]] · [[sca-ai]]
+- Consumers: [[nest-auth]] · [[nest-notifications]] · [[nest-logging]] · [[py-ai]]
 - Related notes: [[grpc]] · [[event]] · [[service-account]] · [[idempotency]]
 
 ## Status
