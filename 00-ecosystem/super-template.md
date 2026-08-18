@@ -41,8 +41,8 @@ tags:
 | Repo | What it is | Link |
 |---|---|---|
 | `sca-docs` | This vault: topology + conventions | [README](../README.md) |
-| `aws` | Self-hosted stack orchestrator | [README](../../README.md) |
-| `nest-template` | Microservice skeleton + handbook | [README](../../node/nest-template/README.md) · [handbook](../../node/nest-template/docs/handbook/INDEX.md) |
+| `aws` | Self-hosted stack orchestrator | [README](https://github.com/sca-templates/aws) |
+| `nest-template` | Microservice skeleton + handbook | [README](https://github.com/sca-templates/nest-template) · [handbook](https://github.com/sca-templates/nest-template/blob/main/docs/handbook/INDEX.md) |
 | `@sca/core` | Shared core plumbing | [[05-packages/INDEX\|planned]] |
 | `@sca/contracts` | gRPC protos + event schemas | [[05-packages/INDEX\|planned]] |
 | `@sca/connections` | Connection / failover plumbing | [[05-packages/INDEX\|planned]] |

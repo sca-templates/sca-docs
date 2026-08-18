@@ -25,17 +25,17 @@ TLS + SASL are **mandatory** for every client. Secrets only enter containers via
 
 ## Access
 
-| Endpoint | Address | Notes |
-|---|---|---|
-| Broker | `localhost:9092` (host) · `kafka-broker:9092` (network) | SASL_SSL required |
-| Connect (Debezium) | `http://localhost:8083` | connector `debezium-postgres` |
-| Kafka UI | `http://localhost:8088` | user `admin`, password in `.env` |
+| Endpoint | Local (development) | Notes | Production |
+|---|---|---|---|
+| Broker | `localhost:9092` (host) · `kafka-broker:9092` (network) | SASL_SSL required | Same image; real TLS certs, advertised host is EC2 IP |
+| Connect (Debezium) | `http://localhost:8083` | connector `debezium-postgres` | Same image; provisioned externally |
+| Kafka UI | `http://localhost:8088` | user `admin`, password in `.env` | Internal only |
 
 Credentials source: SCRAM users (`kafka-admin`, `debezium`, `kafka-ui`) with passwords in `.env` / Vault `secret/kafka/dev`.
 
 ## Pointers
 
-- Component README: [aws/kafka/README.md](../../kafka/README.md)
+- Component README: [kafka](https://github.com/sca-templates/kafka)
 - Related notes: [[self-hosted-stack]] · [[postgres]] · [[event]] · [[outbox]] · [[idempotency]]
 
 ## Status

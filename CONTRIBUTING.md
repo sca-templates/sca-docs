@@ -94,7 +94,7 @@ npx --yes markdown-link-check -c .github/markdown-link-check.json <file>
    chmod 600 .secrets/*
    ```
 
-   - The GitHub token is a fine-grained PAT (`github_pat_`) with **Read** access to `Contents`, `Issues`, `Pull requests`, and `Metadata` on the `sca-node-template` repositories.
+   - The GitHub token is a fine-grained PAT (`github_pat_`) with **Read** access to `Contents`, `Issues`, `Pull requests`, and `Metadata` on the `sca-templates` repositories.
 
 3. **Restart opencode** — config and `{file:}` values are read at startup, not hot-reloaded.
 

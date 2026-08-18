@@ -27,17 +27,17 @@ Services authenticate at startup (AppRole login → read `secret/<service>/<env>
 
 ## Access
 
-| Endpoint | Address | Notes |
-|---|---|---|
-| Cluster | `https://127.0.0.1:8201` (nodes 8201–8203) | leader + voters |
-| Auth | `POST /v1/auth/approle/login` | returns a temporary token |
-| Secrets | `GET /v1/secret/data/<svc>/<env>` | KV v2 |
+| Endpoint | Local (development) | Notes | Production |
+|---|---|---|---|
+| Cluster | `https://127.0.0.1:8201` (nodes 8201–8203) | leader + voters | Same cluster; `awskms` seal, real CA/ACME PCA TLS |
+| Auth | `POST /v1/auth/approle/login` | returns a temporary token | Same API; AppRole delivered via SSM |
+| Secrets | `GET /v1/secret/data/<svc>/<env>` | KV v2 | Same API; state in S3 with DynamoDB locking |
 
 Credentials source: AppRole `role_id`/`secret_id` in `data/secrets/` (gitignored); unseal keys + root token in the same folder, GPG-encrypted when `GPG_RECIPIENT` is set.
 
 ## Pointers
 
-- Component README: [aws/vault/README.md](../../vault/README.md)
+- Component README: [vault](https://github.com/sca-templates/vault)
 - Related notes: [[self-hosted-stack]] · [[service-account]]
 
 ## Status

@@ -24,18 +24,18 @@ Both join the shared `kafka-network` so local services reach them by name (`mini
 
 ## Access
 
-| Endpoint      | Address                 | Notes                                |
-| ------------- | ----------------------- | ------------------------------------ |
-| MinIO API     | `http://localhost:9000` | S3, `forcePathStyle: true`           |
-| MinIO console | `http://localhost:9001` | default `minioadmin`/`minioadmin123` |
-| MailHog SMTP  | `localhost:1025`        | capture only                         |
-| MailHog UI    | `http://localhost:8025` | inbox viewer                         |
+| Endpoint | Local (development) | Notes | Production |
+| ------------- | ----------------------- | ------------------------------------ | ---------- |
+| MinIO API | `http://localhost:9000` | S3, `forcePathStyle: true` | N/A (use AWS S3) |
+| MinIO console | `http://localhost:9001` | default `minioadmin`/`minioadmin123` | N/A |
+| MailHog SMTP | `localhost:1025` | capture only | N/A (use AWS SES) |
+| MailHog UI | `http://localhost:8025` | inbox viewer | N/A |
 
 Credentials source: `dev/.env` (MinIO `MINIO_ROOT_USER` / `MINIO_ROOT_PASSWORD`).
 
 ## Pointers
 
-- Component README: [aws/dev/README.md](../../dev/README.md)
+- Component README: [dev](https://github.com/sca-templates/dev)
 - Related notes: [[self-hosted-stack]] · [[multi-cloud]]
 
 ## Status

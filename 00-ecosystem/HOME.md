@@ -36,8 +36,8 @@ tags:
 | Repo | What it is | Link |
 |---|---|---|
 | `sca-docs` | This vault | [README](../README.md) |
-| `aws` | Self-hosted stack orchestrator | [README](../../README.md) |
-| `nest-template` | Microservice skeleton + handbook | [README](../../node/nest-template/README.md) · [handbook](../../node/nest-template/docs/handbook/INDEX.md) |
+| `aws` | Self-hosted stack orchestrator | [README](https://github.com/sca-templates/aws) |
+| `nest-template` | Microservice skeleton + handbook | [README](https://github.com/sca-templates/nest-template) · [handbook](https://github.com/sca-templates/nest-template/blob/main/docs/handbook/INDEX.md) |
 | `@sca/*` | Shared plumbing packages | [[05-packages/INDEX\|planned]] |
 | `sca-*` | Domain microservices | [[01-services/INDEX\|planned]] |
 

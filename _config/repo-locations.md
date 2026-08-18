@@ -20,18 +20,14 @@
 
 | Repo | URL | Status |
 |---|---|---|
-| `sca-docs` | `https://github.com/sca-node-template/sca-docs` | active |
-| `nest-template` | `https://github.com/sca-node-template/nest-template` | active |
+| `sca-docs` | `https://github.com/sca-templates/sca-docs` | active |
+| `nest-template` | `https://github.com/sca-templates/nest-template` | active |
 
 > Planned repos get their URL when created. Keep this table in sync whenever a
 > repo is created, renamed, or archived.
 
 ## Resolution by environment
 
-Relative links from a vault note to a repo doc are environment-specific because
-the repos are not siblings on every machine:
-
-- `~/projects/aws` and `~/projects/node` are both under `~/projects`, so
-  `../../node/<repo>/path.md` reaches `nest-template` from `aws/docs/…`.
-- On other environments the mapping may differ; update this note instead of
-  hard-coding paths in notes.
+- Relative links from a vault note to a repo doc use GitHub URLs (e.g.
+  `https://github.com/sca-templates/<repo>/blob/main/<path>`). The table above
+  resolves logical names to URLs per environment.

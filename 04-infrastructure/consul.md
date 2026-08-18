@@ -18,20 +18,20 @@ tags:
 - **Agent/server** (`hashicorp/consul:1.19`) with `-bootstrap-expect=1`, datacenter `dev`, running with `network_mode: host` so its TCP checks reach the published ports.
 - **Registers** the stack services with TCP checks (`interval: 10s`, `timeout: 5s`): `postgres-app:5432`, `redis:6379`, `kafka:9092`, `kafka-connect:8083`, `vault:8201`.
 - **DNS** — any [[microservice]] resolves a component as `<name>.service.consul` through `127.0.0.1:8600`.
-- Gossip key (`CONSUL_GOSSIP_KEY`) comes from Vault locally and AWS Secrets Manager in production; no ACLs in dev. Production mirrors the same image and flags via Ansible + Terraform.
+- Gossip key (`CONSUL_GOSSIP_KEY`) comes from Vault locally and AWS Secrets Manager in production; no ACLs in dev. Production mirrors the same image and flags.
 
 ## Access
 
-| Endpoint | Address                 | Notes                  |
-| -------- | ----------------------- | ---------------------- |
-| API + UI | `http://127.0.0.1:8500` | UI under `/ui`         |
-| DNS      | `127.0.0.1:8600`        | `<svc>.service.consul` |
+| Endpoint | Local (development) | Notes | Production |
+| --- | --- | --- | --- |
+| API + UI | `http://127.0.0.1:8500` | UI under `/ui` | Same image; gossip key from AWS Secrets Manager |
+| DNS | `127.0.0.1:8600` | `<svc>.service.consul` | Same |
 
 Credentials source: `CONSUL_GOSSIP_KEY` in Vault `secret/consul/dev`.
 
 ## Pointers
 
-- Component README: [aws/consul/README.md](../../consul/README.md)
+- Component README: [consul](https://github.com/sca-templates/consul)
 - Related notes: [[self-hosted-stack]] · [[microservice]]
 
 ## Status

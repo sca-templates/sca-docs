@@ -15,7 +15,7 @@ tags:
 
 ## Role in the stack
 
-The [[self-hosted]] stack is the default; production is orchestrated with Ansible roles and Terraform modules (both under `aws/`). The matrix below maps each component's port to its managed equivalent in each cloud. The `@sca/connections` package is the single place that swaps the adapter.
+The [[self-hosted]] stack is the default; production uses AWS-native managed services. The matrix below maps each component's port to its managed equivalent in each cloud. The `@sca/connections` package is the single place that swaps the adapter.
 
 ## Port → adapter matrix
 
@@ -31,15 +31,11 @@ The [[self-hosted]] stack is the default; production is orchestrated with Ansibl
 
 ### Notes
 
-- **Consul** has no direct managed equivalent; production keeps a self-hosted agent on EC2 (`terraform/modules/consul`, `ansible/roles/consul`).
-- **Kafka** also has a `terraform/modules/kinesis` alternative for stream ingestion when a fully managed path is preferred over MSK.
+- **Consul** has no direct managed equivalent; production keeps a self-hosted agent on EC2.
 - **Secrets** follow the [[service-account|service-account]] model in every cloud (IAM roles / managed identities / service accounts).
-- Adapter modules in `aws/`: `terraform/modules/{vault,rds,elasticache,kafka,kinesis,s3,secrets-manager,consul}` and `ansible/roles/{vault,postgresql,redis,kafka,consul,observability}`.
 
 ## Pointers
 
-- Terraform modules: [aws/terraform/modules](../../terraform/modules)
-- Ansible roles: [aws/ansible/roles](../../ansible/roles)
 - Related notes: [[self-hosted-stack]] · [[multi-cloud]] · [[service-account]]
 
 ## Status

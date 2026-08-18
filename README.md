@@ -29,8 +29,8 @@ The `sca` ecosystem as a whole: a repeatable way to spin up domain microservices
 | Repo | What it is | Status |
 |---|---|---|
 | `sca-docs` | This vault: topology + conventions — [README](README.md), [super template](00-ecosystem/super-template.md), [HOME](00-ecosystem/HOME.md) | active |
-| `aws` | Self-hosted stack orchestrator — [README](../README.md) | active |
-| `nest-template` | Microservice skeleton + handbook — [README](../../node/nest-template/README.md), [handbook](../../node/nest-template/docs/handbook/INDEX.md) | active |
+| `aws` | Self-hosted stack orchestrator — [README](https://github.com/sca-templates/aws) | active |
+| `nest-template` | Microservice skeleton + handbook — [README](https://github.com/sca-templates/nest-template), [handbook](https://github.com/sca-templates/nest-template/blob/main/docs/handbook/INDEX.md) | active |
 | `@sca/core`, `@sca/contracts`, `@sca/connections`, `@sca/clients` | Shared plumbing packages | planned |
 | `sca-auth`, `sca-notifications`, `sca-logging`, `sca-ai` | Domain microservices | planned |
 

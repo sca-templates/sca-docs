@@ -25,7 +25,7 @@ make all          # from aws/ — Vault, Postgres, Redis, Kafka, Consul, dev too
 make validate     # health-check every component before going further
 ```
 
-The `aws/` repo is the [[self-hosted]] stack orchestrator; see its [README](../../README.md) for the full command reference.
+The `aws/` repo is the [[self-hosted]] stack orchestrator; see its [README](https://github.com/sca-templates/aws) for the full command reference.
 
 ## Step 2 — Clone the skeleton
 
@@ -34,7 +34,7 @@ git clone <nest-template url> sca-<name>
 cd sca-<name> && pnpm install
 ```
 
-`nest-template` is the [[modular-monolith]] skeleton (see its [handbook](../../node/nest-template/docs/handbook/INDEX.md)).
+`nest-template` is the [[modular-monolith]] skeleton (see its [handbook](https://github.com/sca-templates/nest-template/blob/main/docs/handbook/INDEX.md)).
 
 ## Step 3 — Add the shared plumbing
 

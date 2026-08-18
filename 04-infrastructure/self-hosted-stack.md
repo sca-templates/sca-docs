@@ -42,26 +42,26 @@ Shared plumbing: all components join the Docker network `kafka-network` and reso
 
 ## Access
 
-| Component | Endpoint | Notes |
-|---|---|---|
-| Vault | `https://127.0.0.1:8201` (8201–8203) | 3-node cluster, AppRole |
-| PostgreSQL | `127.0.0.1:5432` | bound to loopback only |
-| pgAdmin | `http://localhost:8080` | companion UI |
-| Redis | `localhost:6379` | password auth |
-| Kafka broker | `localhost:9092` | SASL_SSL / SCRAM-SHA-512 |
-| Kafka Connect | `http://localhost:8083` | Debezium |
-| Kafka UI | `http://localhost:8088` | `admin` user |
-| Consul | `http://127.0.0.1:8500` · DNS `127.0.0.1:8600` | discovery + health checks |
-| Prometheus | `http://127.0.0.1:9090` | loopback only; scrapes via `127.0.0.1:<port>` |
-| Grafana | `http://127.0.0.1:3000` | loopback only; user `admin` |
-| MinIO | `http://localhost:9000` API · `9001` console | local only |
-| MailHog | `localhost:1025` SMTP · `8025` UI | local only |
+| Component | Local (development) | Notes | Production |
+|---|---|---|---|
+| Vault | `https://127.0.0.1:8201` (8201–8203) | 3-node cluster, AppRole | `awskms` seal, real CA/ACME PCA TLS |
+| PostgreSQL | `127.0.0.1:5432` | bound to loopback only | Same image; password from AWS Secrets Manager |
+| pgAdmin | `http://localhost:8080` | companion UI | Internal only |
+| Redis | `localhost:6379` | password auth | Same image; password from AWS Secrets Manager |
+| Kafka broker | `localhost:9092` | SASL_SSL / SCRAM-SHA-512 | Same image; real TLS certs |
+| Kafka Connect | `http://localhost:8083` | Debezium | Same image; provisioned externally |
+| Kafka UI | `http://localhost:8088` | `admin` user | Internal only |
+| Consul | `http://127.0.0.1:8500` · DNS `127.0.0.1:8600` | discovery + health checks | Same image; gossip key from AWS Secrets Manager |
+| Prometheus | `http://127.0.0.1:9090` | loopback only; scrapes via `127.0.0.1:<port>` | Same image |
+| Grafana | `http://127.0.0.1:3000` | loopback only; user `admin` | Same image; provisioned via config management |
+| MinIO | `http://localhost:9000` API · `9001` console | local only | N/A (use AWS S3) |
+| MailHog | `localhost:1025` SMTP · `8025` UI | local only | N/A (use AWS SES) |
 
 ## Pointers
 
-- Orchestrator README: [aws/README.md](../../README.md)
+- Orchestrator README: [aws](https://github.com/sca-templates/aws)
 - Components: [[vault]] · [[postgres]] · [[redis]] · [[kafka]] · [[consul]] · [[prometheus]] · [[grafana]] · [[dev-tools]]
-- Gateway (Kong) is deferred as a vault note: [kong.md](../../kong.md)
+- Gateway (Kong) is deferred as a vault note: [kong](https://github.com/sca-templates/kong)
 - Failover strategy: [[multi-cloud]]
 
 ## Status

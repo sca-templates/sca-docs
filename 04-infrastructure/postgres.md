@@ -25,16 +25,16 @@ Known gaps (documented in the component README, deferred before production): no 
 
 ## Access
 
-| Endpoint | Address | Notes |
-|---|---|---|
-| PostgreSQL | `127.0.0.1:5432` | loopback only |
-| pgAdmin | `http://localhost:8080` | web UI |
+| Endpoint | Local (development) | Notes | Production |
+|---|---|---|---|
+| PostgreSQL | `127.0.0.1:5432` | loopback only | Same image; password from AWS Secrets Manager |
+| pgAdmin | `http://localhost:8080` | web UI | Internal only |
 
 Credentials source: Vault `secret/postgres-app/dev` (`DATABASE_URL` mirrored by `postgres-app/scripts/vault-secrets.sh`); the local `.env` is the source of truth for container initialization.
 
 ## Pointers
 
-- Component README: [aws/postgres-app/README.md](../../postgres-app/README.md)
+- Component README: [postgres-app](https://github.com/sca-templates/postgres-app)
 - Related notes: [[self-hosted-stack]] · [[kafka]] · [[outbox]]
 
 ## Status
