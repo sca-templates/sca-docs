@@ -10,7 +10,7 @@ tags:
 
 # self-hosted
 
-Infrastructure run and operated by the ecosystem itself (Vault, PostgreSQL, Redis, Kafka, Consul) instead of a cloud provider; orchestrated by the `aws/` repo.
+Infrastructure run and operated by the ecosystem itself (Vault, PostgreSQL, Redis, Kafka, Consul, Prometheus, Grafana) instead of a cloud provider; each component lives in its own `infra-*` repo.
 
 ## Related
 

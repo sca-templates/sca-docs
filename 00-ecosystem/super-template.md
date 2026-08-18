@@ -19,20 +19,20 @@ tags:
 - **`nest-template`** — the [[modular-monolith]] + [[clean-architecture]] skeleton every [[microservice]] is cloned from. It carries the structure, the flow framework and the docs handbook; zero business logic.
 - **`@sca/*` packages** — shared plumbing with zero business logic: core, contracts ([[grpc]] + [[proto]] + events), connections and clients. One fix lands in one package, not in every service.
 - **`sca-*` microservices** — the domains: auth, notifications, logging, ai. Each is a `nest-template` clone consuming `@sca/*`, exposing its [[grpc]] API and publishing/consuming [[event]]s.
-- **`aws/`** — the [[self-hosted]] infrastructure orchestrator: Vault, PostgreSQL, Redis, [[kafka]], Consul, plus local-only dev tools. One command (`make all`) brings the whole stack up.
+- **`infra-*` repos** — [[self-hosted]] infrastructure: Vault, PostgreSQL, Redis, [[kafka]], Consul, Prometheus, Grafana. Each repo has its own `Makefile` with `make all`.
 - **`sca-docs`** — this vault: the ecosystem's topology and conventions, linking to every repo instead of duplicating it.
 
 ## Why it exists
 
 - Clone a new service with infrastructure and contracts already in sync — the domain advances at its own pace.
-- A correction is made in one place (`@sca/*`, `nest-template`, or `aws/`) and every service inherits it.
+- A correction is made in one place (`@sca/*` or `nest-template`) and every service inherits it.
 - The [[outbox|outbox pattern]] and [[grpc]] contracts are defined once and reused everywhere.
 
 ## Flow
 
 1. Clone `nest-template` and open the workspace.
 2. Add the `@sca/*` packages (`pnpm add`).
-3. Start the stack: `make all` in `aws/`.
+3. Start the stack: `make all` in each `infra-*` repo.
 4. Write the domain following the handbook's flow framework (BF / TF / TP).
 5. Close the docs checklist: README, `docs/`, service note in the vault, contract notes.
 
@@ -41,7 +41,13 @@ tags:
 | Repo | What it is | Link |
 |---|---|---|
 | `sca-docs` | This vault: topology + conventions | [README](../README.md) |
-| `aws` | Self-hosted stack orchestrator | [README](https://github.com/sca-templates/aws) |
+| `infra-vault` | Secrets management | [README](https://github.com/sca-templates/infra-vault) |
+| `infra-postgres-app` | PostgreSQL + pgAdmin | [README](https://github.com/sca-templates/infra-postgres-app) |
+| `infra-redis` | Redis in-memory store | [README](https://github.com/sca-templates/infra-redis) |
+| `infra-kafka` | Kafka + Debezium + Kafka UI | [README](https://github.com/sca-templates/infra-kafka) |
+| `infra-consul` | Service discovery + health checks | [README](https://github.com/sca-templates/infra-consul) |
+| `infra-prometheus` | Metrics + exporters | [README](https://github.com/sca-templates/infra-prometheus) |
+| `infra-grafana` | Dashboards + alerting | [README](https://github.com/sca-templates/infra-grafana) |
 | `nest-template` | Microservice skeleton + handbook | [README](https://github.com/sca-templates/nest-template) · [handbook](https://github.com/sca-templates/nest-template/blob/main/docs/handbook/INDEX.md) |
 | `@sca/core` | Shared core plumbing | [[05-packages/INDEX\|planned]] |
 | `@sca/contracts` | gRPC protos + event schemas | [[05-packages/INDEX\|planned]] |

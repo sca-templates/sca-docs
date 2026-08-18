@@ -21,7 +21,7 @@ flowchart TB
     SVC["sca-* microservices"]
     SCM["@sca/* shared packages"]
     CTR["Contracts (gRPC + events)"]
-    INF["Self-hosted infrastructure (aws/)"]
+    INF["Self-hosted infrastructure (infra-*)"]
     DOC["sca-docs vault"]
 
     SVC -- "gRPC / events" --> CTR
@@ -35,7 +35,7 @@ flowchart TB
 - **Microservices layer** — the domains, each a [[microservice]] cloned from `nest-template`.
 - **Shared packages layer** — `@sca/*` plumbing with zero business logic; the single place a shared fix lands.
 - **Contracts layer** — the agreements between services: [[grpc]] APIs and Kafka [[event]]s, defined once in `@sca/contracts`.
-- **Infrastructure layer** — [[self-hosted]] components (Vault, PostgreSQL, Redis, [[kafka]], Consul) orchestrated by `aws/`.
+- **Infrastructure layer** — [[self-hosted]] components (Vault, PostgreSQL, Redis, [[kafka]], Consul, Prometheus, Grafana), each in its own `infra-*` repo.
 - **Documentation layer** — this vault: topology, conventions and pointers.
 
 ## Repositories
@@ -45,7 +45,13 @@ flowchart TB
 | `nest-template` | [[modular-monolith]] skeleton + handbook; source of every service | active |
 | `@sca/*` | Shared plumbing (core, contracts, connections, clients) | planned |
 | `sca-*` | Domain microservices (auth, notifications, logging, ai) | planned |
-| `aws` | [[self-hosted]] stack orchestrator (`make all`) | active |
+| `infra-vault` | Secrets management | active |
+| `infra-postgres-app` | PostgreSQL + pgAdmin | active |
+| `infra-redis` | Redis in-memory store | active |
+| `infra-kafka` | Kafka + Debezium + Kafka UI | active |
+| `infra-consul` | Service discovery + health checks | active |
+| `infra-prometheus` | Metrics + exporters | active |
+| `infra-grafana` | Dashboards + alerting | active |
 | `sca-docs` | This vault | active |
 
 ## Dependencies

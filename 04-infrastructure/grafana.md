@@ -15,7 +15,7 @@ tags:
 
 ## Role in the stack
 
-A Compose stack inside `aws/grafana/`, lifted by the root orchestrator (`make grafana-up` / `make all`, ordered after `prometheus-up`):
+A Compose stack in the `infra-grafana` repo, started with `make all`:
 
 - **grafana** — `grafana/grafana:11.1.0`, host network, UI on `127.0.0.1:3000` (`GRAFANA_PORT`).
 - Single Prometheus datasource (`uid: prometheus`) at `http://127.0.0.1:9090`.

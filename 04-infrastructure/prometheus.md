@@ -15,7 +15,7 @@ tags:
 
 ## Role in the stack
 
-A Compose stack inside `aws/prometheus/`, lifted by the root orchestrator (`make prometheus-up` / `make all`):
+A Compose stack in the `infra-prometheus` repo, started with `make all`:
 
 - **prometheus** — `prom/prometheus:v2.53.0`, 30-day retention, `--web.enable-lifecycle`.
 - **postgres-exporter** — `:9187`, connects to `postgres-app-db:5432`.

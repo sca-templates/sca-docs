@@ -21,11 +21,15 @@ tags:
 ## Step 1 — Start the infrastructure
 
 ```sh
-make all          # from aws/ — Vault, Postgres, Redis, Kafka, Consul, dev tools
-make validate     # health-check every component before going further
+# Start each infrastructure repo (Vault, Postgres, Redis, Kafka, Consul, etc.)
+cd infra-vault && make all && make validate
+cd ../infra-postgres-app && make all && make validate
+cd ../infra-redis && make all && make validate
+cd ../infra-kafka && make all && make validate
+cd ../infra-consul && make all && make validate
 ```
 
-The `aws/` repo is the [[self-hosted]] stack orchestrator; see its [README](https://github.com/sca-templates/aws) for the full command reference.
+Each `infra-*` repo is self-contained with its own `Makefile`; see each repo's README for the full command reference.
 
 ## Step 2 — Clone the skeleton
 

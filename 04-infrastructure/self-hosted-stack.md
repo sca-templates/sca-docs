@@ -11,11 +11,11 @@ tags:
 
 # Self-hosted stack
 
-> The `aws/` repo orchestrates every [[self-hosted]] component of the ecosystem with one command: `make all`.
+> Each `infra-*` repo orchestrates its own [[self-hosted]] component with `make all`.
 
 ## Role in the stack
 
-`aws/` is the orchestrator for the whole local stack: Vault, PostgreSQL, Redis, Kafka (+ Debezium + Kafka UI), Consul, Prometheus and Grafana, plus local-only dev tools. Each component lives in its own folder with its own `Makefile`; the root `Makefile` coordinates them in dependency order.
+Each `infra-*` repo is self-contained: Vault, PostgreSQL, Redis, Kafka (+ Debezium + Kafka UI), Consul, Prometheus and Grafana, plus local-only dev tools. Every component lives in its own repo with its own `Makefile` (`make all` bootstraps everything).
 
 ```text
 make all  →  Vault → secrets (Vault KV) → kafka-network → postgres-app → redis → kafka → consul → prometheus → grafana → dev (MinIO + MailHog)
@@ -59,7 +59,7 @@ Shared plumbing: all components join the Docker network `kafka-network` and reso
 
 ## Pointers
 
-- Orchestrator README: [aws](https://github.com/sca-templates/aws)
+- Component repos: [infra-vault](https://github.com/sca-templates/infra-vault) · [infra-postgres-app](https://github.com/sca-templates/infra-postgres-app) · [infra-redis](https://github.com/sca-templates/infra-redis) · [infra-kafka](https://github.com/sca-templates/infra-kafka) · [infra-consul](https://github.com/sca-templates/infra-consul) · [infra-prometheus](https://github.com/sca-templates/infra-prometheus) · [infra-grafana](https://github.com/sca-templates/infra-grafana)
 - Components: [[vault]] · [[postgres]] · [[redis]] · [[kafka]] · [[consul]] · [[prometheus]] · [[grafana]] · [[dev-tools]]
 - Gateway (Kong) is deferred as a vault note: [kong](https://github.com/sca-templates/kong)
 - Failover strategy: [[multi-cloud]]

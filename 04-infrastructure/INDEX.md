@@ -10,13 +10,13 @@ tags:
 
 # Infrastructure — INDEX
 
-> The [[self-hosted]] topology of the `sca` ecosystem, orchestrated by the `aws/` repo, plus the [[multi-cloud]] failover strategy.
+> The [[self-hosted]] topology of the `sca` ecosystem, with each component in its own `infra-*` repo, plus the [[multi-cloud]] failover strategy.
 
 ## Notes
 
 | Note | What it is | Status |
 |---|---|---|
-| [[self-hosted-stack]] | The `aws/` orchestrator: `make all`, ports, secrets flow | active |
+| [[self-hosted-stack]] | The self-hosted stack: `make all` per repo, ports, secrets flow | active |
 | [[vault]] | 3-node Raft cluster, source of secrets | active |
 | [[postgres]] | PostgreSQL 16 + pgvector, Debezium source | active |
 | [[redis]] | Redis 7 with AOF + password auth | active |

@@ -7,18 +7,18 @@ The `sca` ecosystem as a whole: a repeatable way to spin up domain microservices
 - **`nest-template`** — the modular-monolith + clean-architecture skeleton every microservice is cloned from. It carries the structure, the flow framework and the docs handbook; zero business logic.
 - **`@sca/*` packages** — shared plumbing with zero business logic: core, contracts (gRPC protos + event schemas), connections and clients. One fix lands in one package, not in every service.
 - **`sca-*` microservices** — the domains (auth, notifications, logging, ai). Each is a `nest-template` clone consuming `@sca/*`, exposing its gRPC API and publishing/consuming Kafka events.
-- **`aws/`** — the self-hosted infrastructure orchestrator: Vault, PostgreSQL, Redis, Kafka, Consul. One command (`make all`) brings the whole stack up.
+- **`infra-*`** repos — self-hosted infrastructure: Vault, PostgreSQL, Redis, Kafka, Consul, Prometheus, Grafana. Each repo has its own `Makefile` with `make all`.
 - **`sca-docs`** — this vault: topology, conventions and pointers to every repo.
 
 ## Why it exists
 
 - Clone a new service with infrastructure and contracts already in sync — the domain advances at its own pace.
-- A correction is made in one place (`@sca/*`, `nest-template` or `aws/`) and every service inherits it.
+- A correction is made in one place (`@sca/*` or `nest-template`) and every service inherits it.
 - The outbox pattern and gRPC contracts are defined once and reused everywhere.
 
 ## Flow
 
-1. Start the stack: `make all` in `aws/`.
+1. Start the stack: `make all` in each `infra-*` repo.
 2. Clone `nest-template` and open the workspace.
 3. Add the `@sca/*` packages (`pnpm add`).
 4. Write the domain following the handbook's flow framework.
@@ -29,7 +29,13 @@ The `sca` ecosystem as a whole: a repeatable way to spin up domain microservices
 | Repo | What it is | Status |
 |---|---|---|
 | `sca-docs` | This vault: topology + conventions — [README](README.md), [super template](00-ecosystem/super-template.md), [HOME](00-ecosystem/HOME.md) | active |
-| `aws` | Self-hosted stack orchestrator — [README](https://github.com/sca-templates/aws) | active |
+| `infra-vault` | Secrets management — [README](https://github.com/sca-templates/infra-vault) | active |
+| `infra-postgres-app` | PostgreSQL + pgAdmin — [README](https://github.com/sca-templates/infra-postgres-app) | active |
+| `infra-redis` | Redis in-memory store — [README](https://github.com/sca-templates/infra-redis) | active |
+| `infra-kafka` | Kafka + Debezium + Kafka UI — [README](https://github.com/sca-templates/infra-kafka) | active |
+| `infra-consul` | Service discovery + health checks — [README](https://github.com/sca-templates/infra-consul) | active |
+| `infra-prometheus` | Metrics + exporters — [README](https://github.com/sca-templates/infra-prometheus) | active |
+| `infra-grafana` | Dashboards + alerting — [README](https://github.com/sca-templates/infra-grafana) | active |
 | `nest-template` | Microservice skeleton + handbook — [README](https://github.com/sca-templates/nest-template), [handbook](https://github.com/sca-templates/nest-template/blob/main/docs/handbook/INDEX.md) | active |
 | `@sca/core`, `@sca/contracts`, `@sca/connections`, `@sca/clients` | Shared plumbing packages | planned |
 | `sca-auth`, `sca-notifications`, `sca-logging`, `sca-ai` | Domain microservices | planned |

@@ -36,7 +36,13 @@ tags:
 | Repo | What it is | Link |
 |---|---|---|
 | `sca-docs` | This vault | [README](../README.md) |
-| `aws` | Self-hosted stack orchestrator | [README](https://github.com/sca-templates/aws) |
+| `infra-vault` | Secrets management | [README](https://github.com/sca-templates/infra-vault) |
+| `infra-postgres-app` | PostgreSQL + pgAdmin | [README](https://github.com/sca-templates/infra-postgres-app) |
+| `infra-redis` | Redis in-memory store | [README](https://github.com/sca-templates/infra-redis) |
+| `infra-kafka` | Kafka + Debezium + Kafka UI | [README](https://github.com/sca-templates/infra-kafka) |
+| `infra-consul` | Service discovery + health checks | [README](https://github.com/sca-templates/infra-consul) |
+| `infra-prometheus` | Metrics + exporters | [README](https://github.com/sca-templates/infra-prometheus) |
+| `infra-grafana` | Dashboards + alerting | [README](https://github.com/sca-templates/infra-grafana) |
 | `nest-template` | Microservice skeleton + handbook | [README](https://github.com/sca-templates/nest-template) · [handbook](https://github.com/sca-templates/nest-template/blob/main/docs/handbook/INDEX.md) |
 | `@sca/*` | Shared plumbing packages | [[05-packages/INDEX\|planned]] |
 | `sca-*` | Domain microservices | [[01-services/INDEX\|planned]] |
