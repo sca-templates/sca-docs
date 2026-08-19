@@ -44,6 +44,12 @@ Consul exposes metrics natively at `http://127.0.0.1:8500/v1/agent/metrics?forma
 
 Dashboard: [[observability#Dashboard map|consul.json]] (minimal — only `up` until telemetry is enabled)
 
+## Observability roadmap
+
+- [ ] Enable telemetry in Consul config
+- [ ] Dashboard `consul.json`
+- [ ] QA targets in `prometheus.yml`
+
 ## Pointers
 
 - Component README: [consul](https://github.com/sca-templates/consul)

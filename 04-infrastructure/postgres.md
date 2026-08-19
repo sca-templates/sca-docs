@@ -51,6 +51,12 @@ PostgreSQL metrics are exposed via `postgres-exporter` (port `:9187`). The expor
 
 Dashboard: [[observability#Dashboard map|postgres.json]] | Alerts: `postgres_down`, `postgres_deadlocks`, `postgres_rollbacks_high`
 
+## Observability roadmap
+
+- [ ] Dashboard `postgres.json`
+- [ ] Alert rules (`postgres_down`, `postgres_deadlocks`, `postgres_rollbacks_high`)
+- [ ] QA targets in `prometheus.yml`
+
 ## Pointers
 
 - Component README: [postgres-app](https://github.com/sca-templates/postgres-app)

@@ -50,6 +50,12 @@ Redis metrics are exposed via `redis-exporter` (port `:9121`). The exporter conn
 
 Dashboard: [[observability#Dashboard map|redis.json]] | Alerts: `redis_down`, `redis_evictions`, `redis_hit_ratio_low`
 
+## Observability roadmap
+
+- [ ] Dashboard `redis.json`
+- [ ] Alert rules (`redis_down`, `redis_evictions`, `redis_hit_ratio_low`)
+- [ ] QA targets in `prometheus.yml`
+
 ## Pointers
 
 - Component README: [redis](https://github.com/sca-templates/redis)

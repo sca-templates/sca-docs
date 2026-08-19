@@ -56,6 +56,12 @@ Vault exposes metrics natively at `https://127.0.0.1:8201/v1/sys/metrics?format=
 
 Dashboard: [[observability#Dashboard map|vault.json]] | Alerts: `vault_leader_changed`, `vault_request_errors`
 
+## Observability roadmap
+
+- [ ] Dashboard `vault.json`
+- [ ] Alert rules (`vault_leader_changed`, `vault_request_errors`)
+- [ ] QA targets in `prometheus.yml`
+
 ## Pointers
 
 - Component README: [vault](https://github.com/sca-templates/vault)

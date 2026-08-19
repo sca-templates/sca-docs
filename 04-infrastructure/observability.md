@@ -153,29 +153,19 @@ All rules are defined in `grafana/provisioning/alerting/rules.yml` and evaluated
 
 ## Roadmap
 
-### Phase 0 — Documentation (current)
-Create observability vault note and update per-service notes with metrics sections.
-
-### Phase 1 — Stack Overview dashboard
-Create `stack-overview.json` with health stats, node graph, and cross-service comparison panels.
-
-### Phase 2 — Per-service dashboards
-Create `vault.json`, `postgres.json`, `redis.json`, `kafka.json`, `consul.json`, `prometheus.json` with full panel sets.
-
-### Phase 3 — Alert rules
-Add service-specific alert rules to `provisioning/alerting/rules.yml`.
-
-### Phase 4 — QA targets
-Add QA scrape targets to `prometheus/prometheus.yml` with `environment: qa` labels.
-
-### Phase 5 — Enable Consul telemetry
-Enable `telemetry { prometheus_retention_time = "30s" }` in Consul config to get `consul_*` metrics.
-
-### Phase 6 — Grafana exporter
-Configure Grafana's own `/metrics` endpoint as a scrape target.
-
-### Phase 7 — Microservice metrics
-Instrument `nest-template` with `@willsoto/nestjs-prometheus`; uncomment microservice scrape jobs in `prometheus.yml`.
+- [ ] Dashboard `stack-overview.json`
+- [ ] Dashboard `vault.json`
+- [ ] Dashboard `postgres.json`
+- [ ] Dashboard `redis.json`
+- [ ] Dashboard `kafka.json`
+- [ ] Dashboard `consul.json`
+- [ ] Dashboard `prometheus.json`
+- [ ] Alert rules (12 reglas)
+- [ ] QA targets in `prometheus.yml`
+- [ ] Enable Consul telemetry
+- [ ] Enable Grafana exporter
+- [ ] Instrument `nest-template` with Prometheus client
+- [ ] Uncomment microservice scrape jobs
 
 ## Known gaps
 

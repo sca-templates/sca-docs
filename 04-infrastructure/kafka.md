@@ -50,6 +50,13 @@ Kafka Connect exposes JMX metrics via `kafka-connect-exporter` (port `:9309`). T
 
 Dashboard: [[observability#Dashboard map|kafka.json]] | Alerts: `kafka_connect_down`, `kafka_connector_failed`
 
+## Observability roadmap
+
+- [ ] Enable JMX on Kafka Connect (`JMXPORT=8778`)
+- [ ] Dashboard `kafka.json`
+- [ ] Alert rules (`kafka_connect_down`, `kafka_connector_failed`)
+- [ ] QA targets in `prometheus.yml`
+
 ## Pointers
 
 - Component README: [kafka](https://github.com/sca-templates/kafka)
