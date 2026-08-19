@@ -21,7 +21,7 @@ tags:
 - Port is bound to `127.0.0.1` only, so remote connections are blocked at the network level.
 - `make snapshot` / `make restore` for manual backups.
 
-Known gaps (documented in the component README, deferred before production): no SSL/TLS, no scheduled backups, no monitoring dashboards, single instance.
+Known gaps (documented in the component README, deferred before production): no SSL/TLS, no scheduled backups, single instance.
 
 ## Access
 
@@ -32,10 +32,29 @@ Known gaps (documented in the component README, deferred before production): no 
 
 Credentials source: Vault `secret/postgres-app/dev` (`DATABASE_URL` mirrored by `postgres-app/scripts/vault-secrets.sh`); the local `.env` is the source of truth for container initialization.
 
+## Metrics
+
+PostgreSQL metrics are exposed via `postgres-exporter` (port `:9187`). The exporter connects to `postgres-app-db:5432` and exposes `pg_*` metrics. Requires `pg_stat_statements` extension enabled (already configured in the init scripts).
+
+| Metric | Type | What it measures |
+|---|---|---|
+| `pg_up` | Gauge | Database status (1 = running) |
+| `pg_stat_activity_count` | Gauge | Connections by state (active, idle, idle in transaction) |
+| `pg_stat_database_xact_commit` | Counter | Committed transactions |
+| `pg_stat_database_xact_rollback` | Counter | Rolled back transactions |
+| `pg_stat_database_deadlocks` | Gauge | Deadlocks detected |
+| `pg_stat_user_tables_seq_scan` | Gauge | Sequential scans (high = missing index) |
+| `pg_stat_user_tables_n_dead_tup` | Gauge | Dead tuples (bloat indicator) |
+| `pg_stat_user_indexes_idx_scan` | Gauge | Index scans (low = unused index) |
+| `pg_locks_count` | Gauge | Active locks by type |
+| `pg_database_size_bytes` | Gauge | Database size |
+
+Dashboard: [[observability#Dashboard map|postgres.json]] | Alerts: `postgres_down`, `postgres_deadlocks`, `postgres_rollbacks_high`
+
 ## Pointers
 
 - Component README: [postgres-app](https://github.com/sca-templates/postgres-app)
-- Related notes: [[self-hosted-stack]] · [[kafka]] · [[outbox]]
+- Related notes: [[self-hosted-stack]] · [[observability]] · [[kafka]] · [[outbox]]
 
 ## Status
 

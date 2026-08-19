@@ -29,10 +29,31 @@ tags:
 
 Credentials source: Vault `secret/redis/dev` (dev; legacy `secret/api-template/dev` is migrated once) / AWS Secrets Manager `sca/<env>/redis_password` (prod).
 
+## Metrics
+
+Redis metrics are exposed via `redis-exporter` (port `:9121`). The exporter connects to `redis:6379` and exposes `redis_*` metrics.
+
+| Metric | Type | What it measures |
+|---|---|---|
+| `redis_up` | Gauge | Redis status (1 = running) |
+| `redis_connected_clients` | Gauge | Connected clients |
+| `redis_memory_used_bytes` | Gauge | Memory usage |
+| `redis_memory_max_bytes` | Gauge | Max memory configured |
+| `redis_keyspace_hits_total` | Counter | Cache hits |
+| `redis_keyspace_misses_total` | Counter | Cache misses |
+| `redis_evicted_keys_total` | Counter | Evicted keys (memory full) |
+| `redis_expired_keys_total` | Counter | Expired keys |
+| `redis_commands_processed_total` | Counter | Commands processed |
+| `redis_slowlog_length` | Gauge | Slow queries in slowlog |
+| `redis_mem_fragmentation_ratio` | Gauge | Memory fragmentation (>1.5 = problem) |
+| `redis_rdb_last_save_timestamp_seconds` | Gauge | Last RDB save |
+
+Dashboard: [[observability#Dashboard map|redis.json]] | Alerts: `redis_down`, `redis_evictions`, `redis_hit_ratio_low`
+
 ## Pointers
 
 - Component README: [redis](https://github.com/sca-templates/redis)
-- Related notes: [[self-hosted-stack]] · [[service-account]]
+- Related notes: [[self-hosted-stack]] · [[observability]] · [[service-account]]
 
 ## Status
 

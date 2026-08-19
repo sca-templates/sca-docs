@@ -29,10 +29,25 @@ tags:
 
 Credentials source: `CONSUL_GOSSIP_KEY` in Vault `secret/consul/dev`.
 
+## Metrics
+
+Consul exposes metrics natively at `http://127.0.0.1:8500/v1/agent/metrics?format=prometheus`. However, in the current configuration, only `up` is available — Consul does not export telemetry by default.
+
+**Known gap:** Enable `telemetry { prometheus_retention_time = "30s" }` in Consul config to get `consul_*` metrics (leader status, health check results, service count, KV operations). This is documented in [[observability#Known gaps]].
+
+| Metric | Type | What it measures | Status |
+|---|---|---|---|
+| `up` | Gauge | Consul agent status | Available |
+| `consul_raft_leader` | Gauge | Raft leader status | Requires telemetry config |
+| `consul_health_check_status` | Gauge | Health check results | Requires telemetry config |
+| `consul_catalog_services_total` | Gauge | Registered services | Requires telemetry config |
+
+Dashboard: [[observability#Dashboard map|consul.json]] (minimal — only `up` until telemetry is enabled)
+
 ## Pointers
 
 - Component README: [consul](https://github.com/sca-templates/consul)
-- Related notes: [[self-hosted-stack]] · [[microservice]]
+- Related notes: [[self-hosted-stack]] · [[observability]] · [[microservice]]
 
 ## Status
 

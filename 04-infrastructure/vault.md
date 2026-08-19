@@ -35,10 +35,31 @@ Services authenticate at startup (AppRole login → read `secret/<service>/<env>
 
 Credentials source: AppRole `role_id`/`secret_id` in `data/secrets/` (gitignored); unseal keys + root token in the same folder, GPG-encrypted when `GPG_RECIPIENT` is set.
 
+## Metrics
+
+Vault exposes metrics natively at `https://127.0.0.1:8201/v1/sys/metrics?format=prometheus`. No external exporter needed. The telemetry listener is configured in `vault/config/vault.hcl` with `telemetry { prometheus_retention_time = "30s" }`.
+
+| Metric | Type | What it measures |
+|---|---|---|
+| `vault_core_active` | Gauge | Active node (1) or standby (0) |
+| `vault_raft_state_leader` | Gauge | Raft leader state |
+| `vault_raft_peers` | Gauge | Number of Raft peers |
+| `vault_core_leader_changes_total` | Counter | Leader failover events |
+| `vault_core_handle_request_count` | Counter | Requests handled (label: `code`) |
+| `vault_secret_read_total` | Counter | Secret reads |
+| `vault_secret_write_total` | Counter | Secret writes |
+| `vault_token_create_total` | Counter | Token creations |
+| `vault_token_lookup_total` | Counter | Token lookups |
+| `vault_audit_log_request_total` | Counter | Audit log request volume |
+| `vault_runtime_heap_objects` | Gauge | Heap objects |
+| `vault_runtime_alloc_bytes` | Gauge | Allocated memory |
+
+Dashboard: [[observability#Dashboard map|vault.json]] | Alerts: `vault_leader_changed`, `vault_request_errors`
+
 ## Pointers
 
 - Component README: [vault](https://github.com/sca-templates/vault)
-- Related notes: [[self-hosted-stack]] · [[service-account]]
+- Related notes: [[self-hosted-stack]] · [[observability]] · [[service-account]]
 
 ## Status
 

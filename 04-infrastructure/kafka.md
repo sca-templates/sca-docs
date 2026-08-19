@@ -33,10 +33,27 @@ TLS + SASL are **mandatory** for every client. Secrets only enter containers via
 
 Credentials source: SCRAM users (`kafka-admin`, `debezium`, `kafka-ui`) with passwords in `.env` / Vault `secret/kafka/dev`.
 
+## Metrics
+
+Kafka Connect exposes JMX metrics via `kafka-connect-exporter` (port `:9309`). The JMX exporter (`bitnamilegacy/jmx-exporter`) converts JMX beans to Prometheus format using rules defined in `kafka-connect-jmx.yml`.
+
+**Important:** JMX must be enabled on Kafka Connect with `JMXPORT=8778`. If JMX is not enabled, only `up{job="kafka-connect"}` is available — the `debezium_*` metrics will be absent.
+
+| Metric | Type | What it measures |
+|---|---|---|
+| `debezium_connector_status` | Gauge | Connector health (1 = running) |
+| `debezium_task_status` | Gauge | Task health |
+| `debezium_connector_error_total` | Counter | Connector errors |
+| `kafka_server_brokertopicmetrics_messagesinpersec` | Gauge | Messages per second |
+| `kafka_server_replicamanager_underreplicatedpartitions` | Gauge | Under-replicated partitions |
+| `kafka_server_kafkacontroller_activecontrollercount` | Gauge | Active controller count |
+
+Dashboard: [[observability#Dashboard map|kafka.json]] | Alerts: `kafka_connect_down`, `kafka_connector_failed`
+
 ## Pointers
 
 - Component README: [kafka](https://github.com/sca-templates/kafka)
-- Related notes: [[self-hosted-stack]] · [[postgres]] · [[event]] · [[outbox]] · [[idempotency]]
+- Related notes: [[self-hosted-stack]] · [[observability]] · [[postgres]] · [[event]] · [[outbox]] · [[idempotency]]
 
 ## Status
 
