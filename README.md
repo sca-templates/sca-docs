@@ -69,4 +69,4 @@ Markdown lint, link check, editor config and the Obsidian/GitHub MCP setup are d
 
 ## License
 
-MIT — see [LICENSE](.github/LICENSE).
+MIT — see [LICENSE](LICENSE).
