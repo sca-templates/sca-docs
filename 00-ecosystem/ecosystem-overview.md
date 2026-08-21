@@ -21,21 +21,26 @@ flowchart TB
     SVC["sca-* microservices"]
     SCM["@sca/* shared packages"]
     CTR["Contracts (gRPC + events)"]
-    INF["Self-hosted infrastructure (infra-*)"]
+    INF["Local dev stack (infra-*)"]
+    PLT["K8s platform<br>Linkerd · Kong · Keycloak · Vault/ESO<br>CNPG+Barman · Strimzi+Debezium · Redis Sentinel<br>Prometheus · Grafana · Loki · Tempo · Unleash · Velero"]
+    GIT["GitOps<br>Actions → GHCR → infra-kubernetes → ArgoCD"]
     DOC["sca-docs vault"]
 
     SVC -- "gRPC / events" --> CTR
     SVC -- "consume" --> SCM
     SCM -- "protos + schemas" --> CTR
+    SVC -- "use locally" --> INF
     CTR -- "ride on" --> INF
-    SVC -- "use" --> INF
-    DOC -- "link" --> SVC & SCM & CTR & INF
+    SVC -- "run on" --> PLT
+    GIT -- "deploys" --> PLT
+    DOC -- "link" --> SVC & SCM & CTR & INF & PLT & GIT
 ```
 
 - **Microservices layer** — the domains, each a [[microservice]] cloned from `nest-template`.
 - **Shared packages layer** — `@sca/*` plumbing with zero business logic; the single place a shared fix lands.
 - **Contracts layer** — the agreements between services: [[grpc]] APIs and Kafka [[event]]s, defined once in `@sca/contracts`.
-- **Infrastructure layer** — [[self-hosted]] components (Vault, PostgreSQL, Redis, [[kafka]], Consul, Prometheus, Grafana), each in its own `infra-*` repo.
+- **Infrastructure layer** — two tiers: the [[self-hosted-stack|local dev stack]] (Vault, PostgreSQL, Redis, [[kafka]], Consul, Prometheus, Grafana — one `infra-*` repo each) and the portable Kubernetes platform ([[platform-overview]]) every service deploys to.
+- **Delivery layer** — GitOps: merges to `main` build images (GitHub Actions → GHCR), bump tags in `infra-kubernetes` via PR, and ArgoCD syncs each environment ([[adr-003-gitops-argocd-trunk-based]]).
 - **Documentation layer** — this vault: topology, conventions and pointers.
 
 ## Repositories
@@ -52,14 +57,18 @@ flowchart TB
 | `infra-consul` | Service discovery + health checks | active |
 | `infra-prometheus` | Metrics + exporters | active |
 | `infra-grafana` | Dashboards + alerting | active |
+| `infra-kubernetes` | Kubernetes manifests + charts — GitOps source of truth | planned |
 | `sca-docs` | This vault | active |
+
+> All `infra-*` repos are local-development tooling; cluster deployments come exclusively from `infra-kubernetes` via ArgoCD.
 
 ## Dependencies
 
 - Each `sca-*` **consumes** `@sca/*` and the `nest-template` structure; it exposes its own [[grpc]] API and publishes/consumes [[event]]s.
 - `@sca/contracts` is the **source of truth** for [[proto]] files and event schemas; contract notes in `02-contracts/` link to it.
 - Events travel over [[kafka]] with the [[outbox|outbox pattern]] guaranteeing delivery.
-- Services connect to infrastructure with [[service-account|service accounts]]; credentials live in Vault.
+- Services connect to infrastructure with [[service-account|service accounts]]; credentials live in Vault and reach workloads through External Secrets Operator on the platform.
+- Deployments flow GitOps-only: Actions → GHCR → `infra-kubernetes` → ArgoCD ([[gitops]], [[adr-003-gitops-argocd-trunk-based]]).
 
 ## Where the depth lives
 

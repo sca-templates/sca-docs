@@ -26,7 +26,7 @@ tags:
 01-services/         Service catalog (sca-* microservices)
 02-contracts/        gRPC contracts (grpc/) + Kafka events (events/)
 03-connections-map/  The ecosystem graph (mermaid + matrices)
-04-infrastructure/   Self-hosted topology + multi-cloud
+04-infrastructure/   Local dev stack + target Kubernetes platform (+ multi-cloud policy)
 05-packages/         @sca/* shared packages
 06-decisions/        Ecosystem-level [[adr|ADRs]]
 99-glossary/         Ubiquitous language (one line per term)

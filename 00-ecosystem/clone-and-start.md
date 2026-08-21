@@ -53,12 +53,21 @@ The `@sca/*` packages carry zero business logic: contracts ([[grpc]] + [[proto]]
 - Follow the handbook's flow framework: Business Flows (BF), Technical Flows (TF), Technical Patterns (TP) under `docs/handbook/04.1-flow-definitions/`.
 - Authenticate to infrastructure with [[service-account|service accounts]]; credentials come from Vault.
 - Publish events through the [[outbox|outbox pattern]] so consumers can rely on delivery.
+- Authenticate users via Keycloak OIDC/JWT; Kong validates tokens at the edge (platform rollout).
+- Gate incomplete functionality behind Unleash [[feature-flag|feature flags]] per environment.
 
 ## Step 5 — Close the docs checklist
 
 - Repo: standard README (§3 of the plan), `docs/` with `REFERENCE`/`DOMAIN`/`ABSENT` policies, fresh `kb/` note.
 - Vault: service note in `01-services/`, contract notes in `02-contracts/`, then regenerate the connection map.
 - All content in English; everything lands through a PR with review.
+
+## Step 6 — Ship it
+
+1. Integrate short-lived branches into `main` frequently ([[trunk-based-development]]).
+2. The merge triggers GitHub Actions: tests, image build, publish to GHCR.
+3. The pipeline opens the image-tag PR into `infra-kubernetes`; merging it lets [[argocd]] deploy to `dev`.
+4. Promote to `qa` and `prod` through promotion PRs — manual approval gates `prod` ([[adr-003-gitops-argocd-trunk-based]]).
 
 ## Related
 

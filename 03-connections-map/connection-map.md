@@ -6,6 +6,7 @@ repo: sca-docs
 tags:
   - type/moc
   - domain/contracts
+  - domain/infrastructure
 ---
 
 # Connection Map
@@ -53,6 +54,38 @@ graph LR
 | [[evt-notifications-requests-v1]] | any service | [[nest-notifications]] |
 | [[evt-logging-audit]] | every service | [[nest-logging]] |
 | [[evt-logging-anomaly-detected]] | [[nest-logging]] | [[py-ai]] · [[nest-notifications]] · [[nest-auth]] |
+
+## Platform substrate
+
+Derived from [[platform-overview]] and the component notes — how every edge above travels once services run on Kubernetes:
+
+```mermaid
+flowchart LR
+    USER((user)) --> EDGE[Kong edge<br>validates Keycloak JWT]
+    subgraph CLUSTER["Kubernetes cluster"]
+        SVC["sca-* services"]
+        MESH["Linkerd mesh<br>mTLS east-west"]
+        K["kafka - Strimzi<br>kt.* topics"]
+        PG["postgres - CloudNativePG<br>outbox tables"]
+        DBC["Debezium CDC"]
+    end
+    EDGE --> SVC
+    SVC --- MESH
+    SVC -- "publish / consume" --> K
+    PG -- "changes" --> DBC -- "projects" --> K
+```
+
+| Concern | Provided by |
+|---|---|
+| North-south entry & rate limiting | [[kong]] |
+| End-user identity (OIDC/JWT) | [[keycloak]], validated at the edge by [[kong]] |
+| East-west trust (mTLS) | [[linkerd]] ([[service-mesh]]) |
+| Events backbone | [[kafka]] on Strimzi |
+| Outbox CDC | Debezium reading [[postgres]] ([[outbox]], [[cdc]]) |
+| Secrets | [[vault]] projected via [[external-secrets-operator]] |
+| Metrics · logs · traces | [[prometheus]] · [[grafana]] · [[loki]] · [[tempo]] |
+| Deploy & promotion | [[argocd]] ← `infra-kubernetes` ([[gitops]]) |
+| Feature release | [[unleash]] |
 
 ## Edge cases
 

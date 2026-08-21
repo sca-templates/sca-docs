@@ -12,7 +12,7 @@ tags:
 
 # HOME
 
-> The `sca` ecosystem: microservices cloned from `nest-template`, shared `@sca/*` packages, gRPC + Kafka contracts, self-hosted infrastructure, and this vault that ties it all together.
+> The `sca` ecosystem: microservices cloned from `nest-template`, shared `@sca/*` packages, gRPC + Kafka contracts, a local dev stack converging on a portable Kubernetes [[platform-overview|platform]], and this vault that ties it all together.
 
 ## Layers
 
@@ -20,7 +20,7 @@ tags:
 - **Microservices** → [[01-services/INDEX|Service catalog]]
 - **Contracts** → [[02-contracts/INDEX|gRPC + Kafka contracts]]
 - **Connections** → [[03-connections-map/INDEX|Ecosystem graph]]
-- **Infrastructure** → [[04-infrastructure/INDEX|Self-hosted topology]]
+- **Infrastructure** → [[04-infrastructure/INDEX|Local stack & Kubernetes platform]]
 - **Packages** → [[05-packages/INDEX|@sca/* shared packages]]
 - **Decisions** → [[06-decisions/INDEX|ADRs]]
 - **Glossary** → [[99-glossary/INDEX|Ubiquitous language]]
@@ -33,19 +33,20 @@ tags:
 
 ## Repo map
 
-| Repo | What it is | Link |
-|---|---|---|
-| `sca-docs` | This vault | [README](../README.md) |
-| `infra-vault` | Secrets management | [README](https://github.com/sca-templates/infra-vault) |
-| `infra-postgres-app` | PostgreSQL + pgAdmin | [README](https://github.com/sca-templates/infra-postgres-app) |
-| `infra-redis` | Redis in-memory store | [README](https://github.com/sca-templates/infra-redis) |
-| `infra-kafka` | Kafka + Debezium + Kafka UI | [README](https://github.com/sca-templates/infra-kafka) |
-| `infra-consul` | Service discovery + health checks | [README](https://github.com/sca-templates/infra-consul) |
-| `infra-prometheus` | Metrics + exporters | [README](https://github.com/sca-templates/infra-prometheus) |
-| `infra-grafana` | Dashboards + alerting | [README](https://github.com/sca-templates/infra-grafana) |
-| `nest-template` | Microservice skeleton + handbook | [README](https://github.com/sca-templates/nest-template) · [handbook](https://github.com/sca-templates/nest-template/blob/main/docs/handbook/INDEX.md) |
-| `@sca/*` | Shared plumbing packages | [[05-packages/INDEX\|planned]] |
-| `sca-*` | Domain microservices | [[01-services/INDEX\|planned]] |
+| Repo                 | What it is                                    | Link                                                                                                                                                   |
+| -------------------- | --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `sca-docs`           | This vault                                    | [README](../README.md)                                                                                                                                 |
+| `infra-vault`        | Secrets management                            | [README](https://github.com/sca-templates/infra-vault)                                                                                                 |
+| `infra-postgres-app` | PostgreSQL + pgAdmin                          | [README](https://github.com/sca-templates/infra-postgres-app)                                                                                          |
+| `infra-redis`        | Redis in-memory store                         | [README](https://github.com/sca-templates/infra-redis)                                                                                                 |
+| `infra-kafka`        | Kafka + Debezium + Kafka UI                   | [README](https://github.com/sca-templates/infra-kafka)                                                                                                 |
+| `infra-consul`       | Service discovery + health checks             | [README](https://github.com/sca-templates/infra-consul)                                                                                                |
+| `infra-prometheus`   | Metrics + exporters                           | [README](https://github.com/sca-templates/infra-prometheus)                                                                                            |
+| `infra-grafana`      | Dashboards + alerting                         | [README](https://github.com/sca-templates/infra-grafana)                                                                                               |
+| `infra-kubernetes`   | Kubernetes manifests + charts (GitOps source) | [planned](https://github.com/sca-templates/infra-kubernetes)                                                                                           |
+| `nest-template`      | Microservice skeleton + handbook              | [README](https://github.com/sca-templates/nest-template) · [handbook](https://github.com/sca-templates/nest-template/blob/main/docs/handbook/INDEX.md) |
+| `@sca/*`             | Shared plumbing packages                      | [[05-packages/INDEX\|planned]]                                                                                                                         |
+| `sca-*`              | Domain microservices                          | [[01-services/INDEX\|planned]]                                                                                                                         |
 
 ## Related
 
