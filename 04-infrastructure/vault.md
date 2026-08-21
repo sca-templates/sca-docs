@@ -62,10 +62,18 @@ Dashboard: [[observability#Dashboard map|vault.json]] | Alerts: `vault_leader_ch
 - [ ] Alert rules (`vault_leader_changed`, `vault_request_errors`)
 - [ ] QA targets in `prometheus.yml`
 
+## Target platform
+
+On Kubernetes, Vault stays the single source of truth ([[adr-001-kubernetes-platform]]):
+
+- **External Secrets Operator** projects KV and dynamic secrets into native K8s Secrets consumed by workloads ([[external-secrets-operator]]).
+- **Dynamic database credentials** feed [[postgres]]; rotation propagates on each sync.
+- Environments reference Vault paths — never values — from `envs/<env>/secrets.yaml` in `infra-kubernetes`.
+
 ## Pointers
 
 - Component README: [vault](https://github.com/sca-templates/vault)
-- Related notes: [[self-hosted-stack]] · [[observability]] · [[service-account]]
+- Related notes: [[self-hosted-stack]] · [[observability]] · [[service-account]] · [[external-secrets-operator]]
 
 ## Status
 

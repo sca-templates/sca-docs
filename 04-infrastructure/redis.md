@@ -56,6 +56,10 @@ Dashboard: [[observability#Dashboard map|redis.json]] | Alerts: `redis_down`, `r
 - [ ] Alert rules (`redis_down`, `redis_evictions`, `redis_hit_ratio_low`)
 - [ ] QA targets in `prometheus.yml`
 
+## Target platform (operator + Sentinel)
+
+In-cluster target ([[adr-001-kubernetes-platform]]): Redis managed by its operator behind Sentinel — automatic master failover replaces the single-instance posture. Credentials keep coming from Vault, now projected into K8s Secrets by [[external-secrets-operator]].
+
 ## Pointers
 
 - Component README: [redis](https://github.com/sca-templates/redis)

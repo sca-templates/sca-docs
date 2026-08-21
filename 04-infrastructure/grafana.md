@@ -38,7 +38,7 @@ A Compose stack in the `infra-grafana` repo, started with `make all`:
 
 ## Provisioning (as code)
 
-- **Data source**: `provisioning/datasources/datasources.yml` — Prometheus (`uid: prometheus`, `isDefault`, `editable: false`). Loki/Tempo blocks stay commented until those services exist.
+- **Data source**: `provisioning/datasources/datasources.yml` — Prometheus (`uid: prometheus`, `isDefault`, `editable: false`). Loki/Tempo datasource blocks stay commented until those services land ([[loki]] · [[tempo]], platform rollout).
 - **Dashboards**: provider `sca-local` refreshes every 30s (`allowUiUpdates: false`); per-service dashboards use live verified series from exporters (`vault_*`, `pg_stat_*`, `redis_*`, `prometheus_tsdb_*`, `debezium_*`), dashboards filter by `environment` label to compare QA vs production. Microservice dashboards follow the KB metric contracts and render "No data" without panel errors until the services run. See [[observability#Dashboard map]] for the full panel breakdown.
 - **Alerting**: `provisioning/alerting/` — contact point, notification policy and rules; `infra` rules are active (`up == 0` for 2m, severity `warning`), microservice rules are `isPaused` with YAML comments describing how to enable them.
 

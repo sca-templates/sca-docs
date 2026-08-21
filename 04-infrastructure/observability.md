@@ -44,6 +44,16 @@ The observability layer turns raw metrics from every self-hosted component into 
 
 Each scrape target carries an `environment` label (`qa` or `prod`) so dashboards can filter or compare both environments in the same panel.
 
+## Platform pillars (target)
+
+The Kubernetes platform completes the four-pillar model ([[platform-overview]], [[adr-001-kubernetes-platform]]):
+
+- **Metrics** — the map below stays; in-cluster scraping adds Linkerd network golden signals per service pair ([[linkerd]]).
+- **Logs** — [[loki]] centralizes container/application logs beside metrics in Grafana.
+- **Traces** — [[tempo]] stores OpenTelemetry traces correlated across services.
+
+Log and trace coverage lands with the platform rollout; everything below describes today's metrics layer.
+
 ## Architecture
 
 ### How metrics flow

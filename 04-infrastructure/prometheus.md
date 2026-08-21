@@ -84,6 +84,10 @@ Dashboard: [[observability#Dashboard map|prometheus.json]]
 - [ ] Dashboard `prometheus.json`
 - [ ] QA targets in `prometheus.yml`
 
+## Target platform
+
+In-cluster ([[adr-001-kubernetes-platform]]): Prometheus scrapes workloads natively inside the cluster and gains the Linkerd network golden signals per pair of services ([[linkerd]]). Grafana completes the four-pillar view with [[loki]] and [[tempo]] datasources ([[observability]]).
+
 ## Pointers
 
 - Component README: [prometheus](https://github.com/sca-templates/prometheus)

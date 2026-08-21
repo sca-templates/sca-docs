@@ -1,7 +1,7 @@
 ---
 title: consul
 type: infra
-status: active
+status: deprecated
 repo: aws
 tags:
   - type/infra
@@ -54,7 +54,8 @@ Dashboard: [[observability#Dashboard map|consul.json]] (minimal — only `up` un
 
 - Component README: [consul](https://github.com/sca-templates/consul)
 - Related notes: [[self-hosted-stack]] · [[observability]] · [[microservice]]
+- Successor on the platform: [[linkerd]] · decision: [[adr-002-linkerd-service-mesh]]
 
 ## Status
 
-Active — runs as part of the [[self-hosted]] stack.
+Deprecated on the platform path — superseded by Kubernetes DNS plus Linkerd mTLS identity ([[adr-002-linkerd-service-mesh]]). It still runs inside the local Compose stack ([[self-hosted-stack]]) until services migrate to Kubernetes.

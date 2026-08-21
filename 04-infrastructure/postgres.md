@@ -57,6 +57,10 @@ Dashboard: [[observability#Dashboard map|postgres.json]] | Alerts: `postgres_dow
 - [ ] Alert rules (`postgres_down`, `postgres_deadlocks`, `postgres_rollbacks_high`)
 - [ ] QA targets in `prometheus.yml`
 
+## Target platform (CloudNativePG)
+
+In-cluster target ([[adr-001-kubernetes-platform]]): a CloudNativePG cluster — one primary plus two read replicas — with operator-managed failover and upgrades. `wal_level=logical` remains the CDC foundation Debezium consumes ([[kafka]]). Manual snapshots give way to Barman: physical base backups plus WAL archiving enabling point-in-time recovery onto S3-compatible storage.
+
 ## Pointers
 
 - Component README: [postgres-app](https://github.com/sca-templates/postgres-app)

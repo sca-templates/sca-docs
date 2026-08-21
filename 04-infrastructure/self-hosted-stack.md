@@ -11,7 +11,7 @@ tags:
 
 # Self-hosted stack
 
-> Each `infra-*` repo orchestrates its own [[self-hosted]] component with `make all`.
+> Each `infra-*` repo orchestrates its own [[self-hosted]] component with `make all`. **Local development only** — deployment targets run on the Kubernetes platform ([[platform-overview]]).
 
 ## Role in the stack
 
@@ -64,7 +64,7 @@ Shared plumbing: all components join the Docker network `kafka-network` and reso
 
 - Component repos: [infra-vault](https://github.com/sca-templates/infra-vault) · [infra-postgres-app](https://github.com/sca-templates/infra-postgres-app) · [infra-redis](https://github.com/sca-templates/infra-redis) · [infra-kafka](https://github.com/sca-templates/infra-kafka) · [infra-consul](https://github.com/sca-templates/infra-consul) · [infra-prometheus](https://github.com/sca-templates/infra-prometheus) · [infra-grafana](https://github.com/sca-templates/infra-grafana)
 - Components: [[vault]] · [[postgres]] · [[redis]] · [[kafka]] · [[consul]] · [[prometheus]] · [[grafana]] · [[observability]] · [[dev-tools]]
-- Gateway (Kong) is deferred as a vault note: [kong](https://github.com/sca-templates/kong)
+- Gateway: [[kong]] — Kong Ingress Controller lives on the Kubernetes platform
 - Failover strategy: [[multi-cloud]]
 
 ## Status

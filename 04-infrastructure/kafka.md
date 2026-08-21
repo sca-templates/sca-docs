@@ -57,6 +57,10 @@ Dashboard: [[observability#Dashboard map|kafka.json]] | Alerts: `kafka_connect_d
 - [ ] Alert rules (`kafka_connect_down`, `kafka_connector_failed`)
 - [ ] QA targets in `prometheus.yml`
 
+## Target platform (Strimzi)
+
+In-cluster target ([[adr-001-kubernetes-platform]]): Kafka deployed highly available via the Strimzi operator — replicated partitions, persistent storage, declarative users and topics. Debezium runs as a Kafka Connect connector inside Strimzi, capturing the same outbox tables into topics; the [[outbox|outbox pattern]] contract does not change.
+
 ## Pointers
 
 - Component README: [kafka](https://github.com/sca-templates/kafka)

@@ -15,7 +15,7 @@ tags:
 
 ## Role in the stack
 
-The [[self-hosted]] stack is the default; production uses AWS-native managed services. The matrix below maps each component's port to its managed equivalent in each cloud. The `@sca/connections` package is the single place that swaps the adapter.
+The portable Kubernetes platform ([[platform-overview]]) is the primary substrate; cloud-native managed services are optional adapters — principal for a project or disaster-recovery failover — judged on cost, availability requirements, lock-in tolerance and operational complexity ([[adr-001-kubernetes-platform]]). The matrix below maps each component to its managed equivalent per cloud; the `@sca/connections` package remains the single place that swaps the adapter.
 
 ## Port → adapter matrix
 
@@ -27,11 +27,11 @@ The [[self-hosted]] stack is the default; production uses AWS-native managed ser
 | Kafka (`9092`) | [[kafka]] | MSK (or Kinesis for streaming) | Event Hubs | Pub/Sub |
 | MinIO (`9000`) | [[dev-tools]] | S3 | Blob Storage | Cloud Storage |
 | MailHog (`1025`) | [[dev-tools]] | SES | Communication Services | — |
-| Consul (`8500/8600`) | [[consul]] | self-hosted on EC2 | — | — |
+| Consul (`8500/8600`) | [[consul]] | retired — K8s DNS + Linkerd ([[adr-002-linkerd-service-mesh]]) | — | — |
 
 ### Notes
 
-- **Consul** has no direct managed equivalent; production keeps a self-hosted agent on EC2.
+- **Consul** retires on the platform path: Kubernetes DNS plus Linkerd cover discovery and workload identity ([[adr-002-linkerd-service-mesh]]).
 - **Secrets** follow the [[service-account|service-account]] model in every cloud (IAM roles / managed identities / service accounts).
 
 ## Pointers
@@ -40,4 +40,4 @@ The [[self-hosted]] stack is the default; production uses AWS-native managed ser
 
 ## Status
 
-Active — documents the failover strategy; the local stack remains the default.
+Active — documents the adapter/failover policy; the Kubernetes platform ([[platform-overview]]) is primary.
