@@ -13,7 +13,7 @@ tags:
 
 ## Ecosystem
 
-[[00-ecosystem/HOME|HOME]] · [[super-template]] · [[ecosystem-overview]] · [[clone-and-start]] · [[conventions]]
+[[00-ecosystem/HOME|HOME]] · [[super-template]] · [[ecosystem-overview]] · [[platform-overview]] · [[clone-and-start]] · [[conventions]]
 
 ## Areas
 

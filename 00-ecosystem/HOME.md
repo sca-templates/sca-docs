@@ -16,7 +16,7 @@ tags:
 
 ## Layers
 
-- **Ecosystem** → [[super-template]] · [[ecosystem-overview]] · [[clone-and-start]] · [[conventions]]
+- **Ecosystem** → [[super-template]] · [[ecosystem-overview]] · [[platform-overview]] · [[clone-and-start]] · [[conventions]]
 - **Microservices** → [[01-services/INDEX|Service catalog]]
 - **Contracts** → [[02-contracts/INDEX|gRPC + Kafka contracts]]
 - **Connections** → [[03-connections-map/INDEX|Ecosystem graph]]
