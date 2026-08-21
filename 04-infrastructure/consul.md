@@ -52,7 +52,7 @@ Dashboard: [[observability#Dashboard map|consul.json]] (minimal — only `up` un
 
 ## Pointers
 
-- Component README: [consul](https://github.com/sca-templates/consul)
+- Component README: [infra-consul](https://github.com/sca-templates/infra-consul)
 - Related notes: [[self-hosted-stack]] · [[observability]] · [[microservice]]
 - Successor on the platform: [[linkerd]] · decision: [[adr-002-linkerd-service-mesh]]
 

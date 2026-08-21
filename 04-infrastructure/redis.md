@@ -62,7 +62,7 @@ In-cluster target ([[adr-001-kubernetes-platform]]): Redis managed by its operat
 
 ## Pointers
 
-- Component README: [redis](https://github.com/sca-templates/redis)
+- Component README: [infra-redis](https://github.com/sca-templates/infra-redis)
 - Related notes: [[self-hosted-stack]] · [[observability]] · [[service-account]]
 
 ## Status

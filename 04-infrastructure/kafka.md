@@ -63,7 +63,7 @@ In-cluster target ([[adr-001-kubernetes-platform]]): Kafka deployed highly avail
 
 ## Pointers
 
-- Component README: [kafka](https://github.com/sca-templates/kafka)
+- Component repo: `infra-kafka` — repository pending publication on GitHub
 - Related notes: [[self-hosted-stack]] · [[observability]] · [[postgres]] · [[event]] · [[outbox]] · [[idempotency]]
 
 ## Status

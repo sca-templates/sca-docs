@@ -21,8 +21,8 @@ tags:
 
 ## Access (target)
 
-| Endpoint | Notes |
-|---|---|
+| Endpoint                              | Notes                                        |
+| ------------------------------------- | -------------------------------------------- |
 | `https://<host>/auth` per environment | Behind [[kong]]; admin console internal only |
 
 Realm/client configuration source of truth: `infra-kubernetes` (declarative realm exports).

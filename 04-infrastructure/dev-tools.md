@@ -35,7 +35,7 @@ Credentials source: `dev/.env` (MinIO `MINIO_ROOT_USER` / `MINIO_ROOT_PASSWORD`)
 
 ## Pointers
 
-- Component README: [dev](https://github.com/sca-templates/dev)
+- Component README: [local-dev-tool](https://github.com/sca-templates/local-dev-tool)
 - Related notes: [[self-hosted-stack]] · [[multi-cloud]]
 
 ## Status

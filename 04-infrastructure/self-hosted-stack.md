@@ -62,7 +62,7 @@ Shared plumbing: all components join the Docker network `kafka-network` and reso
 
 ## Pointers
 
-- Component repos: [infra-vault](https://github.com/sca-templates/infra-vault) · [infra-postgres-app](https://github.com/sca-templates/infra-postgres-app) · [infra-redis](https://github.com/sca-templates/infra-redis) · [infra-kafka](https://github.com/sca-templates/infra-kafka) · [infra-consul](https://github.com/sca-templates/infra-consul) · [infra-prometheus](https://github.com/sca-templates/infra-prometheus) · [infra-grafana](https://github.com/sca-templates/infra-grafana)
+- Component repos: [infra-vault](https://github.com/sca-templates/infra-vault) · [infra-postgres-app](https://github.com/sca-templates/infra-postgres-app) · [infra-redis](https://github.com/sca-templates/infra-redis) · `infra-kafka` (pending publication) · [infra-consul](https://github.com/sca-templates/infra-consul) · [infra-prometheus](https://github.com/sca-templates/infra-prometheus) · [infra-grafana](https://github.com/sca-templates/infra-grafana)
 - Components: [[vault]] · [[postgres]] · [[redis]] · [[kafka]] · [[consul]] · [[prometheus]] · [[grafana]] · [[observability]] · [[dev-tools]]
 - Gateway: [[kong]] — Kong Ingress Controller lives on the Kubernetes platform
 - Failover strategy: [[multi-cloud]]

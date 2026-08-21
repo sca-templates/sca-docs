@@ -193,7 +193,7 @@ All rules are defined in `grafana/provisioning/alerting/rules.yml` and evaluated
 - Grafana dashboards: [dashboards/](../grafana/dashboards/)
 - Grafana alerting: [provisioning/alerting/](../grafana/provisioning/alerting/)
 - Vault notes: [[vault]] · [[postgres]] · [[redis]] · [[kafka]] · [[consul]] · [[prometheus]] · [[grafana]]
-- Component READMEs: [prometheus](https://github.com/sca-templates/prometheus) · [grafana](https://github.com/sca-templates/grafana)
+- Component READMEs: [infra-prometheus](https://github.com/sca-templates/infra-prometheus) · [infra-grafana](https://github.com/sca-templates/infra-grafana)
 
 ## Status
 

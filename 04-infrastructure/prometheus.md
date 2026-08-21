@@ -90,8 +90,8 @@ In-cluster ([[adr-001-kubernetes-platform]]): Prometheus scrapes workloads nativ
 
 ## Pointers
 
-- Component README: [prometheus](https://github.com/sca-templates/prometheus)
-- Architecture: [prometheus/docs/architecture.md](https://github.com/sca-templates/prometheus/blob/main/docs/architecture.md)
+- Component README: [infra-prometheus](https://github.com/sca-templates/infra-prometheus)
+- Architecture: [infra-prometheus/docs/architecture.md](https://github.com/sca-templates/infra-prometheus/blob/main/docs/architecture.md)
 - Related notes: [[self-hosted-stack]] · [[observability]] · [[vault]] · [[consul]] · [[postgres]] · [[redis]] · [[kafka]]
 
 ## Status

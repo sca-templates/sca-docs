@@ -38,7 +38,7 @@ git clone <nest-template url> sca-<name>
 cd sca-<name> && pnpm install
 ```
 
-`nest-template` is the [[modular-monolith]] skeleton (see its [handbook](https://github.com/sca-templates/nest-template/blob/main/docs/handbook/INDEX.md)).
+`nest-template` is the [[modular-monolith]] skeleton; its handbook lives under `docs/handbook/` in the repository.
 
 ## Step 3 — Add the shared plumbing
 

@@ -63,7 +63,7 @@ In-cluster target ([[adr-001-kubernetes-platform]]): a CloudNativePG cluster —
 
 ## Pointers
 
-- Component README: [postgres-app](https://github.com/sca-templates/postgres-app)
+- Component README: [infra-postgres-app](https://github.com/sca-templates/infra-postgres-app)
 - Related notes: [[self-hosted-stack]] · [[observability]] · [[kafka]] · [[outbox]]
 
 ## Status

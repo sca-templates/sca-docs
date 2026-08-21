@@ -72,7 +72,7 @@ On Kubernetes, Vault stays the single source of truth ([[adr-001-kubernetes-plat
 
 ## Pointers
 
-- Component README: [vault](https://github.com/sca-templates/vault)
+- Component README: [infra-vault](https://github.com/sca-templates/infra-vault)
 - Related notes: [[self-hosted-stack]] · [[observability]] · [[service-account]] · [[external-secrets-operator]]
 
 ## Status
