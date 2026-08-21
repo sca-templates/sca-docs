@@ -37,20 +37,20 @@ The `sca` ecosystem as a whole: a repeatable way to spin up domain microservices
 
 ## Repository map
 
-| Repo                                                              | What it is                                                                                                                                                                               | Status  |
-| ----------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| `sca-docs`                                                        | This vault: topology + conventions — [README](README.md), [super template](00-ecosystem/super-template.md), [HOME](00-ecosystem/HOME.md)                                                 | active  |
-| `infra-vault`                                                     | Secrets management — [README](https://github.com/sca-templates/infra-vault)                                                                                                              | active  |
-| `infra-postgres-app`                                              | PostgreSQL + pgAdmin — [README](https://github.com/sca-templates/infra-postgres-app)                                                                                                     | active  |
-| `infra-redis`                                                     | Redis in-memory store — [README](https://github.com/sca-templates/infra-redis)                                                                                                           | active  |
-| `infra-kafka`                                                     | Kafka + Debezium + Kafka UI — [note](04-infrastructure/kafka.md)                                                                                                                         | active  |
-| `infra-consul`                                                    | Service discovery + health checks — [README](https://github.com/sca-templates/infra-consul)                                                                                              | active  |
-| `infra-prometheus`                                                | Metrics + exporters — [README](https://github.com/sca-templates/infra-prometheus)                                                                                                        | active  |
-| `infra-grafana`                                                   | Dashboards + alerting — [README](https://github.com/sca-templates/infra-grafana)                                                                                                         | active  |
-| `infra-kubernetes`                                                | Kubernetes manifests + Helm charts: GitOps source of every environment                                                                                                                   | planned |
-| `nest-template`                                                   | Microservice skeleton + handbook (repository pending publication)                                                                                                                        | active  |
-| `@sca/core`, `@sca/contracts`, `@sca/connections`, `@sca/clients` | Shared plumbing packages                                                                                                                                                                 | planned |
-| `nest-auth`, `nest-notifications`, `nest-logging`, `py-ai`        | Domain microservices                                                                                                                                                                     | planned |
+| Repo                                                              | What it is                                                                                                                               | Status  |
+| ----------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| `sca-docs`                                                        | This vault: topology + conventions — [README](README.md), [super template](00-ecosystem/super-template.md), [HOME](00-ecosystem/HOME.md) | active  |
+| `infra-vault`                                                     | Secrets management — [README](https://github.com/sca-templates/infra-vault)                                                              | active  |
+| `infra-postgres-app`                                              | PostgreSQL + pgAdmin — [README](https://github.com/sca-templates/infra-postgres-app)                                                     | active  |
+| `infra-redis`                                                     | Redis in-memory store — [README](https://github.com/sca-templates/infra-redis)                                                           | active  |
+| `infra-kafka`                                                     | Kafka + Debezium + Kafka UI — [note](04-infrastructure/kafka.md)                                                                         | active  |
+| `infra-consul`                                                    | Service discovery + health checks — [README](https://github.com/sca-templates/infra-consul)                                              | active  |
+| `infra-prometheus`                                                | Metrics + exporters — [README](https://github.com/sca-templates/infra-prometheus)                                                        | active  |
+| `infra-grafana`                                                   | Dashboards + alerting — [README](https://github.com/sca-templates/infra-grafana)                                                         | active  |
+| `infra-kubernetes`                                                | Kubernetes manifests + Helm charts: GitOps source of every environment                                                                   | planned |
+| `nest-template`                                                   | Microservice skeleton + handbook (repository pending publication)                                                                        | active  |
+| `@sca/core`, `@sca/contracts`, `@sca/connections`, `@sca/clients` | Shared plumbing packages                                                                                                                 | planned |
+| `nest-auth`, `nest-notifications`, `nest-logging`, `py-ai`        | Domain microservices                                                                                                                     | planned |
 
 ## Boundaries
 
@@ -69,4 +69,4 @@ Markdown lint, link check, editor config and the Obsidian/GitHub MCP setup are d
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT — see [LICENSE](.github/LICENSE).
