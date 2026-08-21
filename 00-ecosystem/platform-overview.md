@@ -28,47 +28,47 @@ Every service ships as a container and runs on **Kubernetes** across three envir
 
 ## Stack
 
-| Layer | Tool | Role |
-|---|---|---|
-| Orchestration | Kubernetes | Single runtime for services and platform components |
-| Service discovery | Kubernetes DNS | Native in-cluster resolution |
-| Service mesh | Linkerd | mTLS identity, retries/timeouts, network telemetry |
-| API gateway | Kong Ingress Controller | Routing, rate limiting, edge authentication |
-| Secrets | [[vault]] (HA Raft) + External Secrets Operator | Source of truth; projected into native K8s Secrets |
-| Packaging | Helm | Parameterized charts per service and environment |
-| GitOps / deploy | ArgoCD | Applies the declared state of `infra-kubernetes` to each cluster |
-| CI/CD | GitHub Actions + GHCR | Tests, builds and publishes images on merges to `main` |
-| Branching | Trunk-Based Development | Short-lived branches integrated frequently |
-| Messaging / events | [[kafka]] (Strimzi) | HA streaming backbone with replicated partitions |
-| CDC / outbox | Debezium (Kafka Connect) | Captures PostgreSQL changes into topics — the [[outbox]] pattern |
-| Relational data | [[postgres]] (CloudNativePG) | 1 primary + 2 read replicas, logical replication, automatic failover |
-| PostgreSQL backup | Barman (with CloudNativePG) | Physical backups + WAL archiving → point-in-time recovery |
-| Cache / pub-sub | [[redis]] (operator + Sentinel) | High-performance cache with master failover |
-| Metrics | [[prometheus]] + [[grafana]] | Infrastructure, application and mesh-network metrics |
-| Logs | Loki (+ Promtail / OpenTelemetry Collector) | Centralized logs, visualized next to metrics |
-| Tracing | Tempo (+ OpenTelemetry SDKs) | Distributed traces correlated across services |
-| Feature flags | Unleash | Per-environment toggles without redeploying code |
-| Authentication | Keycloak | Self-hosted OIDC/JWT identity provider |
-| Cluster backup | Velero | Kubernetes resources + persistent volumes to object storage |
+| Layer              | Tool                                            | Role                                                                 |
+| ------------------ | ----------------------------------------------- | -------------------------------------------------------------------- |
+| Orchestration      | Kubernetes                                      | Single runtime for services and platform components                  |
+| Service discovery  | Kubernetes DNS                                  | Native in-cluster resolution                                         |
+| Service mesh       | Linkerd                                         | mTLS identity, retries/timeouts, network telemetry                   |
+| API gateway        | Kong Ingress Controller                         | Routing, rate limiting, edge authentication                          |
+| Secrets            | [[vault]] (HA Raft) + External Secrets Operator | Source of truth; projected into native K8s Secrets                   |
+| Packaging          | Helm                                            | Parameterized charts per service and environment                     |
+| GitOps / deploy    | ArgoCD                                          | Applies the declared state of `infra-kubernetes` to each cluster     |
+| CI/CD              | GitHub Actions + GHCR                           | Tests, builds and publishes images on merges to `main`               |
+| Branching          | Trunk-Based Development                         | Short-lived branches integrated frequently                           |
+| Messaging / events | [[kafka]] (Strimzi)                             | HA streaming backbone with replicated partitions                     |
+| CDC / outbox       | Debezium (Kafka Connect)                        | Captures PostgreSQL changes into topics — the [[outbox]] pattern     |
+| Relational data    | [[postgres]] (CloudNativePG)                    | 1 primary + 2 read replicas, logical replication, automatic failover |
+| PostgreSQL backup  | Barman (with CloudNativePG)                     | Physical backups + WAL archiving → point-in-time recovery            |
+| Cache / pub-sub    | [[redis]] (operator + Sentinel)                 | High-performance cache with master failover                          |
+| Metrics            | [[prometheus]] + [[grafana]]                    | Infrastructure, application and mesh-network metrics                 |
+| Logs               | Loki (+ Promtail / OpenTelemetry Collector)     | Centralized logs, visualized next to metrics                         |
+| Tracing            | Tempo (+ OpenTelemetry SDKs)                    | Distributed traces correlated across services                        |
+| Feature flags      | Unleash                                         | Per-environment toggles without redeploying code                     |
+| Authentication     | Keycloak                                        | Self-hosted OIDC/JWT identity provider                               |
+| Cluster backup     | Velero                                          | Kubernetes resources + persistent volumes to object storage          |
 
 ## Delivery flow
 
 ```mermaid
 flowchart LR
     BR["short-lived branch"] -- "PR" --> MAIN["main"]
-    MAIN -- "merge" --> ACT["GitHub Actions:<br>test · build"]
+    MAIN -- "merge" --> ACT["GitHub Actions:<br>test · build · publish"]
     ACT --> GHCR[("GHCR image")]
-    ACT -- "image-tag PR" --> CFG["infra-kubernetes<br>(charts + envs/env)"]
-    CFG -- "merge" --> ARGO["ArgoCD"]
-    ARGO -- "sync" --> DEV["dev"]
-    DEV -- "promotion PR" --> QA["qa"]
-    QA -- "promotion PR" --> PROD["prod"]
+    ACT -- "image-tag PR" --> DEVTAG["infra-kubernetes<br>envs/dev"]
+    ACT -- "auto commit" --> QATAG["envs/qa"]
+    ACT -- "promotion PR<br>manual approval" --> PRODTAG["envs/prod"]
+    DEVTAG & QATAG & PRODTAG --> ARGO["ArgoCD"]
+    ARGO --> ENV["dev · qa · prod"]
 ```
 
-1. Developers work on short-lived branches and integrate them into `main` frequently.
+1. Developers work on short-lived branches; the only branch that receives PRs is `main`.
 2. A merge to `main` triggers GitHub Actions: tests run, the Docker image builds and publishes to GHCR.
-3. The pipeline opens a pull request bumping the image tag in the Helm charts of `infra-kubernetes`.
-4. Merging that PR lets ArgoCD sync the new version into the target environment — `dev` first, then promoted to `qa` and `prod`.
+3. The pipeline opens an image-tag PR into `infra-kubernetes` (`envs/dev`) and commits the same bump straight to `envs/qa`.
+4. Merging the PR deploys to `dev` and the `qa` commit deploys to `qa`, both synced by ArgoCD. Only `prod` moves through its own promotion PR with manual approval.
 5. Unleash feature flags enable or disable functionality per environment without additional deploys.
 
 ## Repository model
@@ -91,13 +91,13 @@ Each ArgoCD Application watches one environment path (`envs/dev`, `envs/qa`, `en
 
 ## Environments
 
-| Environment | Purpose | Profile |
-|---|---|---|
-| `dev` | Continuous integration, unit tests, active development | Reduced configuration, minimum scaling, experimental flags on |
-| `qa` | Integration, performance and acceptance testing | Production-shaped configuration, fictitious/anonymized data |
-| `prod` | Stable operation | High availability, autoscaling, strict security and audit policies |
+| Environment | Purpose                                                | Profile                                                            |
+| ----------- | ------------------------------------------------------ | ------------------------------------------------------------------ |
+| `dev`       | Continuous integration, unit tests, active development | Reduced configuration, minimum scaling, experimental flags on      |
+| `qa`        | Integration, performance and acceptance testing        | Production-shaped configuration, fictitious/anonymized data        |
+| `prod`      | Stable operation                                       | High availability, autoscaling, strict security and audit policies |
 
-Promotion happens through pull requests in `infra-kubernetes`, with manual approvals gating `prod`. Feature flags stage functionality gradually per environment.
+`dev` and `qa` follow every merge to `main`: the pipeline opens the image-tag PR for `dev` and commits the same bump to `qa` directly. Only `prod` promotes through its own pull request in `infra-kubernetes`, with manual approval gating it. Feature flags stage functionality gradually per environment.
 
 ## Security model
 

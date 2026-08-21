@@ -36,7 +36,7 @@ tags:
 3. Start the local stack: `make all` in each `infra-*` repo.
 4. Write the domain following the handbook's flow framework (BF / TF / TP).
 5. Close the docs checklist: README, `docs/`, service note in the vault, contract notes.
-6. Ship it: merge to `main` → GitHub Actions builds and publishes the image → image-tag PR into `infra-kubernetes` → ArgoCD syncs the environment; promote via PRs, incomplete work behind Unleash flags.
+6. Ship it: merge to `main` → GitHub Actions builds and publishes the image → image-tag PR (`dev`) + direct `qa` bump in `infra-kubernetes` → ArgoCD syncs both; only `prod` goes through a promotion PR, incomplete work behind Unleash flags.
 
 ## Repository map
 

@@ -17,7 +17,7 @@ tags:
 
 - One Application per environment path (`envs/dev`, `envs/qa`, `envs/prod`); watches Helm charts plus per-environment values.
 - Applies the declared state continuously; any manual cluster change is reconciled back to Git.
-- Promotion dev→qa→prod happens as pull requests against `infra-kubernetes`, with manual approval gating `prod` ([[adr-003-gitops-argocd-trunk-based]]).
+- After each merge, the pipeline opens the `dev` image-tag PR and commits the `qa` bump directly; only `prod` promotes through its own PR with manual approval ([[adr-003-gitops-argocd-trunk-based]]).
 - Hand-off point with CI: GitHub Actions builds and publishes images, then opens the image-tag PR; ArgoCD owns everything after merge.
 
 ## Deployment

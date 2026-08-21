@@ -31,8 +31,8 @@ The `sca` ecosystem as a whole: a repeatable way to spin up domain microservices
 
 1. Integrate short-lived branches into `main` frequently (trunk-based development).
 2. Merges trigger GitHub Actions: tests run, the image builds and publishes to GHCR.
-3. The pipeline opens an image-tag PR against `infra-kubernetes`.
-4. Merging lets ArgoCD sync the change into `dev`; promote to `qa` and `prod` via PRs with manual approval.
+3. The pipeline opens an image-tag PR into `infra-kubernetes` (`envs/dev`) and commits the same bump to `envs/qa` directly.
+4. Merging deploys to `dev` and `qa` through ArgoCD; only `prod` promotes via its own PR with manual approval.
 5. Ship incomplete work behind Unleash feature flags.
 
 ## Repository map

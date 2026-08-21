@@ -66,8 +66,8 @@ The `@sca/*` packages carry zero business logic: contracts ([[grpc]] + [[proto]]
 
 1. Integrate short-lived branches into `main` frequently ([[trunk-based-development]]).
 2. The merge triggers GitHub Actions: tests, image build, publish to GHCR.
-3. The pipeline opens the image-tag PR into `infra-kubernetes`; merging it lets [[argocd]] deploy to `dev`.
-4. Promote to `qa` and `prod` through promotion PRs — manual approval gates `prod` ([[adr-003-gitops-argocd-trunk-based]]).
+3. The pipeline opens the image-tag PR into `infra-kubernetes` (`dev`) and commits the `qa` bump directly; [[argocd]] syncs both environments.
+4. Only `prod` moves through a promotion PR — manual approval gates it ([[adr-003-gitops-argocd-trunk-based]]).
 
 ## Related
 
