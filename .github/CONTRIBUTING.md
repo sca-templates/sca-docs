@@ -109,4 +109,4 @@ curl -s -o /dev/null -w '%{http_code}\n' \
 
 ## License
 
-This repository is licensed under the MIT License (see [LICENSE](LICENSE)).
+This repository is licensed under the MIT License (see [LICENSE](../LICENSE)).
