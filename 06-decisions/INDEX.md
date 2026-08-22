@@ -19,10 +19,11 @@ tags:
 | [[adr-002-linkerd-service-mesh]] | Linkerd for mTLS/retries/network telemetry; K8s DNS replaces Consul discovery | 2026-08-21 | decided |
 | [[adr-003-gitops-argocd-trunk-based]] | Trunk-Based Development + GitHub Actions/GHCR + image-tag PRs into `infra-kubernetes`, synced by ArgoCD | 2026-08-21 | decided |
 | [[adr-004-keycloak-identity]] | Keycloak OIDC/JWT identity provider; Kong validates tokens at the edge | 2026-08-21 | decided |
+| [[adr-005-per-service-repos-centralized-k8s-config]] | One repository per service (code + image pipeline); all Kubernetes deployment config centralized in `infra-kubernetes` | 2026-08-21 | decided |
 
 ## Keywords
 
-decisions, adr, architecture, trade-offs, context, consequences, kubernetes, portability, operators, linkerd, mtls, consul-retirement, gitops, argocd, trunk-based-development, helm, ghcr, keycloak, oidc, jwt, kong, unleash
+decisions, adr, architecture, trade-offs, context, consequences, kubernetes, portability, operators, linkerd, mtls, consul-retirement, gitops, argocd, trunk-based-development, helm, ghcr, keycloak, oidc, jwt, kong, unleash, repository-model, one-repo-per-service, centralized-deployment
 
 ## Search order
 

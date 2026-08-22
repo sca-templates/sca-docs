@@ -32,6 +32,7 @@ Owns subjects, scopes and roles: who a user is, how they authenticate, and what 
 
 - Repo: `nest-auth`, resolved in `_config/repo-locations.md`
 - Handbook/README links are added when the repo is created
+- Deployment: Kubernetes config lives exclusively in `infra-kubernetes`; this repo ships code and the image — [[adr-005-per-service-repos-centralized-k8s-config]]
 - Related notes: [[microservice]] · [[service-account]] · [[sca-clients]]
 
 ## Status

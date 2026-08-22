@@ -15,8 +15,13 @@
 | `infra-consul`       | `~/projects/infra-consul`                                                                | active  |
 | `infra-prometheus`   | `~/projects/infra-prometheus`                                                            | active  |
 | `infra-grafana`      | `~/projects/infra-grafana`                                                               | active  |
+| `infra-kong`         | —                                                                                        | planned |
+| `infra-loki`         | —                                                                                        | planned |
+| `infra-tempo`        | —                                                                                        | planned |
+| `infra-unleash`      | —                                                                                        | planned |
+| `local-dev-tool`     | —                                                                                        | planned |
 | `infra-kubernetes`   | `~/projects/infra-kubernetes`                                                            | planned |
-| `nest-template`      | `~/projects/node/nest-template`                                                          | active  |
+| `nest-template`      | `~/projects/node/nest-template`                                                          | planned |
 | `sca-core`           | pnpm workspace hosting `@sca/core`, `@sca/contracts`, `@sca/connections`, `@sca/clients` | planned |
 | `nest-auth`          | —                                                                                        | planned |
 | `nest-notifications` | —                                                                                        | planned |
@@ -35,11 +40,18 @@
 | `infra-consul`       | `https://github.com/sca-templates/infra-consul`       | active  |
 | `infra-prometheus`   | `https://github.com/sca-templates/infra-prometheus`   | active  |
 | `infra-grafana`      | `https://github.com/sca-templates/infra-grafana`      | active  |
+| `infra-kong`         | `https://github.com/sca-templates/infra-kong`         | planned |
+| `infra-loki`         | `https://github.com/sca-templates/infra-loki`         | planned |
+| `infra-tempo`        | `https://github.com/sca-templates/infra-tempo`        | planned |
+| `infra-unleash`      | `https://github.com/sca-templates/infra-unleash`      | planned |
+| `local-dev-tool`     | `https://github.com/sca-templates/local-dev-tool`     | planned |
 | `infra-kubernetes`   | `https://github.com/sca-templates/infra-kubernetes`   | planned |
-| `nest-template`      | `https://github.com/sca-templates/nest-template`      | active  |
+| `nest-template`      | —                                                     | planned |
 
-> Planned repos get their URL when created. Keep this table in sync whenever a
-> repo is created, renamed, or archived.
+> Scaffold repos (`infra-kong`, `infra-loki`, `infra-tempo`, `infra-unleash`,
+> `local-dev-tool`, `infra-kubernetes`) exist on GitHub with README/LICENSE only;
+> they stay `planned` until their content lands. `nest-template` is pending
+> publication.
 
 ## Resolution by environment
 

@@ -10,8 +10,8 @@
 | Shared packages     | `@sca/*` — protos, schemas, clients, testing utilities                                                                        |
 | Contracts           | Versioned gRPC APIs + Kafka topics, one note per contract                                                                     |
 | Template            | `nest-template` — microservice skeleton + handbook                                                                            |
-| Local dev stack     | `infra-*` repos (Vault, PostgreSQL, Redis, Kafka, Consul, Prometheus, Grafana) — Docker Compose + Makefiles, development only |
-| Kubernetes platform | Everything the clusters run, declared once in `infra-kubernetes` (planned)                                                    |
+| Local dev stack     | `infra-*` repos (Vault, PostgreSQL, Redis, Kafka, Consul, Prometheus, Grafana, plus Kong/Loki/Tempo/Unleash/dev-tool scaffolds) — Docker Compose + Makefiles, development only |
+| Kubernetes platform | Everything the clusters run, declared once in `infra-kubernetes` (repo created — foundation)                                  |
 
 ## Platform
 
@@ -34,6 +34,8 @@ Full picture: [platform-overview](../00-ecosystem/platform-overview.md) · compo
 5. Incomplete work ships behind Unleash feature flags.
 
 Decision record: [ADR-003 — GitOps delivery with ArgoCD and Trunk-Based Development](../06-decisions/adr-003-gitops-argocd-trunk-based.md).
+
+**Repository model** — one repository per service: each service repo owns its code, logic, application configuration, Dockerfile and image pipeline (Actions → GHCR); every Kubernetes deployment artifact (charts, per-environment values, ArgoCD Applications) lives exclusively in `infra-kubernetes`. Decision record: [ADR-005](../06-decisions/adr-005-per-service-repos-centralized-k8s-config.md).
 
 ## Vault layout
 

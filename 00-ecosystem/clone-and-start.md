@@ -68,6 +68,7 @@ The `@sca/*` packages carry zero business logic: contracts ([[grpc]] + [[proto]]
 2. The merge triggers GitHub Actions: tests, image build, publish to GHCR.
 3. The pipeline opens the image-tag PR into `infra-kubernetes` (`dev`) and commits the `qa` bump directly; [[argocd]] syncs both environments.
 4. Only `prod` moves through a promotion PR — manual approval gates it ([[adr-003-gitops-argocd-trunk-based]]).
+5. The service repo never carries Kubernetes manifests: every deployment or promotion change lands exclusively in `infra-kubernetes` ([[adr-005-per-service-repos-centralized-k8s-config]]).
 
 ## Related
 

@@ -7,7 +7,7 @@ The `sca` ecosystem as a whole: a repeatable way to spin up domain microservices
 - **`nest-template`** — the modular-monolith + clean-architecture skeleton every microservice is cloned from. It carries the structure, the flow framework and the docs handbook; zero business logic.
 - **`@sca/*` packages** — shared plumbing with zero business logic: core, contracts (gRPC protos + event schemas), connections and clients. One fix lands in one package, not in every service.
 - **`nest-*` / `py-*` microservices** — the domains (auth, notifications, logging, ai). The prefix names the framework: `nest-*` = NestJS/TypeScript, `py-*` = Python. Each is a `nest-template` clone consuming `@sca/*`, exposing its gRPC API and publishing/consuming Kafka events.
-- **`infra-*`** repos — the self-hosted **local development stack**: Vault, PostgreSQL, Redis, Kafka, Consul, Prometheus, Grafana. Each repo has its own `Makefile` with `make all`; none of them is a production target.
+- **`infra-*`** repos — the self-hosted **local development stack**: Vault, PostgreSQL, Redis, Kafka, Consul, Prometheus, Grafana, plus Kong, Loki, Tempo, Unleash and dev-tool scaffolds. Each repo has its own `Makefile` with `make all`; none of them is a production target.
 - **Kubernetes platform** — the deployment target for every environment (`dev`, `qa`, `prod`): Linkerd, Kong, Keycloak, Vault + External Secrets, CloudNativePG + Barman, Strimzi Kafka + Debezium, Redis Sentinel, Prometheus/Grafana/Loki/Tempo, Unleash, ArgoCD, Velero — declared once in `infra-kubernetes`. See [platform overview](00-ecosystem/platform-overview.md).
 - **`sca-docs`** — this vault: topology, conventions and pointers to every repo.
 
@@ -47,10 +47,17 @@ The `sca` ecosystem as a whole: a repeatable way to spin up domain microservices
 | `infra-consul`                                                    | Service discovery + health checks — [README](https://github.com/sca-templates/infra-consul)                                              | active  |
 | `infra-prometheus`                                                | Metrics + exporters — [README](https://github.com/sca-templates/infra-prometheus)                                                        | active  |
 | `infra-grafana`                                                   | Dashboards + alerting — [README](https://github.com/sca-templates/infra-grafana)                                                         | active  |
-| `infra-kubernetes`                                                | Kubernetes manifests + Helm charts: GitOps source of every environment                                                                   | planned |
-| `nest-template`                                                   | Microservice skeleton + handbook (repository pending publication)                                                                        | active  |
+| `infra-kong`                                                      | Edge gateway — [README](https://github.com/sca-templates/infra-kong)                                                                     | planned |
+| `infra-loki`                                                      | Log aggregation — [README](https://github.com/sca-templates/infra-loki)                                                                  | planned |
+| `infra-tempo`                                                     | Distributed tracing — [README](https://github.com/sca-templates/infra-tempo)                                                             | planned |
+| `infra-unleash`                                                   | Feature flags — [README](https://github.com/sca-templates/infra-unleash)                                                                 | planned |
+| `local-dev-tool`                                                  | S3-compatible storage + SMTP capture (MinIO, MailHog) — [README](https://github.com/sca-templates/local-dev-tool)                        | planned |
+| `infra-kubernetes`                                                | Kubernetes manifests + Helm charts: GitOps source of every environment — [README](https://github.com/sca-templates/infra-kubernetes)     | planned |
+| `nest-template`                                                   | Microservice skeleton + handbook (repository pending publication)                                                                        | planned |
 | `@sca/core`, `@sca/contracts`, `@sca/connections`, `@sca/clients` | Shared plumbing packages                                                                                                                 | planned |
 | `nest-auth`, `nest-notifications`, `nest-logging`, `py-ai`        | Domain microservices                                                                                                                     | planned |
+
+> One repository per service: each service repo holds code, logic, application configuration, Dockerfile and image pipeline (Actions → GHCR). Every Kubernetes deployment artifact — charts, per-environment values, ArgoCD Applications — lives exclusively in `infra-kubernetes` ([ADR-005](06-decisions/adr-005-per-service-repos-centralized-k8s-config.md)). Scaffold repos exist on GitHub with README/LICENSE only and stay `planned` until content lands.
 
 ## Boundaries
 

@@ -31,6 +31,7 @@ tags:
 - Repo: {{logical name, resolved in _config/repo-locations.md}}
 - Handbook: {{relative link `../<repo>/docs/handbook/INDEX.md`}}
 - README: {{relative link `../<repo>/README.md`}}
+- Deployment: Kubernetes config lives exclusively in `infra-kubernetes` (charts, values, ArgoCD App); this repo ships code and the image — [[adr-005-per-service-repos-centralized-k8s-config]]
 
 ## Status
 

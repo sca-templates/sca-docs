@@ -73,7 +73,8 @@ flowchart LR
 
 ## Repository model
 
-- Each microservice lives in its own repository under the GitHub organization.
+- Each microservice lives in its own repository under the GitHub organization, owning its code, business logic, application configuration, Dockerfile and image pipeline ([[adr-005-per-service-repos-centralized-k8s-config]]).
+- Service repositories contain no Kubernetes manifests — deploying or promoting a service is always a change in `infra-kubernetes`.
 - `infra-kubernetes` is the single declarative home of everything the clusters run:
 
 ```text
@@ -137,4 +138,4 @@ Cloud-native managed services (RDS, MSK, ElastiCache, Cognito…) are **optional
 
 - Local counterpart: [[self-hosted-stack]] — the Compose stack, development only
 - Failover strategy: [[multi-cloud]] · Monitoring map: [[observability]]
-- Decisions: umbrella [[adr-001-kubernetes-platform]]; focused [[adr-002-linkerd-service-mesh]] · [[adr-003-gitops-argocd-trunk-based]] · [[adr-004-keycloak-identity]]
+- Decisions: umbrella [[adr-001-kubernetes-platform]]; focused [[adr-002-linkerd-service-mesh]] · [[adr-003-gitops-argocd-trunk-based]] · [[adr-004-keycloak-identity]] · [[adr-005-per-service-repos-centralized-k8s-config]]

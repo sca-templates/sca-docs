@@ -29,6 +29,7 @@ Consumes notification requests ([[evt-notifications-requests-v1]]) and delivers 
 
 - Repo: `nest-notifications`, resolved in `_config/repo-locations.md`
 - Handbook/README links are added when the repo is created
+- Deployment: Kubernetes config lives exclusively in `infra-kubernetes`; this repo ships code and the image — [[adr-005-per-service-repos-centralized-k8s-config]]
 - Related notes: [[microservice]] · [[event]] · [[idempotency]] · [[kafka]]
 
 ## Status

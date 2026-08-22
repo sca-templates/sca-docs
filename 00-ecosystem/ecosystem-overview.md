@@ -39,7 +39,7 @@ flowchart TB
 - **Microservices layer** — the domains, each a [[microservice]] cloned from `nest-template`.
 - **Shared packages layer** — `@sca/*` plumbing with zero business logic; the single place a shared fix lands.
 - **Contracts layer** — the agreements between services: [[grpc]] APIs and Kafka [[event]]s, defined once in `@sca/contracts`.
-- **Infrastructure layer** — two tiers: the [[self-hosted-stack|local dev stack]] (Vault, PostgreSQL, Redis, [[kafka]], Consul, Prometheus, Grafana — one `infra-*` repo each) and the portable Kubernetes platform ([[platform-overview]]) every service deploys to.
+- **Infrastructure layer** — two tiers: the [[self-hosted-stack|local dev stack]] (Vault, PostgreSQL, Redis, [[kafka]], Consul, Prometheus, Grafana — one `infra-*` repo each, plus Kong/Loki/Tempo/Unleash/dev-tool scaffolds) and the portable Kubernetes platform ([[platform-overview]]) every service deploys to.
 - **Delivery layer** — GitOps: merges to `main` build images (GitHub Actions → GHCR), bump tags in `infra-kubernetes` via PR, and ArgoCD syncs each environment ([[adr-003-gitops-argocd-trunk-based]]).
 - **Documentation layer** — this vault: topology, conventions and pointers.
 
@@ -47,7 +47,7 @@ flowchart TB
 
 | Repo | Role | Status |
 |---|---|---|
-| `nest-template` | [[modular-monolith]] skeleton + handbook; source of every service | active |
+| `nest-template` | [[modular-monolith]] skeleton + handbook; source of every service | planned (pending publication) |
 | `@sca/*` | Shared plumbing (core, contracts, connections, clients) | planned |
 | `sca-*` | Domain microservices (auth, notifications, logging, ai) | planned |
 | `infra-vault` | Secrets management | active |
@@ -57,10 +57,15 @@ flowchart TB
 | `infra-consul` | Service discovery + health checks | active |
 | `infra-prometheus` | Metrics + exporters | active |
 | `infra-grafana` | Dashboards + alerting | active |
+| `infra-kong` | Edge gateway | planned |
+| `infra-loki` | Log aggregation | planned |
+| `infra-tempo` | Distributed tracing | planned |
+| `infra-unleash` | Feature flags | planned |
+| `local-dev-tool` | S3 storage + SMTP capture (MinIO, MailHog) | planned |
 | `infra-kubernetes` | Kubernetes manifests + charts — GitOps source of truth | planned |
 | `sca-docs` | This vault | active |
 
-> All `infra-*` repos are local-development tooling; cluster deployments come exclusively from `infra-kubernetes` via ArgoCD.
+> All `infra-*` repos are local-development tooling; cluster deployments come exclusively from `infra-kubernetes` via ArgoCD. Scaffold repos (`infra-kong`, `infra-loki`, `infra-tempo`, `infra-unleash`, `local-dev-tool`, `infra-kubernetes`) exist on GitHub with README/LICENSE only until their content lands.
 
 ## Dependencies
 
