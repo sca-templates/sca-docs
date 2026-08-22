@@ -55,7 +55,7 @@ The `sca` ecosystem as a whole: a repeatable way to spin up domain microservices
 | `infra-kubernetes`                                                | Kubernetes manifests + Helm charts: GitOps source of every environment — [README](https://github.com/sca-templates/infra-kubernetes)     | planned |
 | `nest-template`                                                   | Microservice skeleton + handbook (repository pending publication)                                                                        | planned |
 | `@sca/core`, `@sca/contracts`, `@sca/connections`, `@sca/clients` | Shared plumbing packages                                                                                                                 | planned |
-| `nest-auth`, `nest-notifications`, `nest-logging`, `py-ai`        | Domain microservices                                                                                                                     | planned |
+| `go-authz`, `nest-notifications`, `nest-logging`, `py-ai`         | Domain microservices                                                                                                                     | planned |
 
 > One repository per service: each service repo holds code, logic, application configuration, Dockerfile and image pipeline (Actions → GHCR). Every Kubernetes deployment artifact — charts, per-environment values, ArgoCD Applications — lives exclusively in `infra-kubernetes` ([ADR-005](06-decisions/adr-005-per-service-repos-centralized-k8s-config.md)). Scaffold repos exist on GitHub with README/LICENSE only and stay `planned` until content lands.
 

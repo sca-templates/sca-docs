@@ -19,15 +19,15 @@ Key fields: `recipient`, `channel` (email / sms), `template` + variables or inli
 
 ## Producers
 
-| Service | When | Notes |
-|---|---|---|
-| [[nest-auth]] | account lifecycle (welcome, password reset, safe-mode alert) | |
-| any service | a user-facing action completes | published via the [[outbox\|outbox pattern]] |
+| Service      | When                                                                                                                                          | Notes                                        |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------- |
+| [[go-authz]] | account lifecycle (welcome, account locked) — translated from [[keycloak]] events; password-reset and verification emails are native Keycloak |                                              |
+| any service  | a user-facing action completes                                                                                                                | published via the [[outbox\|outbox pattern]] |
 
 ## Consumers
 
-| Service | Use | Idempotency |
-|---|---|---|
+| Service                | Use                                                               | Idempotency                |
+| ---------------------- | ----------------------------------------------------------------- | -------------------------- |
 | [[nest-notifications]] | renders and sends through the provider (MailHog local / SES prod) | dedupe by `correlation_id` |
 
 ## Status

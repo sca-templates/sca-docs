@@ -1,40 +1,32 @@
 ---
 title: nest-auth
 type: service
-status: planned
+status: deprecated
 repo: nest-auth
 tags:
   - type/service
   - domain/auth
   - stack/nestjs
-  - exposes-grpc
-  - publishes-events
 ---
 
 # nest-auth
 
-> Identity, authentication and authorization — the hub every other service leans on.
+> DEPRECATED before implementation — superseded by [[keycloak]] (identity & authentication) plus [[go-authz]] (authorization & audit bridge).
 
 ## Domain
 
-Owns subjects, scopes and roles: who a user is, how they authenticate, and what they may do in each domain. It is the only service that mutates credentials and permission state; it is NOT a home for business domains, nor for sending notifications or logging details itself.
+Was planned as the identity, authentication and authorization hub: subjects, scopes and roles owned here, served over [[grpc-auth-api|grpc-auth-api GetScopes/GetRoles]] with a JWT-carried safe_mode flag. The repo was never created; the design it embodied was replaced by [[adr-006-keycloak-authentication-only-and-go-authz]]. Where its responsibilities went:
 
-## Connections
-
-| Kind | Contract | Role |
-|---|---|---|
-| gRPC | [[grpc-auth-api]] | server |
-| Event | [[evt-auth-domain]] | publisher |
-| Event | [[evt-permissions-changed]] | publisher |
-| Event | [[evt-logging-anomaly-detected]] | consumer (defensive — enter safe mode) |
+- Authentication, credentials, MFA, email verification, token lifecycle, roles catalog → [[keycloak]]
+- Effective-scope computation and per-request checks → [[go-authz]] via [[grpc-authz-api]]
+- Account-lifecycle and permission-change events → published by [[go-authz]] ([[evt-auth-domain]], [[evt-permissions-changed]])
+- Safe mode → removed entirely: untrusted sessions/devices are blocked at the edge ([[kong]]) instead of degraded
 
 ## Pointers
 
-- Repo: `nest-auth`, resolved in `_config/repo-locations.md`
-- Handbook/README links are added when the repo is created
-- Deployment: Kubernetes config lives exclusively in `infra-kubernetes`; this repo ships code and the image — [[adr-005-per-service-repos-centralized-k8s-config]]
-- Related notes: [[microservice]] · [[service-account]] · [[sca-clients]]
+- Replacements: [[keycloak]] · [[go-authz]]
+- Decision: [[adr-006-keycloak-authentication-only-and-go-authz]]
 
 ## Status
 
-Planned — repo not created yet.
+Deprecated — kept as a tombstone so historical references resolve.

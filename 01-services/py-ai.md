@@ -15,13 +15,13 @@ tags:
 
 ## Domain
 
-A Python monorepo hosting AI agents that support other services. Consumes scopes and roles via the [[grpc-auth-api]] as a client, and feeds on [[evt-auth-domain]] behavior and [[evt-logging-anomaly-detected]] signals for behavioral and anomaly analysis. It does NOT own user identity or audit records; it consumes them to produce insights.
+A Python monorepo hosting AI agents that support other services. Checks effective scopes via the [[grpc-authz-api]] as a client, and feeds on [[evt-auth-domain]] behavior and [[evt-logging-anomaly-detected]] signals for behavioral and anomaly analysis. It does NOT own user identity or audit records; it consumes them to produce insights.
 
 ## Connections
 
 | Kind | Contract | Role |
 |---|---|---|
-| gRPC | [[grpc-auth-api]] | client |
+| gRPC | [[grpc-authz-api]] | client |
 | Event | [[evt-auth-domain]] | consumer (behavioral input) |
 | Event | [[evt-logging-anomaly-detected]] | consumer (deep analysis) |
 

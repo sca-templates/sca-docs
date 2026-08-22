@@ -15,17 +15,18 @@ tags:
 
 | Note | Domain | Stack | Status |
 |---|---|---|---|
-| [[nest-auth]] | identity, authentication, authorization | NestJS | planned |
+| [[go-authz]] | fine-grained authorization (effective scopes) + Keycloak audit bridge | Go | planned |
 | [[nest-notifications]] | transactional and security notifications | NestJS | planned |
-| [[nest-logging]] | technical logging + security audit trail | NestJS | planned |
+| [[nest-logging]] | technical logging + security/business audit trail (unified registry) | NestJS | planned |
 | [[py-ai]] | AI agents | Python | planned |
+| [[nest-auth]] | identity/authentication/authorization hub — replaced by [[keycloak]] + [[go-authz]] | NestJS | deprecated |
 
 ## Keywords
 
-services, microservices, auth, notifications, logging, ai, scopes, roles, safe-mode, audit
+services, microservices, auth, authz, go-authz, check-scopes, scopes, realm-role, notifications, logging, ai, audit
 
 ## Search order
 
-1. Read [[nest-auth]] first — the identity hub every service leans on.
-2. Then [[nest-logging]] (the audit base) and [[nest-notifications]].
+1. Read [[go-authz]] first — the authorization decision point every service leans on; authentication itself is [[keycloak]].
+2. Then [[nest-logging]] (the unified audit registry) and [[nest-notifications]].
 3. [[py-ai]] last — the only non-NestJS service.

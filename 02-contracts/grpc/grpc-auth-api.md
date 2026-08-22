@@ -1,38 +1,34 @@
 ---
 title: auth gRPC API
 type: contract-grpc
-status: planned
+status: deprecated
 repo: sca-core
 tags:
   - type/contract-grpc
   - domain/auth
   - stack/multi-lang
-  - exposes-grpc
 ---
 
 # Auth gRPC API
 
-> What `nest-auth` exposes so other services can resolve a subject's scopes and roles.
+> DEPRECATED before publication — superseded by [[grpc-authz-api]] (`CheckScopes`, served by [[go-authz]]) per [[adr-006-keycloak-authentication-only-and-go-authz]].
 
 ## Proto
 
-`@sca/contracts/proto/auth.proto` (in the [[sca-contracts]] package) — the single source of truth, regenerated for TS, Python, Go and Java.
+Was to be `@sca/contracts/proto/auth.proto` (in the [[sca-contracts]] package). The proto was never published; the design it embodied — `GetScopes`/`GetRoles` served by a NestJS hub with JWT-carried permission flags — was replaced by per-request scope evaluation in [[go-authz]].
 
-## Methods
+## Methods (historical)
 
-| Method | Request | Response | Description |
-|---|---|---|---|
+| Method      | Request                         | Response                | Description                          |
+| ----------- | ------------------------------- | ----------------------- | ------------------------------------ |
 | `GetScopes` | `GetScopesRequest(sub, domain)` | `ScopesReply(scopes[])` | Scopes a subject has within a domain |
-| `GetRoles` | `GetRolesRequest(sub)` | `RolesReply(roles[])` | Roles a subject has |
+| `GetRoles`  | `GetRolesRequest(sub)`          | `RolesReply(roles[])`   | Roles a subject has                  |
 
-## Consumers
+## Pointers
 
-| Service | Use | Notes |
-|---|---|---|
-| [[nest-auth]] | Server | exposes the API over [[grpc]] |
-| [[nest-notifications]] · [[nest-logging]] · [[py-ai]] | Clients | typed methods via `@sca/clients` |
-| [[sca-clients]] | `ScopesGuard` | deny-by-default; calls `GetScopes` with cache-aside (Redis), invalidated by [[evt-permissions-changed]] |
+- Replacement: [[grpc-authz-api]]
+- Decision: [[adr-006-keycloak-authentication-only-and-go-authz]]
 
 ## Status
 
-Planned — proto not published yet.
+Deprecated — kept as a tombstone so historical references resolve.

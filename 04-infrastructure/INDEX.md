@@ -14,28 +14,28 @@ tags:
 
 ## Notes
 
-| Note | What it is | Status |
-|---|---|---|
-| [[self-hosted-stack]] | Local dev stack: `make all` per repo, ports, secrets flow | active |
-| [[vault]] | 3-node Raft cluster, source of secrets; projected by ESO on the platform | active |
-| [[external-secrets-operator]] | Projects Vault secrets into native K8s Secrets | planned |
-| [[postgres]] | PostgreSQL 16 + pgvector, Debezium source; CloudNativePG + Barman target | active |
-| [[redis]] | Redis 7 with AOF + password auth; operator + Sentinel target | active |
-| [[kafka]] | KRaft stack + Debezium + Kafka UI; Strimzi HA target | active |
-| [[consul]] | Local discovery + TCP health checks; superseded by K8s DNS + Linkerd | deprecated |
-| [[linkerd]] | Service mesh: mTLS identity, retries/timeouts, network telemetry | planned |
-| [[kong]] | Edge gateway: routing, rate limiting, OIDC/JWT validation | planned |
-| [[keycloak]] | Self-hosted OIDC/JWT identity provider | planned |
-| [[unleash]] | Feature flags per environment without redeploys | planned |
-| [[argocd]] | GitOps engine syncing `infra-kubernetes` into every cluster | planned |
-| [[prometheus]] | Central TSDB + bundled exporters | active |
-| [[grafana]] | Central Grafana: dashboards + alerting (Prometheus-backed) | active |
-| [[loki]] | Log aggregation pillar beside metrics in Grafana | planned |
-| [[tempo]] | Distributed tracing backend (OpenTelemetry) | planned |
-| [[velero]] | Cluster resources + PV backup and DR restore | planned |
-| [[observability]] | Metrics map, dashboards, alert rules; platform pillars ahead | active |
-| [[dev-tools]] | MinIO + MailHog — local only | active |
-| [[multi-cloud]] | Managed-service adapter / failover matrix | active |
+| Note                          | What it is                                                                     | Status     |
+| ----------------------------- | ------------------------------------------------------------------------------ | ---------- |
+| [[self-hosted-stack]]         | Local dev stack: `make all` per repo, ports, secrets flow                      | active     |
+| [[vault]]                     | 3-node Raft cluster, source of secrets; projected by ESO on the platform       | active     |
+| [[external-secrets-operator]] | Projects Vault secrets into native K8s Secrets                                 | planned    |
+| [[postgres]]                  | PostgreSQL 16 + pgvector, Debezium source; CloudNativePG + Barman target       | active     |
+| [[redis]]                     | Redis 7 with AOF + password auth; operator + Sentinel target                   | active     |
+| [[kafka]]                     | KRaft stack + Debezium + Kafka UI; Strimzi HA target                           | active     |
+| [[consul]]                    | Local discovery + TCP health checks; superseded by K8s DNS + Linkerd           | deprecated |
+| [[linkerd]]                   | Service mesh: mTLS identity, retries/timeouts, network telemetry               | planned    |
+| [[kong]]                      | Edge gateway: routing, rate limiting, OIDC/JWT validation                      | planned    |
+| [[keycloak]]                  | Self-hosted OIDC/JWT IdP — authentication only; authorization via [[go-authz]] | planned    |
+| [[unleash]]                   | Feature flags per environment without redeploys                                | planned    |
+| [[argocd]]                    | GitOps engine syncing `infra-kubernetes` into every cluster                    | planned    |
+| [[prometheus]]                | Central TSDB + bundled exporters                                               | active     |
+| [[grafana]]                   | Central Grafana: dashboards + alerting (Prometheus-backed)                     | active     |
+| [[loki]]                      | Log aggregation pillar beside metrics in Grafana                               | planned    |
+| [[tempo]]                     | Distributed tracing backend (OpenTelemetry)                                    | planned    |
+| [[velero]]                    | Cluster resources + PV backup and DR restore                                   | planned    |
+| [[observability]]             | Metrics map, dashboards, alert rules; platform pillars ahead                   | active     |
+| [[dev-tools]]                 | MinIO + MailHog — local only                                                   | active     |
+| [[multi-cloud]]               | Managed-service adapter / failover matrix                                      | active     |
 
 ## Keywords
 

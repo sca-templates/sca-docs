@@ -19,17 +19,17 @@ Key fields: `detected_pattern`, `scope` (subject / service / window), `severity`
 
 ## Producers
 
-| Service | When | Notes |
-|---|---|---|
-| [[nest-logging]] | an anomaly is detected in the audit stream | |
+| Service          | When                                       | Notes |
+| ---------------- | ------------------------------------------ | ----- |
+| [[nest-logging]] | an anomaly is detected in the audit stream |       |
 
 ## Consumers
 
-| Service | Use | Idempotency |
-|---|---|---|
-| [[py-ai]] | deep behavioral analysis of the anomaly | dedupe by window + pattern |
-| [[nest-notifications]] | alerting (on-call / dashboard) | dedupe by window + pattern |
-| [[nest-auth]] | defensive actions (e.g. enter safe mode) | dedupe by window + pattern |
+| Service                | Use                                                                                                                                                                        | Idempotency                |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------- |
+| [[py-ai]]              | deep behavioral analysis of the anomaly                                                                                                                                    | dedupe by window + pattern |
+| [[nest-notifications]] | alerting (on-call / dashboard)                                                                                                                                             | dedupe by window + pattern |
+| [[go-authz]]           | defensive actions — revoke the session / block the device so [[kong]] denies it at the edge (no degraded safe mode, [[adr-006-keycloak-authentication-only-and-go-authz]]) | dedupe by window + pattern |
 
 ## Status
 

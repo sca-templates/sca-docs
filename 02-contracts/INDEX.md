@@ -16,7 +16,8 @@ tags:
 
 | Note | What it is | Status |
 |---|---|---|
-| [[grpc-auth-api]] | `auth.proto`: `GetScopes` / `GetRoles` | planned |
+| [[grpc-authz-api]] | `authz.proto`: `CheckScopes` served by [[go-authz]] | planned |
+| [[grpc-auth-api]] | `auth.proto`: `GetScopes` / `GetRoles` — replaced by [[grpc-authz-api]] | deprecated |
 
 ## Kafka events
 
@@ -25,15 +26,15 @@ tags:
 | [[evt-notifications-requests-v1]] | Request to send a notification | planned |
 | [[evt-logging-audit]] | Audit + technical log events | planned |
 | [[evt-logging-anomaly-detected]] | Anomaly detected in the log stream | planned |
-| [[evt-permissions-changed]] | A subject's scopes/roles changed | planned |
-| [[evt-auth-domain]] | The `auth.*` domain family | planned |
+| [[evt-permissions-changed]] | Scopes/roles changed; guards invalidate their Redis cache | planned |
+| [[evt-auth-domain]] | The `auth.*` domain family, published by [[go-authz]] | planned |
 
 ## Keywords
 
-contracts, grpc, proto, kafka, events, outbox, idempotency, auth, notifications, logging, permissions, audit, anomaly
+contracts, grpc, proto, kafka, events, outbox, idempotency, auth, authz, go-authz, check-scopes, notifications, logging, permissions, audit, anomaly
 
 ## Search order
 
-1. Read [[grpc-auth-api]] first — the only gRPC API and the base for the guards.
+1. Read [[grpc-authz-api]] first — the gRPC API behind the guards.
 2. Then [[evt-permissions-changed]] (touches every service) and [[evt-auth-domain]] (the busiest family).
 3. The remaining events as needed: [[evt-notifications-requests-v1]], [[evt-logging-audit]], [[evt-logging-anomaly-detected]].

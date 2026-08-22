@@ -21,7 +21,7 @@ Consumes notification requests ([[evt-notifications-requests-v1]]) and delivers 
 
 | Kind | Contract | Role |
 |---|---|---|
-| gRPC | [[grpc-auth-api]] | client |
+| gRPC | [[grpc-authz-api]] | client |
 | Event | [[evt-notifications-requests-v1]] | consumer |
 | Event | [[evt-auth-domain]] | consumer (account emails) |
 

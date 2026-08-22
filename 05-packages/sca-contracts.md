@@ -16,8 +16,8 @@ tags:
 ## Content
 
 - `.proto` files defining the gRPC APIs and Kafka event schemas, language-independent ([[proto]]).
-- Codegen pipeline for **TS, Python, Go and Java** — `nest-auth` (NestJS) generates its server; `nest-notifications`, `nest-logging` (NestJS) and `py-ai` (Python) generate their clients.
-- Initial contracts: `auth.proto` (`GetScopes`, `GetRoles`) and the event schemas (see [[grpc-auth-api]] and the `02-contracts/` notes).
+- Initial contracts: `authz.proto` (`CheckScopes`) and the event schemas (see [[grpc-authz-api]] and the `02-contracts/` notes).
+- Codegen consumers: [[go-authz]] (Go) generates its server; `nest-notifications`, `nest-logging` (NestJS) and `py-ai` (Python) generate their clients.
 
 ## Dependencies
 
@@ -32,7 +32,7 @@ The "kept in sync" mechanism: a contract change is edited **once** here, regener
 ## Pointers
 
 - Repo: `sca-core` (workspace), resolved in `_config/repo-locations.md`
-- Contract notes: [[grpc-auth-api]] · [[evt-notifications-requests-v1]] · [[evt-logging-audit]] · [[evt-permissions-changed]]
+- Contract notes: [[grpc-authz-api]] · [[evt-notifications-requests-v1]] · [[evt-logging-audit]] · [[evt-permissions-changed]]
 - Related notes: [[grpc]] · [[proto]] · [[event]] · [[idempotency]]
 
 ## Status

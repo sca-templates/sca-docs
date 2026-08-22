@@ -11,7 +11,7 @@ tags:
 
 # permissions.changed
 
-> A subject's scopes or roles changed; every service invalidates its authorization cache.
+> A subject's scopes or roles changed; guards invalidate their Redis cache-aside entries.
 
 ## Schema
 
@@ -19,19 +19,19 @@ Key fields: `subject`, `domain`, `changed_scopes` / `changed_roles`, `version`, 
 
 ## Producers
 
-| Service | When | Notes |
-|---|---|---|
-| [[nest-auth]] | a subject's scopes or roles change | |
+| Service      | When                                                                        | Notes                                                                                        |
+| ------------ | --------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| [[go-authz]] | a role assignment or scope override changes (deny-over-grant, expiry-aware) | source of truth for effective scopes ([[adr-006-keycloak-authentication-only-and-go-authz]]) |
 
 ## Consumers
 
-| Service | Use | Idempotency |
-|---|---|---|
-| every service | invalidates the `ScopesGuard` cache-aside entry (Redis) for `subject` + `domain` | naturally idempotent (invalidate, not compute) |
+| Service       | Use                                                                                                                                                                                                                             | Idempotency                                    |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
+| every service | invalidates the `ScopesGuard` cache-aside entry (Redis) for `subject` + `domain` — TTL bounds staleness if the event is missed; when Redis is unavailable, guards fall back to calling [[grpc-authz-api\|CheckScopes]] directly | naturally idempotent (invalidate, not compute) |
 
 ## Related
 
-- [[grpc-auth-api]] · [[sca-clients]] · [[nest-auth]]
+- [[grpc-authz-api]] · [[sca-clients]] · [[go-authz]]
 - [[event]] · [[idempotency]] · [[outbox]]
 
 ## Status

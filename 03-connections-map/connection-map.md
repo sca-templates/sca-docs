@@ -11,49 +11,52 @@ tags:
 
 # Connection Map
 
-> Derived from `01-services/` and `02-contracts/`. Regenerate with the `sync-catalogs` skill whenever a service or contract note changes.
+> Derived from `01-services/` and `02-contracts/`. Regenerate with the `sync-catalogs` skill whenever a service or contract note changes. Deprecated tombstones ([[nest-auth]], [[grpc-auth-api]]) are excluded from the graph.
 
 ```mermaid
 graph LR
-  AUTH[nest-auth]
+  KC[keycloak<br>listener plugin]
+  AUTHZ[go-authz]
+  SVC[every sca-* service]
   NOTIF[nest-notifications]
   LOGG[nest-logging]
   AI[py-ai]
 
-  AUTH -- GetScopes/GetRoles --> API[grpc-auth-api]
-  API --> NOTIF
-  API --> LOGG
-  API --> AI
+  KC -- filtered user/admin events<br>async internal HTTP --> AUTHZ
+  SVC -- CheckScopes --> AUTHZ
 
-  AUTH --> AUTH_EV[evt-auth-domain]
-  AUTH --> PERM[evt-permissions-changed]
+  AUTHZ --> AUTH_EV[evt-auth-domain]
+  AUTHZ --> PERM[evt-permissions-changed]
+  SVC & AUTHZ --> AUD[evt-logging-audit]
+  SVC --> REQ[evt-notifications-requests-v1]
+  LOGG --> ANOM[evt-logging-anomaly-detected]
+
   AUTH_EV --> NOTIF
   AUTH_EV --> LOGG
   AUTH_EV --> AI
-
-  NOTIF --> REQ[evt-notifications-requests-v1]
-  LOGG --> AUD[evt-logging-audit]
-  LOGG --> ANOM[evt-logging-anomaly-detected]
+  PERM -- guard cache invalidation --> SVC
+  AUD --> LOGG
+  REQ --> NOTIF
   ANOM --> AI
   ANOM --> NOTIF
-  ANOM --> AUTH
+  ANOM -- revoke session / block device at edge --> AUTHZ
 ```
 
 ## gRPC
 
-| API | Server | Clients |
-|---|---|---|
-| [[grpc-auth-api]] | [[nest-auth]] | [[nest-notifications]] · [[nest-logging]] · [[py-ai]] |
+| API                | Server       | Clients                                                                            |
+| ------------------ | ------------ | ---------------------------------------------------------------------------------- |
+| [[grpc-authz-api]] | [[go-authz]] | [[nest-notifications]] · [[nest-logging]] · [[py-ai]] (guards via [[sca-clients]]) |
 
 ## Kafka
 
-| Event | Producers | Consumers |
-|---|---|---|
-| [[evt-auth-domain]] | [[nest-auth]] | [[nest-logging]] · [[nest-notifications]] · [[py-ai]] |
-| [[evt-permissions-changed]] | [[nest-auth]] | every service (cache invalidation) |
-| [[evt-notifications-requests-v1]] | any service | [[nest-notifications]] |
-| [[evt-logging-audit]] | every service | [[nest-logging]] |
-| [[evt-logging-anomaly-detected]] | [[nest-logging]] | [[py-ai]] · [[nest-notifications]] · [[nest-auth]] |
+| Event                             | Producers                    | Consumers                                             |
+| --------------------------------- | ---------------------------- | ----------------------------------------------------- |
+| [[evt-auth-domain]]               | [[go-authz]]                 | [[nest-logging]] · [[nest-notifications]] · [[py-ai]] |
+| [[evt-permissions-changed]]       | [[go-authz]]                 | every service (guard cache invalidation)              |
+| [[evt-notifications-requests-v1]] | any service                  | [[nest-notifications]]                                |
+| [[evt-logging-audit]]             | every service · [[go-authz]] | [[nest-logging]]                                      |
+| [[evt-logging-anomaly-detected]]  | [[nest-logging]]             | [[py-ai]] · [[nest-notifications]] · [[go-authz]]     |
 
 ## Platform substrate
 
@@ -61,7 +64,7 @@ Derived from [[platform-overview]] and the component notes — how every edge ab
 
 ```mermaid
 flowchart LR
-    USER((user)) --> EDGE[Kong edge<br>validates Keycloak JWT]
+    USER((user)) --> EDGE[Kong edge<br>validates Keycloak JWT<br>+ blocks untrusted sessions/devices]
     subgraph CLUSTER["Kubernetes cluster"]
         SVC["sca-* services"]
         MESH["Linkerd mesh<br>mTLS east-west"]
@@ -75,19 +78,21 @@ flowchart LR
     PG -- "changes" --> DBC -- "projects" --> K
 ```
 
-| Concern | Provided by |
-|---|---|
-| North-south entry & rate limiting | [[kong]] |
-| End-user identity (OIDC/JWT) | [[keycloak]], validated at the edge by [[kong]] |
-| East-west trust (mTLS) | [[linkerd]] ([[service-mesh]]) |
-| Events backbone | [[kafka]] on Strimzi |
-| Outbox CDC | Debezium reading [[postgres]] ([[outbox]], [[cdc]]) |
-| Secrets | [[vault]] projected via [[external-secrets-operator]] |
-| Metrics · logs · traces | [[prometheus]] · [[grafana]] · [[loki]] · [[tempo]] |
-| Deploy & promotion | [[argocd]] ← `infra-kubernetes` ([[gitops]]) |
-| Feature release | [[unleash]] |
+| Concern                           | Provided by                                                                                                                        |
+| --------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| North-south entry & rate limiting | [[kong]]                                                                                                                           |
+| End-user identity (OIDC/JWT)      | [[keycloak]], validated at the edge by [[kong]]                                                                                    |
+| Fine-grained authorization        | [[go-authz]] — effective scopes checked per request, never from JWT claims ([[adr-006-keycloak-authentication-only-and-go-authz]]) |
+| East-west trust (mTLS)            | [[linkerd]] ([[service-mesh]])                                                                                                     |
+| Events backbone                   | [[kafka]] on Strimzi                                                                                                               |
+| Outbox CDC                        | Debezium reading [[postgres]] ([[outbox]], [[cdc]])                                                                                |
+| Secrets                           | [[vault]] projected via [[external-secrets-operator]]                                                                              |
+| Metrics · logs · traces           | [[prometheus]] · [[grafana]] · [[loki]] · [[tempo]]                                                                                |
+| Deploy & promotion                | [[argocd]] ← `infra-kubernetes` ([[gitops]])                                                                                       |
+| Feature release                   | [[unleash]]                                                                                                                        |
 
 ## Edge cases
 
 - `evt-permissions-changed` and `evt-logging-audit` have "every service" in a role — the graph edges grow as services are added.
 - `evt-notifications-requests-v1` producers are not fixed; the map lists the known ones in the contract note.
+- Keycloak's listener plugin reaches [[go-authz]] over an internal HTTP route, not through Kafka or a vault contract note.

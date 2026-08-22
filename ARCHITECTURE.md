@@ -4,14 +4,14 @@
 
 ## Ecosystem at a glance
 
-| Layer               | Members                                                                                                                       |
-| ------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
-| Services            | `nest-auth`, `nest-notifications`, `nest-logging`, `py-ai`                                                                    |
-| Shared packages     | `@sca/*` — protos, schemas, clients, testing utilities                                                                        |
-| Contracts           | Versioned gRPC APIs + Kafka topics, one note per contract                                                                     |
-| Template            | `nest-template` — microservice skeleton + handbook                                                                            |
+| Layer               | Members                                                                                                                                                                        |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Services            | `go-authz`, `nest-notifications`, `nest-logging`, `py-ai`                                                                                                                      |
+| Shared packages     | `@sca/*` — protos, schemas, clients, testing utilities                                                                                                                         |
+| Contracts           | Versioned gRPC APIs + Kafka topics, one note per contract                                                                                                                      |
+| Template            | `nest-template` — microservice skeleton + handbook                                                                                                                             |
 | Local dev stack     | `infra-*` repos (Vault, PostgreSQL, Redis, Kafka, Consul, Prometheus, Grafana, plus Kong/Loki/Tempo/Unleash/dev-tool scaffolds) — Docker Compose + Makefiles, development only |
-| Kubernetes platform | Everything the clusters run, declared once in `infra-kubernetes` (repo created — foundation)                                  |
+| Kubernetes platform | Everything the clusters run, declared once in `infra-kubernetes` (repo created — foundation)                                                                                   |
 
 ## Platform
 

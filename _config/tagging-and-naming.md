@@ -37,7 +37,7 @@ tags:
 |---|---|
 | `type/*` | `home`, `moc`, `service`, `contract-grpc`, `contract-event`, `infra`, `package`, `adr`, `glossary` |
 | `domain/*` | `auth`, `notifications`, `logging`, `ai`, `infrastructure`, `contracts`, `packages` |
-| `stack/*` | `nestjs`, `python`, `multi-lang` |
+| `stack/*` | `nestjs`, `python`, `go`, `multi-lang` |
 | `connectivity/*` | `exposes-grpc`, `consumes-grpc`, `publishes-events`, `consumes-events` |
 | `status/*` | `planned`, `active`, `deprecated`, `decided` |
 

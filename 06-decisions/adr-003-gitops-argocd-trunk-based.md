@@ -8,6 +8,7 @@ tags:
   - domain/infrastructure
 ---
 
+
 # ADR-003: GitOps delivery with ArgoCD and Trunk-Based Development
 
 - **Status:** decided

@@ -23,11 +23,11 @@ Run Keycloak self-hosted on Kubernetes as the single OIDC/JWT identity provider 
 
 ## Options considered
 
-| Option | Why not / why chosen |
-|---|---|
-| Cloud IdP (Cognito/Auth0) | Vendor lock-in; per-user pricing grows with scale |
+| Option                    | Why not / why chosen                                    |
+| ------------------------- | ------------------------------------------------------- |
+| Cloud IdP (Cognito/Auth0) | Vendor lock-in; per-user pricing grows with scale       |
 | Per-service JWT libraries | Fragmented security logic; key rotation handled N times |
-| API keys only | No user context, weak revocation story |
+| API keys only             | No user context, weak revocation story                  |
 
 ## Consequences
 
@@ -37,3 +37,4 @@ Run Keycloak self-hosted on Kubernetes as the single OIDC/JWT identity provider 
 ## Related
 
 - [[platform-overview]] · [[adr-001-kubernetes-platform]]
+- Refined by [[adr-006-keycloak-authentication-only-and-go-authz]] — Keycloak authenticates only; authorization lives in `go-authz`

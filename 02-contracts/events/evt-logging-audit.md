@@ -24,14 +24,15 @@ Both correlate with the shared `request_id` traceability middleware.
 
 ## Producers
 
-| Service | When | Notes |
-|---|---|---|
-| every service | on audited actions and system events | published via the [[outbox\|outbox pattern]] |
+| Service       | When                                                                                                                          | Notes                                                                                                       |
+| ------------- | ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
+| every service | on audited actions and system events                                                                                          | published via the [[outbox\|outbox pattern]]                                                                |
+| [[go-authz]]  | business audit (account/scope/device changes, access decisions) + translated [[keycloak]] user/admin events from its listener | the unified registry downstream is [[nest-logging]] ([[adr-006-keycloak-authentication-only-and-go-authz]]) |
 
 ## Consumers
 
-| Service | Use | Idempotency |
-|---|---|---|
+| Service          | Use                                   | Idempotency        |
+| ---------------- | ------------------------------------- | ------------------ |
 | [[nest-logging]] | persists, retention policy, query API | dedupe by event id |
 
 ## Status

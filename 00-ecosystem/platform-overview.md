@@ -104,7 +104,7 @@ Each ArgoCD Application watches one environment path (`envs/dev`, `envs/qa`, `en
 
 - **Service identity** — Linkerd issues mTLS identities per pod: encrypted, authorized service-to-service traffic plus retries/timeouts policies and per-pair traffic metrics.
 - **Secrets** — [[vault]] remains the source of truth (dynamic credentials, automatic rotation); External Secrets Operator projects secrets into native Kubernetes Secrets.
-- **User authentication** — Keycloak issues OIDC/JWT tokens; Kong validates them at the edge before traffic reaches any API.
+- **User authentication** — Keycloak issues OIDC/JWT tokens; Kong validates them at the edge before traffic reaches any API. Authorization is application-owned: [[go-authz]] checks effective scopes per request ([[adr-006-keycloak-authentication-only-and-go-authz]]), and sessions/devices failing trust conditions are blocked entirely at the edge rather than degraded.
 - **In-cluster access** — Kubernetes RBAC controls access to resources inside the cluster.
 
 ## Observability
@@ -138,4 +138,4 @@ Cloud-native managed services (RDS, MSK, ElastiCache, Cognito…) are **optional
 
 - Local counterpart: [[self-hosted-stack]] — the Compose stack, development only
 - Failover strategy: [[multi-cloud]] · Monitoring map: [[observability]]
-- Decisions: umbrella [[adr-001-kubernetes-platform]]; focused [[adr-002-linkerd-service-mesh]] · [[adr-003-gitops-argocd-trunk-based]] · [[adr-004-keycloak-identity]] · [[adr-005-per-service-repos-centralized-k8s-config]]
+- Decisions: umbrella [[adr-001-kubernetes-platform]]; focused [[adr-002-linkerd-service-mesh]] · [[adr-003-gitops-argocd-trunk-based]] · [[adr-004-keycloak-identity]] · [[adr-005-per-service-repos-centralized-k8s-config]] · [[adr-006-keycloak-authentication-only-and-go-authz]]

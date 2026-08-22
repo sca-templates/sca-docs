@@ -23,7 +23,9 @@
 | `infra-kubernetes`   | `~/projects/infra-kubernetes`                                                            | planned |
 | `nest-template`      | `~/projects/node/nest-template`                                                          | planned |
 | `sca-core`           | pnpm workspace hosting `@sca/core`, `@sca/contracts`, `@sca/connections`, `@sca/clients` | planned |
-| `nest-auth`          | —                                                                                        | planned |
+| `nest-auth`          | —                                                                                        | deprecated |
+| `go-authz`           | —                                                                                        | planned |
+| `keycloak-events-listener` | —                                                                                  | planned |
 | `nest-notifications` | —                                                                                        | planned |
 | `nest-logging`       | —                                                                                        | planned |
 | `py-ai`              | —                                                                                        | planned |
@@ -47,6 +49,8 @@
 | `local-dev-tool`     | `https://github.com/sca-templates/local-dev-tool`     | planned |
 | `infra-kubernetes`   | `https://github.com/sca-templates/infra-kubernetes`   | planned |
 | `nest-template`      | —                                                     | planned |
+| `go-authz`           | `https://github.com/sca-templates/go-authz`           | planned |
+| `keycloak-events-listener` | `https://github.com/sca-templates/keycloak-events-listener` | planned |
 
 > Scaffold repos (`infra-kong`, `infra-loki`, `infra-tempo`, `infra-unleash`,
 > `local-dev-tool`, `infra-kubernetes`) exist on GitHub with README/LICENSE only;

@@ -11,13 +11,19 @@ tags:
 
 # Keycloak
 
-> Self-hosted OIDC/JWT identity provider for users and clients — portable across clouds, no managed-IdP lock-in.
+> Self-hosted OIDC/JWT identity provider — authentication only; authorization lives in first-party services ([[adr-006-keycloak-authentication-only-and-go-authz]]).
 
 ## Role in the platform
 
-- Issues tokens for end users and service clients; realms and clients are declared declaratively and versioned in `infra-kubernetes`.
-- Kong validates issued tokens at the edge ([[kong]], [[adr-004-keycloak-identity]]); backends trust gateway-verified claims only.
-- Identity travels with the platform: migrating clouds keeps users, clients and configuration intact.
+- **Authentication only** — login, passwords, MFA/TOTP, email verification; issues and manages access/refresh/offline tokens. Access tokens are short-lived, validated by public signature at the edge ([[kong]]), and never extended — renewal goes through the refresh token.
+- **Single realm** for the whole platform, **realm roles only** (no groups). Account types (employee, customer…) are distinguished by role, not by realms, because one person may hold several accounts of different types ([[realm-role]]).
+- **One client per application** (web, mobile…), each with its own session policy: standard sessions are short windows with hard expiry; "remember me" is explicit opt-in requested by the client at login and produces a longer, explicitly revocable session.
+- **Does NOT decide permissions** — scopes and fine-grained rules are computed by [[go-authz]] on every request and never embedded in tokens.
+- **No mirror state outside Keycloak** — services reference its entities (roles, credentials, OTP, verification tokens) by external id/name; no synchronized local tables.
+
+## Audit events
+
+Keycloak is configured to emit user and admin events. A first-party listener plugin inside the Keycloak process (code: `keycloak-events-listener`) filters relevant events and forwards them asynchronously — never blocking login — over internal HTTP to [[go-authz]], which translates them into the business-audit model; [[nest-logging]] keeps the unified historical registry.
 
 ## Access (target)
 
@@ -29,8 +35,9 @@ Realm/client configuration source of truth: `infra-kubernetes` (declarative real
 
 ## Pointers
 
-- Decision: [[adr-004-keycloak-identity]]
-- Related notes: [[kong]] · [[platform-overview]]
+- Decisions: [[adr-004-keycloak-identity]] · refined by [[adr-006-keycloak-authentication-only-and-go-authz]]
+- Listener plugin repo: `keycloak-events-listener`, resolved in `_config/repo-locations.md`
+- Related notes: [[kong]] · [[go-authz]] · [[platform-overview]]
 
 ## Status
 
