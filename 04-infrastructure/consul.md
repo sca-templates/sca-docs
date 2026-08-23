@@ -42,12 +42,11 @@ Consul exposes metrics natively at `http://127.0.0.1:8500/v1/agent/metrics?forma
 | `consul_health_check_status` | Gauge | Health check results | Requires telemetry config |
 | `consul_catalog_services_total` | Gauge | Registered services | Requires telemetry config |
 
-Dashboard: [[observability#Dashboard map|consul.json]] (minimal — only `up` until telemetry is enabled)
+Dashboards: none — Consul exports no telemetry today (only the `up` series from Prometheus; see [[observability#Dashboard map]]) | Alerts: covered by `infra` → `Scraped targets down`
 
 ## Observability roadmap
 
 - [ ] Enable telemetry in Consul config
-- [ ] Dashboard `consul.json`
 - [ ] QA targets in `prometheus.yml`
 
 ## Pointers

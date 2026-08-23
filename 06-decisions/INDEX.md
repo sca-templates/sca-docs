@@ -21,10 +21,11 @@ tags:
 | [[adr-004-keycloak-identity]]                         | Keycloak OIDC/JWT identity provider; Kong validates tokens at the edge                                                                                                                | 2026-08-21 | decided |
 | [[adr-005-per-service-repos-centralized-k8s-config]]  | One repository per service (code + image pipeline); all Kubernetes deployment config centralized in `infra-kubernetes`                                                                | 2026-08-21 | decided |
 | [[adr-006-keycloak-authentication-only-and-go-authz]] | Keycloak authenticates only; fine-grained authorization (effective scopes, deny-over-grant) lives in `go-authz` — no safe mode, edge blocking instead; unified audit via nest-logging | 2026-08-21 | decided |
+| [[adr-007-kong-edge-jwt-validation-and-trusted-identity-headers]] | Kong OSS validates realm JWTs (`jwt` plugin + pinned RS256 key) and forwards `X-User-Id ← sub` via post-function; only `sub` crosses the edge | 2026-08-23 | decided |
 
 ## Keywords
 
-decisions, adr, architecture, trade-offs, context, consequences, kubernetes, portability, operators, linkerd, mtls, consul-retirement, gitops, argocd, trunk-based-development, helm, ghcr, keycloak, oidc, jwt, kong, unleash, repository-model, one-repo-per-service, centralized-deployment, authz, go-authz, scopes, realm-role, check-scopes, audit
+decisions, adr, architecture, trade-offs, context, consequences, kubernetes, portability, operators, linkerd, mtls, consul-retirement, gitops, argocd, trunk-based-development, helm, ghcr, keycloak, oidc, jwt, kong, unleash, repository-model, one-repo-per-service, centralized-deployment, authz, go-authz, scopes, realm-role, check-scopes, audit, edge-validation, trusted-identity-headers, x-user-id
 
 ## Search order
 

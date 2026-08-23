@@ -110,41 +110,19 @@ Prometheus and Grafana run on the **host network** (`network_mode: host`) and bi
 
 ## Dashboard map
 
-All dashboards live in `grafana/dashboards/` and are provisioned by the `sca-local` provider. Each panel queries Prometheus via the `prometheus` datasource (`uid: prometheus`). Dashboards use the `environment` label to filter or compare QA vs production.
+All dashboards live in `grafana/dashboards/` and are provisioned by the `sca-local` provider. Each panel queries Prometheus via the `prometheus` datasource (`uid: prometheus`).
 
 | Dashboard | File | Sections | Paneles de datos |
 |---|---|---|---|
-| **Stack Overview** | `stack-overview.json` | Architecture Health, Service Map, Cross-Service Metrics | ~10 |
-| **Vault** | `vault.json` | Cluster Status, Request Activity, Secrets & Tokens, Audit, Resources | ~13 |
-| **Postgres** | `postgres.json` | Health, Connections, Transactions, Performance, Storage, Replication | ~14 |
-| **Redis** | `redis.json` | Health, Memory, Cache Performance, Commands, Persistence | ~13 |
-| **Kafka** | `kafka.json` | Broker Health, Kafka Connect, Debezium CDC, Topics | ~12 |
-| **Consul** | `consul.json` | Health (minimal — telemetry gap) | 1 |
-| **Prometheus** | `prometheus.json` | Health, TSDB, Scrape Performance, Alerting | ~10 |
+| **Kong Edge** | `kong-edge.json` | Health stats, traffic & latency, upstream & connections | 8 |
 
-Microservice dashboards (`ms-auth`, `ms-notifications`, `ms-logging`, `ms-ai`) are populated-empty until the services run. See [[grafana]] for the full dashboard list.
-
-### Stack Overview dashboard
-
-The overview dashboard provides a single-pane view of the entire architecture:
-
-- **Row 1 — Architecture Health**: One stat panel per service (`vault_core_active`, `pg_up`, `redis_up`, `up{job="kafka-connect"}`, `up{job="consul"}`, `up{job="prometheus"}`). Green = healthy, red = down.
-- **Row 2 — Service Map**: Node graph panel showing services as nodes and scrape connections as edges. Node color reflects health status.
-- **Row 3 — Cross-Service Metrics**: Timeseries panels comparing key metrics across services and environments (request rate, memory usage, error rate).
-
-### Per-service dashboards
-
-Each service dashboard drills into the metrics exposed by that service's exporter. Panels use PromQL queries that filter by `environment` label to compare QA vs production:
-
-```promql
-# Example: commit rate comparison
-sum(rate(pg_stat_database_xact_commit{environment="qa"}[5m]))
-sum(rate(pg_stat_database_xact_commit{environment="prod"}[5m]))
-```
+`kong-edge` uses live `kong_*` series scraped from the Kong status port; its panels and the identity-header contract it observes are described in [[adr-007-kong-edge-jwt-validation-and-trusted-identity-headers]]. See [[grafana]] for the dashboard lifecycle rules.
 
 ## Alert rules
 
 All rules are defined in `grafana/provisioning/alerting/rules.yml` and evaluated every 1 minute. Contact point is `sca-local` (webhook to discard port — no external integration).
+
+**Provisioned today:** group `infra` with `Scraped targets down` (`up == 0` for 2m, severity warning), and group `microservices` (`isPaused`) with per-service rules until those services exist. The table below is the target catalog; rows are enabled in `rules.yml` as their exporter metrics land.
 
 | Rule | Service | PromQL | Threshold | Severity |
 |---|---|---|---|---|
@@ -163,16 +141,7 @@ All rules are defined in `grafana/provisioning/alerting/rules.yml` and evaluated
 
 ## Roadmap
 
-- [ ] Dashboard `stack-overview.json`
-- [ ] Dashboard `vault.json`
-- [ ] Dashboard `postgres.json`
-- [ ] Dashboard `redis.json`
-- [ ] Dashboard `kafka.json`
-- [ ] Dashboard `consul.json`
-- [ ] Dashboard `prometheus.json`
-- [ ] Alert rules (12 reglas)
-- [ ] QA targets in `prometheus.yml`
-- [ ] Enable Consul telemetry
+- [ ] Enable Consul telemetry (no `consul_*` series today)
 - [ ] Enable Grafana exporter
 - [ ] Instrument `nest-template` with Prometheus client
 - [ ] Uncomment microservice scrape jobs
