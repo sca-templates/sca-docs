@@ -23,16 +23,16 @@ tags:
 | [[redis]]                     | Redis 7 with AOF + password auth; operator + Sentinel target                   | active     |
 | [[kafka]]                     | KRaft stack + Debezium + Kafka UI; Strimzi HA target                           | active     |
 | [[consul]]                    | Local discovery + TCP health checks; superseded by K8s DNS + Linkerd           | deprecated |
-| [[linkerd]]                   | Service mesh: mTLS identity, retries/timeouts, network telemetry               | planned    |
-| [[kong]]                      | Edge gateway: routing, rate limiting, OIDC/JWT validation                      | planned    |
-| [[keycloak]]                  | Self-hosted OIDC/JWT IdP — authentication only; authorization via [[go-authz]] | planned    |
-| [[unleash]]                   | Feature flags per environment without redeploys                                | planned    |
-| [[argocd]]                    | GitOps engine syncing `infra-kubernetes` into every cluster                    | planned    |
+| [[linkerd]]                   | Service mesh: mTLS identity, retries/timeouts, network telemetry               | active     |
+| [[kong]]                      | Edge gateway: routing, rate limiting, OIDC/JWT validation                      | active     |
+| [[keycloak]]                  | Self-hosted OIDC/JWT IdP — authentication only; authorization via [[go-authz]] | active     |
+| [[unleash]]                   | Feature flags per environment without redeploys                                | active     |
+| [[argocd]]                    | GitOps engine syncing `infra-kubernetes` into every cluster                    | active     |
 | [[prometheus]]                | Central TSDB + bundled exporters                                               | active     |
 | [[grafana]]                   | Central Grafana: dashboards + alerting (Prometheus-backed)                     | active     |
-| [[loki]]                      | Log aggregation pillar beside metrics in Grafana                               | planned    |
-| [[tempo]]                     | Distributed tracing backend (OpenTelemetry)                                    | planned    |
-| [[velero]]                    | Cluster resources + PV backup and DR restore                                   | planned    |
+| [[loki]]                      | Log aggregation pillar beside metrics in Grafana                               | active     |
+| [[tempo]]                     | Distributed tracing backend (OpenTelemetry)                                    | active     |
+| [[velero]]                    | Cluster resources + PV backup and DR restore                                   | active     |
 | [[observability]]             | Metrics map, dashboards, alert rules; platform pillars ahead                   | active     |
 | [[dev-tools]]                 | MinIO + MailHog — local only                                                   | active     |
 | [[multi-cloud]]               | Managed-service adapter / failover matrix                                      | active     |
@@ -45,6 +45,6 @@ infrastructure, self-hosted, kubernetes-platform, vault, external-secrets, postg
 
 1. Read [[self-hosted-stack]] first — the local stack in one view.
 2. Read [[platform-overview]] — the target platform these notes converge to.
-3. Then the component you care about: existing ([[vault]], [[postgres]], [[redis]], [[kafka]], [[prometheus]], [[grafana]]) or planned ([[linkerd]], [[kong]], [[keycloak]], [[external-secrets-operator]], [[argocd]], [[unleash]], [[loki]], [[tempo]], [[velero]]).
+3. Then the component you care about: existing ([[vault]], [[postgres]], [[redis]], [[kafka]], [[prometheus]], [[grafana]]) or recently activated ([[linkerd]], [[kong]], [[keycloak]], [[unleash]], [[argocd]], [[loki]], [[tempo]], [[velero]]; [[external-secrets-operator]] stays planned).
 4. [[observability]] for metrics coverage, dashboards and alert rules.
 5. [[dev-tools]] for local-only tooling, [[multi-cloud]] for the managed-service adapter policy.

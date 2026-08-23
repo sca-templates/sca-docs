@@ -54,11 +54,10 @@ Vault exposes metrics natively at `https://127.0.0.1:8201/v1/sys/metrics?format=
 | `vault_runtime_heap_objects` | Gauge | Heap objects |
 | `vault_runtime_alloc_bytes` | Gauge | Allocated memory |
 
-Dashboard: [[observability#Dashboard map|vault.json]] | Alerts: `vault_leader_changed`, `vault_request_errors`
+Dashboards: none — Vault metrics are scraped but not charted yet (see [[observability#Dashboard map]]) | Alerts: planned `vault_leader_changed`, `vault_request_errors` ([[observability#Alert rules]])
 
 ## Observability roadmap
 
-- [ ] Dashboard `vault.json`
 - [ ] Alert rules (`vault_leader_changed`, `vault_request_errors`)
 - [ ] QA targets in `prometheus.yml`
 

@@ -1,8 +1,8 @@
 ---
 title: kong
 type: infra
-status: planned
-repo: infra-kubernetes
+status: active
+repo: aws
 tags:
   - type/infra
   - domain/infrastructure
@@ -16,7 +16,7 @@ tags:
 ## Role in the platform
 
 - North-south gateway at the cluster edge; complements the east-west mesh ([[linkerd]]) — Kong fronts external traffic, Linkerd secures service-to-service traffic.
-- Validates Keycloak tokens at the edge ([[adr-004-keycloak-identity]]), so unauthenticated requests never reach a service.
+- Validates Keycloak tokens at the edge ([[adr-004-keycloak-identity]], [[adr-007-kong-edge-jwt-validation-and-trusted-identity-headers]]), so unauthenticated requests never reach a service.
 - Plugin ecosystem for rate limiting, transformations and telemetry that feeds the observability stack.
 
 ## Deployment
