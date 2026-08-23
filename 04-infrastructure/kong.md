@@ -1,8 +1,8 @@
 ---
 title: kong
 type: infra
-status: planned
-repo: infra-kubernetes
+status: active
+repo: aws
 tags:
   - type/infra
   - domain/infrastructure
