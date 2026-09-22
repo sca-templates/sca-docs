@@ -25,7 +25,7 @@ This repo is the Obsidian vault of the `sca` ecosystem. It describes topology an
 npx --yes markdownlint-cli2 "**/*.md"
 
 # Check links in a single file
-npx --yes markdown-link-check -c .github/markdown-link-check.json <file>
+npx --yes markdown-link-check -c .markdown-link-check.json <file>
 ```
 
 Do not run `codegraph init` (indexing is the user's decision). This repository is not a code project; changes are markdown and YAML only.

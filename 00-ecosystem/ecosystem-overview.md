@@ -23,7 +23,8 @@ flowchart TB
     CTR["Contracts (gRPC + events)"]
     INF["Local dev stack (infra-*)"]
     PLT["K8s platform<br>Linkerd · Kong · Keycloak · Vault/ESO<br>CNPG+Barman · Strimzi+Debezium · Redis Sentinel<br>Prometheus · Grafana · Loki · Tempo · Unleash · Velero"]
-    GIT["GitOps<br>Actions → GHCR → infra-kubernetes → ArgoCD"]
+    GIT["GitOps<br>Actions (CI-CD-Templates) → GHCR → infra-kubernetes → ArgoCD"]
+    CICD["CI-CD-Templates<br>shared workflows + actions"]
     DOC["sca-docs vault"]
 
     SVC -- "gRPC / events" --> CTR
@@ -33,14 +34,16 @@ flowchart TB
     CTR -- "ride on" --> INF
     SVC -- "run on" --> PLT
     GIT -- "deploys" --> PLT
-    DOC -- "link" --> SVC & SCM & CTR & INF & PLT & GIT
+    CICD -- "run in" --> GIT
+    DOC -- "link" --> SVC & SCM & CTR & INF & PLT & GIT & CICD
 ```
 
 - **Microservices layer** — the domains, each a [[microservice]] cloned from `nest-template`.
 - **Shared packages layer** — `@sca/*` plumbing with zero business logic; the single place a shared fix lands.
 - **Contracts layer** — the agreements between services: [[grpc]] APIs and Kafka [[event]]s, defined once in `@sca/contracts`.
 - **Infrastructure layer** — two tiers: the [[self-hosted-stack|local dev stack]] (Vault, PostgreSQL, Redis, [[kafka]], Consul, Prometheus, Grafana — one `infra-*` repo each, plus Kong/Loki/Tempo/Unleash/dev-tool scaffolds) and the portable Kubernetes platform ([[platform-overview]]) every service deploys to.
-- **Delivery layer** — GitOps: merges to `main` build images (GitHub Actions → GHCR), bump tags in `infra-kubernetes` via PR, and ArgoCD syncs each environment ([[adr-003-gitops-argocd-trunk-based]]).
+- **Delivery layer** — GitOps: merges to `main` build images (GitHub Actions → GHCR) via shared workflows from `CI-CD-Templates`; dev/qa are ArgoCD Application syncs promoted by `shared-service-promote.yml` (qa gated by approval), prod pins an immutable tag in `infra-kubernetes` via a `chore(services)` PR ([[adr-003-gitops-argocd-trunk-based]], [[adr-008-shared-cicd-templates-promote-pin-model]]).
+- **CI/CD layer** — `CI-CD-Templates` holds the reusable workflows and composite actions every repo consumes (`shared-validate-static`, `shared-auto-label`, `shared-service-promote`, `shared-adopt-prod`, `shared-enforce-latest`, …).
 - **Documentation layer** — this vault: topology, conventions and pointers.
 
 ## Repositories
@@ -63,6 +66,7 @@ flowchart TB
 | `infra-unleash` | Feature flags | planned |
 | `local-dev-tool` | S3 storage + SMTP capture (MinIO, MailHog) | planned |
 | `infra-kubernetes` | Kubernetes manifests + charts — GitOps source of truth | planned |
+| `CI-CD-Templates` | Shared CI/CD workflows + composite actions | active |
 | `sca-docs` | This vault | active |
 
 > All `infra-*` repos are local-development tooling; cluster deployments come exclusively from `infra-kubernetes` via ArgoCD. Scaffold repos (`infra-kong`, `infra-loki`, `infra-tempo`, `infra-unleash`, `local-dev-tool`, `infra-kubernetes`) exist on GitHub with README/LICENSE only until their content lands.
@@ -73,7 +77,8 @@ flowchart TB
 - `@sca/contracts` is the **source of truth** for [[proto]] files and event schemas; contract notes in `02-contracts/` link to it.
 - Events travel over [[kafka]] with the [[outbox|outbox pattern]] guaranteeing delivery.
 - Services connect to infrastructure with [[service-account|service accounts]]; credentials live in Vault and reach workloads through External Secrets Operator on the platform.
-- Deployments flow GitOps-only: Actions → GHCR → `infra-kubernetes` → ArgoCD ([[gitops]], [[adr-003-gitops-argocd-trunk-based]]).
+- Deployments flow GitOps-only: Actions → GHCR → `infra-kubernetes` → ArgoCD ([[gitops]], [[adr-003-gitops-argocd-trunk-based]], [[adr-008-shared-cicd-templates-promote-pin-model]]).
+- Every repo consumes the reusable workflows and composite actions in `CI-CD-Templates` instead of defining its own pipeline.
 
 ## Where the depth lives
 

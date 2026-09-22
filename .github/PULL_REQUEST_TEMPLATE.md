@@ -16,4 +16,4 @@
 - [ ] `connection-map.md` is regenerated (contracts/services touched).
 - [ ] No fact is duplicated across files (one fact, one place).
 - [ ] `npx --yes markdownlint-cli2 "**/*.md"` passes.
-- [ ] `npx --yes markdown-link-check -c .github/markdown-link-check.json <file>` passes.
+- [ ] `npx --yes markdown-link-check -c .markdown-link-check.json <file>` passes.

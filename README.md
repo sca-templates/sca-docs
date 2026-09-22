@@ -9,6 +9,7 @@ The `sca` ecosystem as a whole: a repeatable way to spin up domain microservices
 - **`nest-*` / `py-*` microservices** — the domains (auth, notifications, logging, ai). The prefix names the framework: `nest-*` = NestJS/TypeScript, `py-*` = Python. Each is a `nest-template` clone consuming `@sca/*`, exposing its gRPC API and publishing/consuming Kafka events.
 - **`infra-*`** repos — the self-hosted **local development stack**: Vault, PostgreSQL, Redis, Kafka, Consul, Prometheus, Grafana, plus Kong, Loki, Tempo, Unleash and dev-tool scaffolds. Each repo has its own `Makefile` with `make all`; none of them is a production target.
 - **Kubernetes platform** — the deployment target for every environment (`dev`, `qa`, `prod`): Linkerd, Kong, Keycloak, Vault + External Secrets, CloudNativePG + Barman, Strimzi Kafka + Debezium, Redis Sentinel, Prometheus/Grafana/Loki/Tempo, Unleash, ArgoCD, Velero — declared once in `infra-kubernetes`. See [platform overview](00-ecosystem/platform-overview.md).
+- **`CI-CD-Templates`** — the shared CI/CD workflows and composite actions every repo consumes (`uses: sca-templates/CI-CD-Templates/.github/workflows/<file>@main`).
 - **`sca-docs`** — this vault: topology, conventions and pointers to every repo.
 
 ## Why it exists
@@ -30,9 +31,9 @@ The `sca` ecosystem as a whole: a repeatable way to spin up domain microservices
 ### Delivery (GitOps)
 
 1. Integrate short-lived branches into `main` frequently (trunk-based development).
-2. Merges trigger GitHub Actions: tests run, the image builds and publishes to GHCR.
-3. The pipeline opens an image-tag PR into `infra-kubernetes` (`envs/dev`) and commits the same bump to `envs/qa` directly.
-4. Merging deploys to `dev` and `qa` through ArgoCD; only `prod` promotes via its own PR with manual approval.
+2. Merges trigger GitHub Actions (shared workflows from `CI-CD-Templates`): tests run, the image builds and publishes to GHCR as `sha-<commit>`.
+3. Dev and qa are promoted by `shared-service-promote.yml`, which syncs the service's ArgoCD Application via the ArgoCD API — no PR; a qa promote waits for human approval on the `qa` GitHub Environment.
+4. Prod pins an immutable signed `vX.Y.Z` tag in `infra-kubernetes` (`argocd/services-prod.yaml`) through a `chore(services)` PR with manual approval; `latest` is corrected to the version running in prod.
 5. Ship incomplete work behind Unleash feature flags.
 
 ## Repository map
@@ -40,6 +41,7 @@ The `sca` ecosystem as a whole: a repeatable way to spin up domain microservices
 | Repo                                                              | What it is                                                                                                                               | Status  |
 | ----------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ------- |
 | `sca-docs`                                                        | This vault: topology + conventions — [README](README.md), [super template](00-ecosystem/super-template.md), [HOME](00-ecosystem/HOME.md) | active  |
+| `CI-CD-Templates`                                                 | Shared CI/CD workflows + composite actions — [README](https://github.com/sca-templates/CI-CD-Templates)                                 | active  |
 | `infra-vault`                                                     | Secrets management — [README](https://github.com/sca-templates/infra-vault)                                                              | active  |
 | `infra-postgres-app`                                              | PostgreSQL + pgAdmin — [README](https://github.com/sca-templates/infra-postgres-app)                                                     | active  |
 | `infra-redis`                                                     | Redis in-memory store — [README](https://github.com/sca-templates/infra-redis)                                                           | active  |

@@ -8,6 +8,7 @@
 | Logical name         | Path                                                                                     | Status  |
 | -------------------- | ---------------------------------------------------------------------------------------- | ------- |
 | `sca-docs`           | `~/projects/aws/docs`                                                                    | active  |
+| `CI-CD-Templates`    | `~/projects/cicd-templates`                                                              | active  |
 | `infra-vault`        | `~/projects/infra-vault`                                                                 | active  |
 | `infra-postgres-app` | `~/projects/infra-postgres-app`                                                          | active  |
 | `infra-redis`        | `~/projects/infra-redis`                                                                 | active  |
@@ -35,6 +36,7 @@
 | Repo                 | URL                                                   | Status  |
 | -------------------- | ----------------------------------------------------- | ------- |
 | `sca-docs`           | `https://github.com/sca-templates/sca-docs`           | active  |
+| `CI-CD-Templates`    | `https://github.com/sca-templates/CI-CD-Templates`    | active  |
 | `infra-vault`        | `https://github.com/sca-templates/infra-vault`        | active  |
 | `infra-postgres-app` | `https://github.com/sca-templates/infra-postgres-app` | active  |
 | `infra-redis`        | `https://github.com/sca-templates/infra-redis`        | active  |
