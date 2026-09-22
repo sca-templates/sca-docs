@@ -46,3 +46,4 @@ The Git history of `infra-kubernetes` is the deployment audit trail; rollback is
 ## Related
 
 - [[platform-overview]] · [[adr-001-kubernetes-platform]]
+- Superseded mechanism, kept principles: [[adr-008-shared-cicd-templates-promote-pin-model]]

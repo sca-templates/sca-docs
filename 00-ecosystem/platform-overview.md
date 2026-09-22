@@ -37,7 +37,7 @@ Every service ships as a container and runs on **Kubernetes** across three envir
 | Secrets            | [[vault]] (HA Raft) + External Secrets Operator | Source of truth; projected into native K8s Secrets                   |
 | Packaging          | Helm                                            | Parameterized charts per service and environment                     |
 | GitOps / deploy    | ArgoCD                                          | Applies the declared state of `infra-kubernetes` to each cluster     |
-| CI/CD              | GitHub Actions + GHCR                           | Tests, builds and publishes images on merges to `main`               |
+| CI/CD              | GitHub Actions + GHCR                           | Shared workflows from `CI-CD-Templates`; tests, build, publish on merge to `main` |
 | Branching          | Trunk-Based Development                         | Short-lived branches integrated frequently                           |
 | Messaging / events | [[kafka]] (Strimzi)                             | HA streaming backbone with replicated partitions                     |
 | CDC / outbox       | Debezium (Kafka Connect)                        | Captures PostgreSQL changes into topics — the [[outbox]] pattern     |
@@ -56,19 +56,21 @@ Every service ships as a container and runs on **Kubernetes** across three envir
 ```mermaid
 flowchart LR
     BR["short-lived branch"] -- "PR" --> MAIN["main"]
-    MAIN -- "merge" --> ACT["GitHub Actions:<br>test · build · publish"]
-    ACT --> GHCR[("GHCR image")]
-    ACT -- "image-tag PR" --> DEVTAG["infra-kubernetes<br>envs/dev"]
-    ACT -- "auto commit" --> QATAG["envs/qa"]
-    ACT -- "promotion PR<br>manual approval" --> PRODTAG["envs/prod"]
-    DEVTAG & QATAG & PRODTAG --> ARGO["ArgoCD"]
-    ARGO --> ENV["dev · qa · prod"]
+    MAIN -- "merge" --> ACT["GitHub Actions<br>(CI-CD-Templates):<br>test · build · publish"]
+    ACT --> GHCR[("GHCR image<br>sha-&lt;commit&gt;")]
+    ACT -- "sync via ArgoCD API<br>(qa: human approval)" --> DEVQA["dev · qa<br>ArgoCD Applications"]
+    ACT -- "signed vX.Y.Z" --> REL["GitHub release"]
+    REL -- "chore(services) PR<br>manual approval" --> PIN["infra-kubernetes<br>argocd/services-prod.yaml"]
+    PIN --> PROD["prod<br>ArgoCD Application"]
+    DEVQA --> ARGO["ArgoCD"]
+    PROD --> ARGO
+    ARGO --> ENV["clusters"]
 ```
 
 1. Developers work on short-lived branches; the only branch that receives PRs is `main`.
-2. A merge to `main` triggers GitHub Actions: tests run, the Docker image builds and publishes to GHCR.
-3. The pipeline opens an image-tag PR into `infra-kubernetes` (`envs/dev`) and commits the same bump straight to `envs/qa`.
-4. Merging the PR deploys to `dev` and the `qa` commit deploys to `qa`, both synced by ArgoCD. Only `prod` moves through its own promotion PR with manual approval.
+2. A merge to `main` triggers GitHub Actions (shared workflows from `CI-CD-Templates`): tests run, the Docker image builds and publishes to GHCR as `sha-<commit>`.
+3. Dev and qa are **Application syncs, not PRs**: `shared-service-promote.yml` calls the ArgoCD API to sync the service's `dev`/`qa` Application to the merged commit. A real qa promote runs against the `qa` GitHub Environment and waits for human approval (Required reviewers).
+4. Prod promotes by pin: `shared-release-flow.yml` produces an immutable signed `vX.Y.Z` tag; `shared-adopt-prod.yml` opens a `chore(services)` PR pinning that tag in `argocd/services-prod.yaml` of `infra-kubernetes`, gated by manual approval; ArgoCD syncs `prod` in the manual sync window. `shared-enforce-latest.yml` then corrects GitHub `latest` to the running version.
 5. Unleash feature flags enable or disable functionality per environment without additional deploys.
 
 ## Repository model
@@ -84,11 +86,11 @@ infra-kubernetes/
 │   ├── dev/             # values.yaml + secrets.yaml (Vault references)
 │   ├── qa/
 │   └── prod/
-├── argocd/              # applications-dev.yaml · applications-qa.yaml · applications-prod.yaml
+├── argocd/              # applications-dev.yaml · applications-qa.yaml · applications-prod.yaml · services-prod.yaml (prod pins)
 └── feature-flags/       # dev.yaml · qa.yaml · prod.yaml
 ```
 
-Each ArgoCD Application watches one environment path (`envs/dev`, `envs/qa`, `envs/prod`); Helm values are parameterized per environment.
+Each ArgoCD Application watches one environment path (`envs/dev`, `envs/qa`, `envs/prod`); Helm values are parameterized per environment; `argocd/services-prod.yaml` is the prod version registry (one `element` per service in an ApplicationSet `list` generator).
 
 ## Environments
 
@@ -98,7 +100,7 @@ Each ArgoCD Application watches one environment path (`envs/dev`, `envs/qa`, `en
 | `qa`        | Integration, performance and acceptance testing        | Production-shaped configuration, fictitious/anonymized data        |
 | `prod`      | Stable operation                                       | High availability, autoscaling, strict security and audit policies |
 
-`dev` and `qa` follow every merge to `main`: the pipeline opens the image-tag PR for `dev` and commits the same bump to `qa` directly. Only `prod` promotes through its own pull request in `infra-kubernetes`, with manual approval gating it. Feature flags stage functionality gradually per environment.
+`dev` and `qa` follow every merge to `main`: `shared-service-promote.yml` syncs the service's ArgoCD Application to the merged commit via the ArgoCD API — no PR; a qa promote waits for human approval on the `qa` GitHub Environment. Only `prod` promotes by pinning an immutable signed `vX.Y.Z` tag in `argocd/services-prod.yaml` of `infra-kubernetes`, through a `chore(services)` pull request with manual approval gating it. Feature flags stage functionality gradually per environment.
 
 ## Security model
 
@@ -138,4 +140,4 @@ Cloud-native managed services (RDS, MSK, ElastiCache, Cognito…) are **optional
 
 - Local counterpart: [[self-hosted-stack]] — the Compose stack, development only
 - Failover strategy: [[multi-cloud]] · Monitoring map: [[observability]]
-- Decisions: umbrella [[adr-001-kubernetes-platform]]; focused [[adr-002-linkerd-service-mesh]] · [[adr-003-gitops-argocd-trunk-based]] · [[adr-004-keycloak-identity]] · [[adr-005-per-service-repos-centralized-k8s-config]] · [[adr-006-keycloak-authentication-only-and-go-authz]]
+- Decisions: umbrella [[adr-001-kubernetes-platform]]; focused [[adr-002-linkerd-service-mesh]] · [[adr-003-gitops-argocd-trunk-based]] · [[adr-004-keycloak-identity]] · [[adr-005-per-service-repos-centralized-k8s-config]] · [[adr-006-keycloak-authentication-only-and-go-authz]] · [[adr-008-shared-cicd-templates-promote-pin-model]]

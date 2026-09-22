@@ -65,9 +65,9 @@ The `@sca/*` packages carry zero business logic: contracts ([[grpc]] + [[proto]]
 ## Step 6 — Ship it
 
 1. Integrate short-lived branches into `main` frequently ([[trunk-based-development]]).
-2. The merge triggers GitHub Actions: tests, image build, publish to GHCR.
-3. The pipeline opens the image-tag PR into `infra-kubernetes` (`dev`) and commits the `qa` bump directly; [[argocd]] syncs both environments.
-4. Only `prod` moves through a promotion PR — manual approval gates it ([[adr-003-gitops-argocd-trunk-based]]).
+2. The merge triggers GitHub Actions (shared workflows from `CI-CD-Templates`): tests, image build, publish to GHCR as `sha-<commit>`.
+3. `shared-service-promote.yml` syncs the service's ArgoCD Applications for `dev` and `qa` via the ArgoCD API (no PR; a qa promote waits for human approval on the `qa` GitHub Environment).
+4. Only `prod` moves through a pin: a signed `vX.Y.Z` tag is pinned in `infra-kubernetes` (`argocd/services-prod.yaml`) via a `chore(services)` PR — manual approval gates it ([[adr-003-gitops-argocd-trunk-based]], [[adr-008-shared-cicd-templates-promote-pin-model]]).
 5. The service repo never carries Kubernetes manifests: every deployment or promotion change lands exclusively in `infra-kubernetes` ([[adr-005-per-service-repos-centralized-k8s-config]]).
 
 ## Related

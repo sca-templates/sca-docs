@@ -14,7 +14,7 @@ Run the same checks as CI and fix every reported issue.
 
    ```sh
    git ls-files -z '*.md' | while IFS= read -r -d '' f; do
-     npx --yes markdown-link-check -c .github/markdown-link-check.json "$f"
+     npx --yes markdown-link-check -c .markdown-link-check.json "$f"
    done
    ```
 

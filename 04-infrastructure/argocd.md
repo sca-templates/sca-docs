@@ -17,16 +17,17 @@ tags:
 
 - One Application per environment path (`envs/dev`, `envs/qa`, `envs/prod`); watches Helm charts plus per-environment values.
 - Applies the declared state continuously; any manual cluster change is reconciled back to Git.
-- After each merge, the pipeline opens the `dev` image-tag PR and commits the `qa` bump directly; only `prod` promotes through its own PR with manual approval ([[adr-003-gitops-argocd-trunk-based]]).
-- Hand-off point with CI: GitHub Actions builds and publishes images, then opens the image-tag PR; ArgoCD owns everything after merge.
+- Dev and qa Applications point at `main` and are synced on demand by `shared-service-promote.yml` via the ArgoCD API (no PR; a qa promote waits for human approval on the `qa` GitHub Environment).
+- Prod Application reads its immutable signed `vX.Y.Z` tag from `argocd/services-prod.yaml` (the prod version registry), updated only through a `chore(services)` PR with manual approval; `shared-enforce-latest.yml` keeps GitHub `latest` equal to the running version ([[adr-003-gitops-argocd-trunk-based]], [[adr-008-shared-cicd-templates-promote-pin-model]]).
+- Hand-off point with CI: GitHub Actions (shared workflows from `CI-CD-Templates`) builds and publishes images and calls the ArgoCD API for dev/qa; ArgoCD owns everything after the Application state changes in Git.
 
 ## Deployment
 
-- Installed in-cluster from roadmap step 1 ([[platform-overview]]); Applications declared under `argocd/applications-<env>.yaml`.
+- Installed in-cluster from roadmap step 1 ([[platform-overview]]); Applications declared under `argocd/applications-<env>.yaml`; prod pins under `argocd/services-prod.yaml`.
 
 ## Pointers
 
-- Decision: [[adr-003-gitops-argocd-trunk-based]]
+- Decision: [[adr-003-gitops-argocd-trunk-based]] · [[adr-008-shared-cicd-templates-promote-pin-model]]
 - Related notes: [[unleash]] · [[linkerd]] · [[external-secrets-operator]] · [[platform-overview]]
 
 ## Status

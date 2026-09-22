@@ -9,20 +9,11 @@ permissions:
   contents: read
 
 jobs:
-  markdown:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - name: markdownlint
-        run: git ls-files -z '*.md' | xargs -0 npx --yes markdownlint-cli2
-
-      - name: Check links
-        run: |
-          git ls-files -z '*.md' | while IFS= read -r -d '' f; do
-            npx --yes markdown-link-check -c .github/markdown-link-check.json "$f"
-          done
+  validate:
+    uses: sca-templates/CI-CD-Templates/.github/workflows/shared-validate-static.yml@main
+    with:
+      markdown-lint: true
+      yaml-lint: false
+      shell-lint: false
+      actionlint: true
+      template-tests: false

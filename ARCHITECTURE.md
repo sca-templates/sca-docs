@@ -10,6 +10,7 @@
 | Shared packages     | `@sca/*` — protos, schemas, clients, testing utilities                                                                                                                         |
 | Contracts           | Versioned gRPC APIs + Kafka topics, one note per contract                                                                                                                      |
 | Template            | `nest-template` — microservice skeleton + handbook                                                                                                                             |
+| CI/CD               | `CI-CD-Templates` — shared reusable workflows + composite actions consumed by every repo                                                                                      |
 | Local dev stack     | `infra-*` repos (Vault, PostgreSQL, Redis, Kafka, Consul, Prometheus, Grafana, plus Kong/Loki/Tempo/Unleash/dev-tool scaffolds) — Docker Compose + Makefiles, development only |
 | Kubernetes platform | Everything the clusters run, declared once in `infra-kubernetes` (repo created — foundation)                                                                                   |
 
@@ -28,12 +29,12 @@ Full picture: [platform-overview](../00-ecosystem/platform-overview.md) · compo
 ## Delivery
 
 1. Trunk-Based Development: short-lived branches; `main` is the only branch that receives pull requests.
-2. A merge triggers GitHub Actions: tests, image build, publish to GHCR.
-3. The pipeline opens the image-tag PR into `infra-kubernetes` (`envs/dev`) and commits the same bump straight to `envs/qa`.
-4. ArgoCD syncs `dev` and `qa`; only `prod` promotes through its own PR with manual approval.
+2. A merge triggers GitHub Actions: tests, image build, publish to GHCR (`sha-<commit>` tags). Shared workflows come from `CI-CD-Templates`.
+3. Dev and qa: `shared-service-promote.yml` syncs the service's ArgoCD Application via the ArgoCD API — no PR; a real qa promote waits for human approval on the `qa` GitHub Environment.
+4. Prod: an immutable signed `vX.Y.Z` tag is pinned in `argocd/services-prod.yaml` of `infra-kubernetes` through a `chore(services)` PR (`shared-adopt-prod.yml`), gated by manual approval; `shared-enforce-latest.yml` then keeps GitHub `latest` pointing at the version running in prod.
 5. Incomplete work ships behind Unleash feature flags.
 
-Decision record: [ADR-003 — GitOps delivery with ArgoCD and Trunk-Based Development](../06-decisions/adr-003-gitops-argocd-trunk-based.md).
+Decision record: [ADR-003 — GitOps delivery with ArgoCD and Trunk-Based Development](../06-decisions/adr-003-gitops-argocd-trunk-based.md) (original mechanism) · [ADR-008 — shared CI/CD templates and the promote/pin release model](../06-decisions/adr-008-shared-cicd-templates-promote-pin-model.md).
 
 **Repository model** — one repository per service: each service repo owns its code, logic, application configuration, Dockerfile and image pipeline (Actions → GHCR); every Kubernetes deployment artifact (charts, per-environment values, ArgoCD Applications) lives exclusively in `infra-kubernetes`. Decision record: [ADR-005](../06-decisions/adr-005-per-service-repos-centralized-k8s-config.md).
 

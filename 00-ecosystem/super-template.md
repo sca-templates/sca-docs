@@ -22,6 +22,7 @@ tags:
 - **`infra-*` repos** — the [[self-hosted]] **local dev stack**: Vault, PostgreSQL, Redis, [[kafka]], Consul, Prometheus, Grafana, plus Kong, Loki, Tempo, Unleash and dev-tool scaffolds. Each repo has its own `Makefile` with `make all`; none is a production target.
 - **Kubernetes platform** — the deployment target for every environment ([[platform-overview]]): Linkerd, Kong, Keycloak, Vault + External Secrets, CloudNativePG + Barman, Strimzi Kafka + Debezium, Redis Sentinel, Prometheus/Grafana/Loki/Tempo, Unleash, ArgoCD, Velero — declared once in `infra-kubernetes`.
 - **`sca-docs`** — this vault: the ecosystem's topology and conventions, linking to every repo instead of duplicating it.
+- **`CI-CD-Templates`** — the shared reusable workflows and composite actions every repo consumes (`shared-validate-static`, `shared-auto-label`, `shared-service-promote`, …).
 
 ## Why it exists
 
@@ -36,13 +37,14 @@ tags:
 3. Start the local stack: `make all` in each `infra-*` repo.
 4. Write the domain following the handbook's flow framework (BF / TF / TP).
 5. Close the docs checklist: README, `docs/`, service note in the vault, contract notes.
-6. Ship it: merge to `main` → GitHub Actions builds and publishes the image → image-tag PR (`dev`) + direct `qa` bump in `infra-kubernetes` → ArgoCD syncs both; only `prod` goes through a promotion PR, incomplete work behind Unleash flags.
+6. Ship it: merge to `main` → GitHub Actions (shared workflows from `CI-CD-Templates`) builds and publishes the image as `sha-<commit>` → `shared-service-promote.yml` syncs the ArgoCD Applications for `dev` and `qa` (qa gated by approval, no PR) → `prod` pins an immutable signed `vX.Y.Z` tag via a `chore(services)` PR in `infra-kubernetes` and `latest` is corrected to the running version; incomplete work behind Unleash flags.
 
 ## Repository map
 
 | Repo                 | What it is                                    | Link                                                          |
 | -------------------- | --------------------------------------------- | ------------------------------------------------------------- |
 | `sca-docs`           | This vault: topology + conventions            | [README](../README.md)                                        |
+| `CI-CD-Templates`    | Shared CI/CD workflows + composite actions    | [README](https://github.com/sca-templates/CI-CD-Templates)    |
 | `infra-vault`        | Secrets management                            | [README](https://github.com/sca-templates/infra-vault)        |
 | `infra-postgres-app` | PostgreSQL + pgAdmin                          | [README](https://github.com/sca-templates/infra-postgres-app) |
 | `infra-redis`        | Redis in-memory store                         | [README](https://github.com/sca-templates/infra-redis)        |

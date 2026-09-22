@@ -76,8 +76,8 @@ Tags come from the closed taxonomy: `type/*`, `domain/*`, `stack/*`, `connectivi
 # Lint all markdown
 npx --yes markdownlint-cli2 "**/*.md"
 
-# Check links in a single file (config lives in .github/)
-npx --yes markdown-link-check -c .github/markdown-link-check.json <file>
+# Check links in a single file (config lives at the repo root)
+npx --yes markdown-link-check -c .markdown-link-check.json <file>
 ```
 
 ## MCP setup (one-time, per clone)

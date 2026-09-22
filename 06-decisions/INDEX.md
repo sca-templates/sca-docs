@@ -22,10 +22,11 @@ tags:
 | [[adr-005-per-service-repos-centralized-k8s-config]]  | One repository per service (code + image pipeline); all Kubernetes deployment config centralized in `infra-kubernetes`                                                                | 2026-08-21 | decided |
 | [[adr-006-keycloak-authentication-only-and-go-authz]] | Keycloak authenticates only; fine-grained authorization (effective scopes, deny-over-grant) lives in `go-authz` — no safe mode, edge blocking instead; unified audit via nest-logging | 2026-08-21 | decided |
 | [[adr-007-kong-edge-jwt-validation-and-trusted-identity-headers]] | Kong OSS validates realm JWTs (`jwt` plugin + pinned RS256 key) and forwards `X-User-Id ← sub` via post-function; only `sub` crosses the edge | 2026-08-23 | decided |
+| [[adr-008-shared-cicd-templates-promote-pin-model]] | Consume reusable workflows from `CI-CD-Templates`; dev/qa promote via ArgoCD Application sync (qa approval-gated), prod promotes by pinning a signed `vX.Y.Z` tag; `latest` = prod reality | 2026-09-22 | decided |
 
 ## Keywords
 
-decisions, adr, architecture, trade-offs, context, consequences, kubernetes, portability, operators, linkerd, mtls, consul-retirement, gitops, argocd, trunk-based-development, helm, ghcr, keycloak, oidc, jwt, kong, unleash, repository-model, one-repo-per-service, centralized-deployment, authz, go-authz, scopes, realm-role, check-scopes, audit, edge-validation, trusted-identity-headers, x-user-id
+decisions, adr, architecture, trade-offs, context, consequences, kubernetes, portability, operators, linkerd, mtls, consul-retirement, gitops, argocd, trunk-based-development, helm, ghcr, keycloak, oidc, jwt, kong, unleash, repository-model, one-repo-per-service, centralized-deployment, authz, go-authz, scopes, realm-role, check-scopes, audit, edge-validation, trusted-identity-headers, x-user-id, cicd-templates, reusable-workflows, promote-pin-model, service-promote, adopt-prod, enforce-latest, release-flow
 
 ## Search order
 
