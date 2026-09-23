@@ -22,7 +22,7 @@ tags:
 - **`infra-*` repos** — the [[self-hosted]] **local dev stack**: Vault, PostgreSQL, Redis, [[kafka]], Consul, Prometheus, Grafana, plus Kong, Loki, Tempo, Unleash and dev-tool scaffolds. Each repo has its own `Makefile` with `make all`; none is a production target.
 - **Kubernetes platform** — the deployment target for every environment ([[platform-overview]]): Linkerd, Kong, Keycloak, Vault + External Secrets, CloudNativePG + Barman, Strimzi Kafka + Debezium, Redis Sentinel, Prometheus/Grafana/Loki/Tempo, Unleash, ArgoCD, Velero — declared once in `infra-kubernetes`.
 - **`sca-docs`** — this vault: the ecosystem's topology and conventions, linking to every repo instead of duplicating it.
-- **`CI-CD-Templates`** — the shared reusable workflows and composite actions every repo consumes (`shared-validate-static`, `shared-auto-label`, `shared-service-promote`, …).
+- **`CI-CD-Templates`** — the shared reusable workflows and composite actions every repo consumes (`shared-security-scan`, `shared-auto-label`, `shared-service-promote`, …).
 
 ## Why it exists
 

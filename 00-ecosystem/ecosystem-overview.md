@@ -43,7 +43,7 @@ flowchart TB
 - **Contracts layer** — the agreements between services: [[grpc]] APIs and Kafka [[event]]s, defined once in `@sca/contracts`.
 - **Infrastructure layer** — two tiers: the [[self-hosted-stack|local dev stack]] (Vault, PostgreSQL, Redis, [[kafka]], Consul, Prometheus, Grafana — one `infra-*` repo each, plus Kong/Loki/Tempo/Unleash/dev-tool scaffolds) and the portable Kubernetes platform ([[platform-overview]]) every service deploys to.
 - **Delivery layer** — GitOps: merges to `main` build images (GitHub Actions → GHCR) via shared workflows from `CI-CD-Templates`; dev/qa are ArgoCD Application syncs promoted by `shared-service-promote.yml` (qa gated by approval), prod pins an immutable tag in `infra-kubernetes` via a `chore(services)` PR ([[adr-003-gitops-argocd-trunk-based]], [[adr-008-shared-cicd-templates-promote-pin-model]]).
-- **CI/CD layer** — `CI-CD-Templates` holds the reusable workflows and composite actions every repo consumes (`shared-validate-static`, `shared-auto-label`, `shared-service-promote`, `shared-adopt-prod`, `shared-enforce-latest`, …).
+- **CI/CD layer** — `CI-CD-Templates` holds the reusable workflows and composite actions every repo consumes (`shared-security-scan`, `shared-auto-label`, `shared-service-promote`, `shared-adopt-prod`, `shared-enforce-latest`, …).
 - **Documentation layer** — this vault: topology, conventions and pointers.
 
 ## Repositories
