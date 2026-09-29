@@ -23,6 +23,7 @@
 | `local-dev-tool`     | —                                                                                        | planned |
 | `infra-kubernetes`   | `~/projects/infra-kubernetes`                                                            | planned |
 | `nest-template`      | `~/projects/node/nest-template`                                                          | planned |
+| `node-server-core`   | `~/projects/node/node-server-core`                                                       | active  |
 | `sca-core`           | pnpm workspace hosting `@sca/core`, `@sca/contracts`, `@sca/connections`, `@sca/clients` | planned |
 | `nest-auth`          | —                                                                                        | deprecated |
 | `go-authz`           | —                                                                                        | planned |
@@ -51,6 +52,7 @@
 | `local-dev-tool`     | `https://github.com/sca-templates/local-dev-tool`     | planned |
 | `infra-kubernetes`   | `https://github.com/sca-templates/infra-kubernetes`   | planned |
 | `nest-template`      | —                                                     | planned |
+| `node-server-core`   | `https://github.com/sca-templates/node-server-core`   | active  |
 | `go-authz`           | `https://github.com/sca-templates/go-authz`           | planned |
 | `keycloak-events-listener` | `https://github.com/sca-templates/keycloak-events-listener` | planned |
 
