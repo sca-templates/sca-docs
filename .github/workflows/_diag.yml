@@ -1,0 +1,15 @@
+name: diag
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  self-hosted:
+    runs-on: self-hosted
+    steps:
+      - run: echo "self-hosted OK"
+  github-hosted:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "ubuntu-latest OK"
